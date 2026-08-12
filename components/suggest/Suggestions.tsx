@@ -50,14 +50,6 @@ export function Suggestions({
       </h2>
       <p className="teks-jelas mt-ruang-sm">{t('saranPenjelasan', locale)}</p>
 
-      {/* The objective, asked here rather than in the settings rail. "Optimal"
-          was never a property of the calendar — it is a property of the calendar
-          plus a question, and two readers with identical status, working week and
-          budget have genuinely different correct answers. Asking after the reader
-          has seen a result, instead of before, is the whole reason this sits in
-          the middle of the page. */}
-      <PilihTujuan tujuan={tujuan} onTujuan={onTujuan} locale={locale} />
-
       {rencanaOptimal.dipilih.length > 0 && (
         <div className="mt-ruang-lg border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-ruang-lg">
           <span className="label-bagian text-cutiPribadiTeks">{t('optimalJudul', locale)}</span>
@@ -88,6 +80,16 @@ export function Suggestions({
           </button>
         </div>
       )}
+
+      {/* The objective, below the answer rather than above it. "Optimal" was
+          never a property of the calendar — it is a property of the calendar plus
+          a question, and two readers with identical status, working week and
+          budget have genuinely different correct answers, so the question has to
+          be askable. But it was placed before the first result, which made it a
+          gate: a reader had to state an objective before they had seen anything
+          the objective applies to. It follows the answer now, and reads as "or
+          ask it the other way". */}
+      <PilihTujuan tujuan={tujuan} onTujuan={onTujuan} locale={locale} />
 
       {tampil.length === 0 ? (
         <p className="mt-ruang-lg text-sm text-inkPudar">{t('saranKosong', locale)}</p>
