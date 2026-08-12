@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { LOCALES, t, type Locale } from '@/lib/i18n'
+import { Mark } from './Mark'
 
 export type NavProps = {
   readonly locale: Locale
@@ -16,9 +17,14 @@ export function Nav({ locale, halaman }: NavProps) {
   return (
     <header className="mb-8 border-b-2 border-liburMerah pb-3">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <div>
-          <h1 className="poster text-poster-lg text-liburMerah">{t('judul', locale)}</h1>
-          <p className="mt-1 max-w-prosa text-sm text-inkSedang">{t('subjudul', locale)}</p>
+        <div className="flex items-center gap-3">
+          {/* The mark carries the same three colours the sheet uses, so it
+              reads as a key before the legend is even reached. */}
+          <Mark className="h-11 w-11 shrink-0 sm:h-12 sm:w-12" />
+          <div>
+            <h1 className="poster text-poster-md text-liburMerah sm:text-poster-lg">{t('judul', locale)}</h1>
+            <p className="mt-0.5 max-w-prosa text-sm text-inkSedang">{t('subjudul', locale)}</p>
+          </div>
         </div>
 
         <nav className="flex items-baseline gap-4 text-sm">
