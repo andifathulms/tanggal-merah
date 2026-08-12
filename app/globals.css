@@ -161,6 +161,19 @@
   :where(a, button, input, select, [tabindex]):focus-visible {
     @apply outline-none ring-2 ring-liburMerah ring-offset-2 ring-offset-newsprint;
   }
+
+  /**
+   * The same ring, for a control whose real input is visually hidden.
+   *
+   * A single-select group has to be built from radios to announce correctly, and
+   * the radio itself is `sr-only` so the card can carry the design. The rule above
+   * would then draw the ring on a clipped element where nobody could see it, so the
+   * card borrows it through Tailwind's `peer` relationship instead. Same treatment,
+   * same token, drawn on the thing the reader is actually looking at.
+   */
+  .kartu-pilihan {
+    @apply peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-liburMerah peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-newsprint;
+  }
 }
 
 @layer components {

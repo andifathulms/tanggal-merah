@@ -181,33 +181,42 @@ function PilihTujuan({
   readonly locale: Locale
 }) {
   return (
-    <div className="mt-ruang-lg">
-      <span className="label-bagian">{t('tujuanPertanyaan', locale)}</span>
-      <div className="mt-ruang-sm grid gap-ruang-sm sm:grid-cols-2">
+    /* One question, two mutually exclusive answers — a fieldset of radios, not a
+       pair of `aria-pressed` buttons. The legend carries the question, so nothing
+       needs an aria-label. */
+    <fieldset className="mt-ruang-lg">
+      <legend className="label-bagian mb-ruang-sm">{t('tujuanPertanyaan', locale)}</legend>
+      <div className="grid gap-ruang-sm sm:grid-cols-2">
         {SEMUA_TUJUAN.map((kandidat) => {
           const terpilih = kandidat === tujuan
           return (
-            <button
-              key={kandidat}
-              type="button"
-              onClick={() => onTujuan(kandidat)}
-              aria-pressed={terpilih}
-              className={`border-2 px-ruang-lg py-ruang-md text-left transition-shadow ${
-                terpilih
-                  ? 'border-ink bg-kertas shadow-angkat'
-                  : 'border-garis bg-newsprint hover:border-garisTebal hover:shadow-kartu'
-              }`}
-            >
-              <span className="block text-base font-semibold leading-snug">
-                {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetan' : 'tujuanTotal', locale)}
+            <label key={kandidat} className="block cursor-pointer">
+              <input
+                type="radio"
+                name="tujuan-rencana"
+                value={kandidat}
+                checked={terpilih}
+                onChange={() => onTujuan(kandidat)}
+                className="peer sr-only"
+              />
+              <span
+                className={`kartu-pilihan block h-full border-2 px-ruang-lg py-ruang-md text-left transition-shadow ${
+                  terpilih
+                    ? 'border-ink bg-kertas shadow-angkat'
+                    : 'border-garis bg-newsprint hover:border-garisTebal hover:shadow-kartu'
+                }`}
+              >
+                <span className="block text-base font-semibold leading-snug">
+                  {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetan' : 'tujuanTotal', locale)}
+                </span>
+                <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
+                  {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetanKet' : 'tujuanTotalKet', locale)}
+                </span>
               </span>
-              <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
-                {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetanKet' : 'tujuanTotalKet', locale)}
-              </span>
-            </button>
+            </label>
           )
         })}
       </div>
-    </div>
+    </fieldset>
   )
 }

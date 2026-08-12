@@ -69,20 +69,32 @@ export function Controls({
 
         <fieldset>
           <legend className="text-xs font-semibold text-inkSedang">{t('polaJudul', locale)}</legend>
-          <div className="mt-1.5 grid grid-cols-2 gap-0 border border-garisTebal">
+          {/* Two mutually exclusive answers, so radios rather than a pair of
+              `aria-pressed` buttons. The full description was in a `title`, which
+              is mouse-only and inconsistently announced; it is the radio's own
+              label now, with the short form shown. */}
+          <div className="mt-1.5 grid grid-cols-2 border border-garisTebal">
             {(['lima-hari', 'enam-hari'] as const).map((p) => (
-              <button
-                key={p}
-                type="button"
-                onClick={() => onPattern(p)}
-                aria-pressed={pattern === p}
-                title={t(p === 'lima-hari' ? 'polaLima' : 'polaEnam', locale)}
-                className={`px-ruang-sm py-ruang-sm text-xs ${
-                  pattern === p ? 'bg-ink font-semibold text-kertas' : 'bg-kertas text-inkSedang hover:bg-kertasGelap'
-                }`}
-              >
-                {t(p === 'lima-hari' ? 'polaLimaRingkas' : 'polaEnamRingkas', locale)}
-              </button>
+              <label key={p} className="block cursor-pointer">
+                <input
+                  type="radio"
+                  name="pola-kerja"
+                  value={p}
+                  checked={pattern === p}
+                  onChange={() => onPattern(p)}
+                  className="peer sr-only"
+                />
+                <span
+                  className={`kartu-pilihan block px-ruang-sm py-ruang-sm text-center text-xs ${
+                    pattern === p
+                      ? 'bg-ink font-semibold text-kertas'
+                      : 'bg-kertas text-inkSedang hover:bg-kertasGelap'
+                  }`}
+                >
+                  <span className="sr-only">{t(p === 'lima-hari' ? 'polaLima' : 'polaEnam', locale)}</span>
+                  <span aria-hidden>{t(p === 'lima-hari' ? 'polaLimaRingkas' : 'polaEnamRingkas', locale)}</span>
+                </span>
+              </label>
             ))}
           </div>
           <p className="mt-1.5 text-sm leading-relaxed text-inkPudar">{t('polaKeterangan', locale)}</p>
