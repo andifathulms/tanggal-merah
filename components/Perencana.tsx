@@ -15,7 +15,7 @@ import { keIcs } from '@/lib/export/ics'
 import { gambarSheet } from '@/lib/export/png'
 import { pratinjauStatus } from '@/lib/trace/pratinjau'
 import { Controls } from './Controls'
-import { BannerDraf, CatatanTidakMenghitung, Penafian } from './Banner'
+import { BannerDraf } from './Banner'
 import { YearSheet } from './sheet/YearSheet'
 import { Ledger } from './ledger/Ledger'
 import { Suggestions } from './suggest/Suggestions'
@@ -253,9 +253,6 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
             </div>
             <canvas ref={canvasRef} className="hidden" aria-hidden />
           </section>
-
-          <CatatanTidakMenghitung locale={locale} />
-          <Penafian locale={locale} />
         </aside>
       </div>
     </div>

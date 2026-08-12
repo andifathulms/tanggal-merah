@@ -4,18 +4,13 @@ import Link from 'next/link'
 import { t, type Locale } from '@/lib/i18n'
 
 /**
- * The framing the site states plainly: a personal project, not employment-law
- * advice; company policy governs cuti bersama in the private sector; confirm
- * with HR. No government branding anywhere.
+ * The site's legal framing — a personal project, not employment-law advice —
+ * now lives in `SiteFooter`, which renders it once per page instead of once
+ * per component that happened to want it.
+ *
+ * This note stays because Aturan opens with it, directly under the heading,
+ * where it introduces the citations rather than closing the page.
  */
-export function Penafian({ locale }: { readonly locale: Locale }) {
-  return (
-    <p className="border-t border-garis pt-ruang-md text-sm leading-relaxed text-inkPudar">
-      {t('penafian', locale)}
-    </p>
-  )
-}
-
 export function CatatanTidakMenghitung({ locale }: { readonly locale: Locale }) {
   return <p className="text-sm leading-relaxed text-inkPudar">{t('tidakMenghitung', locale)}</p>
 }

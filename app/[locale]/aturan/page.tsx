@@ -1,5 +1,5 @@
 import { Nav } from '@/components/Nav'
-import { CatatanTidakMenghitung, Penafian } from '@/components/Banner'
+import { CatatanTidakMenghitung } from '@/components/Banner'
 import { packTahun, semuaKontradiksi, tahunTersedia } from '@/lib/rules/loader'
 import { isLocale, LOCALES, LOCALE_DEFAULT, namaLibur, t, tanggalPanjang, type Locale } from '@/lib/i18n'
 import { fromIsoDate } from '@/lib/day'
@@ -133,8 +133,6 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
             ))}
           </div>
         </section>
-
-        <Penafian locale={locale} />
       </div>
     </>
   )
