@@ -22,6 +22,7 @@ import { Ledger } from './ledger/Ledger'
 import { LiburHilang } from './ledger/LiburHilang'
 import { BandingPosisi } from './ledger/BandingPosisi'
 import { Suggestions } from './suggest/Suggestions'
+import { LanjutKe } from './LanjutKe'
 import { KurvaMarginal } from './suggest/KurvaMarginal'
 import { Hero } from './Hero'
 import { StatusPicker } from './StatusPicker'
@@ -107,11 +108,19 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
     [tahun, pattern, status],
   )
 
-  // Keep the hash current so the address bar is always a shareable link.
+  /**
+   * The current settings, encoded once. It keeps the address bar shareable and it is
+   * what the link to the other half of the planner carries, so a plan survives the
+   * navigation between them.
+   */
+  const hash = useMemo(
+    () => keHash({ tahun, status, pattern, tujuan, dipilihSendiri }),
+    [tahun, status, pattern, tujuan, dipilihSendiri],
+  )
+
   useEffect(() => {
-    const hash = keHash({ tahun, status, pattern, tujuan, dipilihSendiri })
     window.history.replaceState(null, '', `#${hash}`)
-  }, [tahun, status, pattern, tujuan, dipilihSendiri])
+  }, [hash])
 
   useEffect(() => {
     if (pulihkanFokus === 0) return
@@ -222,33 +231,26 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
         <div className="space-y-ruang-3xl">
           <Headline trace={trace} locale={locale} />
 
+          {/* The split CLAUDE.md describes: `tahun/` is the year sheet, `rencana/`
+              is the budget and the suggestions. Both routes used to render both, so
+              they were 80% the same page and the 427-cell sheet was built twice.
+
+              What stays on both is what both genuinely need: the status question,
+              because every figure on either page depends on it, and the result, the
+              ledger and the settings rail beside it. What moves is the half each
+              route is named for — and each links to the other, carrying the hash so
+              a plan survives the trip. */}
           {tampilkan === 'tahun' ? (
             <>
-              {/* The link belongs to the suggestions, so it sits inside their
-                  block at the inside-a-step rhythm. It used to be a sibling
-                  pulled back up with a negative margin, which meant the column
-                  gap and the link fought each other. */}
-              <div className="space-y-ruang-lg">
-                <Suggestions
-                  trace={trace}
-                  locale={locale}
-                  dipilihSendiri={new Set(trace.dipilihSendiri)}
-                  onAmbil={ambilJembatan}
-                  onTerapkanOptimal={terapkanOptimal}
-                  tujuan={tujuan}
-                  onTujuan={setTujuan}
-                  batas={4}
-                />
-                <p>
-                  <Link
-                    href={`/${locale}/rencana/`}
-                    className="text-sm font-semibold text-liburMerahTeks underline underline-offset-4 hover:text-liburMerah"
-                  >
-                    {t('sheetLihatSemua', locale)} →
-                  </Link>
-                </p>
-              </div>
               <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
+              <LanjutKe
+                locale={locale}
+                ke="rencana"
+                hash={hash}
+                judul="lanjutRencanaJudul"
+                teks="lanjutRencanaTeks"
+                tombol="lanjutRencanaTombol"
+              />
             </>
           ) : (
             <>
@@ -262,11 +264,18 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
                 onTujuan={setTujuan}
                 fokusRef={judulSaranRef}
               />
-              {/* The price list belongs on the plan page rather than the
-                  overview: the overview states the answer, this asks what each
-                  day of the budget was worth. */}
+              {/* The price list belongs on the plan page rather than the overview: the
+                  overview states the answer, this asks what each day of the budget was
+                  worth. */}
               <KurvaMarginal kurva={trace.kurva()} locale={locale} />
-              <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
+              <LanjutKe
+                locale={locale}
+                ke="tahun"
+                hash={hash}
+                judul="lanjutTahunJudul"
+                teks="lanjutTahunTeks"
+                tombol="lanjutTahunTombol"
+              />
             </>
           )}
         </div>

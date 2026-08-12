@@ -50,9 +50,9 @@ export function Suggestions({
 
   return (
     <section aria-labelledby="judul-saran">
-      {/* Step 2, not 3. This and the year sheet were both labelled "Langkah 3",
-          so the numbering told the reader nothing about where they were. */}
-      <span className="label-bagian">{t('langkahDua', locale)}</span>
+      {/* Step 3. The sheet is step 2 and lives on the other route now, so each page
+          shows its own steps in ascending order and links to the one it is missing. */}
+      <span className="label-bagian">{t('langkahTiga', locale)}</span>
       <h2 id="judul-saran" ref={fokusRef} tabIndex={-1} className="poster mt-0.5 text-2xl">
         {batas === undefined ? t('saranJudul', locale) : t('saranTeratas', locale)}
       </h2>

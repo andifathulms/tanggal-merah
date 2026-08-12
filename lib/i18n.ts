@@ -399,16 +399,31 @@ const KAMUS = {
     'ASN dan swasta punya aturan berbeda, dan itulah yang paling mengubah hitungannya.',
     'Civil servants and private employees fall under different rules, and that changes the arithmetic most.',
   ],
-  heroLangkah2: ['Ambil yang paling untung', 'Take the best trades'],
+  heroLangkah2: ['Lihat setahun penuh', 'See the whole year'],
   heroLangkah2Teks: [
-    'Kami hitung sisa cuti Anda setelah cuti bersama, lalu mengurutkan harpitnas menurut leverage.',
-    'We work out what genuinely remains after cuti bersama, then rank the harpitnas by leverage.',
+    'Kalender dua belas bulan di halaman ini: tanggal merah, cuti bersama, dan rentetan libur yang tersambung. Klik hari mana pun untuk menandainya.',
+    'The twelve-month calendar on this page: red dates, cuti bersama, and the stretches that join up. Click any day to mark it.',
   ],
-  heroLangkah3: ['Tandai di kalender', 'Mark up the year'],
+  heroLangkah3: ['Ambil yang paling untung', 'Spend it where it counts'],
   heroLangkah3Teks: [
-    'Klik hari mana pun di kalender setahun, lalu unduh sebagai .ics atau PNG.',
-    'Click any day on the year sheet, then download it as .ics or a PNG.',
+    'Di halaman Rencana: harpitnas diurutkan menurut leverage, dan harga tiap hari cuti.',
+    'On the plan page: harpitnas ranked by leverage, and what each leave day buys.',
   ],
+
+  // The two halves of the planner, each pointing at the other. `sheetLihatSemua` used
+  // to do this in one bare link that dropped the reader's settings on the way.
+  lanjutRencanaJudul: ['Langkah 3 — Ambil yang paling untung', 'Step 3 — Spend it where it counts'],
+  lanjutRencanaTeks: [
+    'Harpitnas diurutkan menurut leverage, pilihan optimal yang eksak untuk sisa cuti Anda, dan harga tiap hari cuti. Pilihan Anda ikut terbawa.',
+    'Harpitnas ranked by leverage, the exact optimum for your remaining leave, and what each leave day buys. Your choices come with you.',
+  ],
+  lanjutRencanaTombol: ['Buka halaman Rencana', 'Open the plan page'],
+  lanjutTahunJudul: ['Lihat pilihan Anda di kalender', 'See your choices on the calendar'],
+  lanjutTahunTeks: [
+    'Kalender dua belas bulan, dengan hari yang Anda ambil dan batang merah yang menyambung. Di sana juga Anda bisa menandai hari sendiri. Pilihan Anda ikut terbawa.',
+    'The twelve-month calendar, with the days you took and the red bars joining them. That is also where you can mark days by hand. Your choices come with you.',
+  ],
+  lanjutTahunTombol: ['Buka kalender setahun', 'Open the year sheet'],
 
   // The proof line in the hero. States the year's best trade as arithmetic —
   // invariant 13 holds, it is not a suggestion to take the day.
@@ -512,7 +527,6 @@ const KAMUS = {
     'Klik hari kerja mana pun untuk menandainya sebagai cuti. Batang merah menunjukkan hari libur yang menyambung.',
     'Click any working day to mark it as leave. The red bar shows days off joining up.',
   ],
-  sheetLihatSemua: ['Lihat semua usulan', 'See all suggestions'],
   saranTeratas: ['Harpitnas teratas', 'Top harpitnas'],
   // The definition used to say leverage was "days off gained per leave day spent".
   // That number is 1.0 for every bridge that has ever existed: buying the N working

@@ -51,7 +51,7 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
     <section aria-labelledby="judul-sheet">
       <div className="flex flex-wrap items-end justify-between gap-x-ruang-xl gap-y-ruang-sm">
         <div>
-          <span className="label-bagian">{t('langkahTiga', locale)}</span>
+          <span className="label-bagian">{t('langkahDua', locale)}</span>
           <h2 id="judul-sheet" className="poster mt-0.5 text-2xl">
             {t('sheetJudul', locale)} <span className="angka text-liburMerahTeks">{trace.tahun}</span>
           </h2>
