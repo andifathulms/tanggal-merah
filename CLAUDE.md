@@ -150,10 +150,22 @@ The site states plainly that it is a personal project, not employment-law advice
 
 ## Current state
 
-M0–M4 built. Rule pack, validator, day model, run computation, exact optimiser with its brute-force oracle, status branches, the year sheet, the ledger, ranked suggestions, ICS and PNG export, URL-hash sharing, and the Pages workflow are all in place. 78 tests.
+M0–M4 built. Rule pack, validator, day model, run computation, exact optimiser with its brute-force oracle, status branches, the year sheet, the ledger, ranked suggestions, ICS and PNG export, URL-hash sharing, and the Pages workflow are all in place. 118 tests.
+
+Design tokens live in `app/globals.css` as custom properties — one type scale, one rhythm scale, and the palette as RGB channels with each colour's measured contrast ratio recorded beside it. `tailwind.config.ts` holds only the token→utility mapping and no values of its own. Components name tokens; there are no arbitrary sizes left.
+
+Since M4, five things the concept implied but the app hid:
+
+- **`lib/rules/hilang.ts`** — how many decreed days off land on a day the reader was off anyway, and how that count differs between the two working weeks. Same red square, two values.
+- **Per-day `dipotong`** on the cuti bersama classification, so the sheet marks *which* days a deducting employer charged, not just how many. Asserted equal to the ledger's total across every year, pattern and status.
+- **`lib/optimise/marginal.ts`** — what the nth leave day buys, priced by running the exact optimiser at every budget. Note the real curve is not monotone decreasing: a two-day harpitnas is unaffordable at a budget of one, so day 2 can add more than day 1.
+- **`lib/optimise/tujuan.ts`** — two objectives. `totalHariLibur` (the DP, and still the default) and `rentetanTerpanjang`, whose optimum is a single contiguous group of bridges and is therefore a direct scan, *not* the additive DP with `max` swapped in — that variant reports the right number and the wrong plan. Both have brute-force oracles. Rides in the hash as `o`, omitted when default.
+- **Priced positions** in the contradiction ledger: `posisi` combines readings, `efek` states what each does to an entitlement, and `lib/status/posisi.ts` computes it. The canonical rule stays the hand-written branches in `lib/status`; a test asserts the data-driven pricing reproduces them exactly, so the code and the ledger's record of the code cannot drift.
 
 **The one thing blocking a public ship: `data/skb/2026.json` is `perluVerifikasi`.** The dates were transcribed from the widely circulated 2026 calendar, but the SKB and Keppres numbers were never checked against the published documents, so they are recorded as `BELUM DIVERIFIKASI` rather than invented. The app carries a banner while that holds. `UPDATING.md` lists what to check off; when it is done, set `status` to `terverifikasi` and the validator will reject any placeholder left behind.
 
 Next: verify the 2026 pack against the instruments, then M5 — multi-year packs, user-added regional days, a11y.
+
+The most interesting question the data still cannot answer: **does the deduction actually leave a private-sector reader worse off than a colleague whose company never closes, or do they end up with the same number of days off?** One pays eight leave days and gets eight days off for them; the other pays nothing and works those days, keeping all twelve. The app compares *leave remaining* across statuses and never compares *total days off*, which is the thing the leave was only ever a means to. Needs no new data.
 
 One addition to the layout above: `lib/sheet/` holds the grid arithmetic and run-bar geometry, because invariant 15 means a component cannot work out which cell a date lands in either.
