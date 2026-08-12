@@ -37,7 +37,9 @@ export function Suggestions({
 
   return (
     <section aria-labelledby="judul-saran">
-      <span className="label-bagian">{t('langkahTiga', locale)}</span>
+      {/* Step 2, not 3. This and the year sheet were both labelled "Langkah 3",
+          so the numbering told the reader nothing about where they were. */}
+      <span className="label-bagian">{t('langkahDua', locale)}</span>
       <h2 id="judul-saran" className="poster mt-0.5 text-2xl">
         {batas === undefined ? t('saranJudul', locale) : t('saranTeratas', locale)}
       </h2>

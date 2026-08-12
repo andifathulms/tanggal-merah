@@ -197,20 +197,23 @@ const KAMUS = {
     'Cuti Anda mungkin tidak sebanyak yang Anda kira. Setiap tahun pemerintah menetapkan libur nasional dan cuti bersama lewat SKB, dan yang sering tidak disadari: di banyak perusahaan swasta, hari cuti bersama dipotong dari jatah cuti tahunan Anda. Halaman ini menghitung berapa sisa cuti Anda sebenarnya, lalu menunjukkan di tanggal mana cuti itu paling berguna.',
     'You may have less leave than you think. Each year the government sets public holidays and cuti bersama (joint leave) by decree, and what most people miss is that at many private companies those cuti bersama days are deducted from your annual leave. This page works out what you actually have left, then shows you which dates buy the most time off.',
   ],
+  // These three describe the three numbered sections of the page, in the order
+  // they appear. They used to promise a step 2 ("see what is left") that turned
+  // out to be an unnumbered result panel, and a step 3 that appeared twice.
   heroLangkah1: ['Pilih status Anda', 'Pick your status'],
   heroLangkah1Teks: [
     'ASN dan swasta punya aturan berbeda, dan itulah yang paling mengubah hitungannya.',
     'Civil servants and private employees fall under different rules, and that changes the arithmetic most.',
   ],
-  heroLangkah2: ['Lihat sisa cuti Anda', 'See what is left'],
+  heroLangkah2: ['Ambil yang paling untung', 'Take the best trades'],
   heroLangkah2Teks: [
-    'Kami hitung berapa hari yang benar-benar tersisa setelah cuti bersama.',
-    'We work out how many days genuinely remain after cuti bersama.',
+    'Kami hitung sisa cuti Anda setelah cuti bersama, lalu mengurutkan tanggalnya menurut leverage.',
+    'We work out what genuinely remains after cuti bersama, then rank the dates by leverage.',
   ],
-  heroLangkah3: ['Ambil yang paling untung', 'Spend it where it counts'],
+  heroLangkah3: ['Tandai di kalender', 'Mark up the year'],
   heroLangkah3Teks: [
-    'Satu hari cuti yang tepat bisa jadi empat hari libur berturut-turut.',
-    'One well-placed leave day can turn into four consecutive days off.',
+    'Klik hari mana pun di kalender setahun, lalu unduh sebagai .ics atau PNG.',
+    'Click any day on the year sheet, then download it as .ics or a PNG.',
   ],
 
   istilahJudul: ['Dua hal yang beda', 'Two different things'],

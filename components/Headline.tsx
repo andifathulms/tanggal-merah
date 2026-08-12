@@ -24,7 +24,10 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
 
   return (
     <section className="kartu p-5 sm:p-6" aria-labelledby="judul-hasil">
-      <span className="label-bagian">{t('langkahDua', locale)}</span>
+      {/* Not a step. This panel was labelled "Langkah 2", which made the page
+          promise three steps and then deliver a result where the second one
+          should have been. It is what the steps produce, so it says so. */}
+      <span className="label-bagian">{t('hasilJudul', locale)}</span>
       <h2 id="judul-hasil" className="sr-only">
         {t('hasilJudul', locale)}
       </h2>

@@ -37,7 +37,10 @@ export function Hero({ locale }: { readonly locale: Locale }) {
         />
       </div>
 
-      <ol className="mt-6 hidden gap-x-6 gap-y-3 sm:grid sm:grid-cols-3">
+      {/* Three steps that match the three numbered sections below, in order.
+          They used to be `hidden sm:grid`, so a phone visitor — most of them —
+          got no orientation at all. */}
+      <ol className="mt-ruang-xl grid gap-x-6 gap-y-ruang-lg sm:grid-cols-3">
         <Langkah
           nomor={1}
           label={t('langkahSatu', locale)}
@@ -104,7 +107,7 @@ function Langkah({
       </span>
       <div>
         <span className="label-bagian">{label}</span>
-        <h3 className="text-sm font-semibold leading-snug">{judul}</h3>
+        <h3 className="text-base font-semibold leading-snug">{judul}</h3>
         <p className="mt-1 text-base leading-relaxed text-inkPudar">{teks}</p>
       </div>
     </li>
