@@ -161,8 +161,6 @@ const KAMUS = {
     'No bridge fits inside your remaining leave.',
   ],
   saranHariCuti: ['hari cuti', 'leave days'],
-  saranJadi: ['jadi', 'gives'],
-  saranHariLibur: ['hari libur berturut-turut', 'consecutive days off'],
   saranLeverage: ['Leverage', 'Leverage'],
   saranAmbil: ['Ambil', 'Take'],
   saranBatal: ['Batalkan', 'Undo'],
@@ -258,8 +256,6 @@ const KAMUS = {
     'The figures do not always fall. A two-day harpitnas is unaffordable at a budget of one and becomes the best buy at two, so day 2 can add more than day 1.',
   ],
 
-  ringkasTerpanjang: ['Rentetan terpanjang', 'Longest stretch'],
-  ringkasTotalLibur: ['Total hari libur', 'Total days off'],
   ringkasHari: ['hari', 'days'],
 
   eksporJudul: ['Ekspor', 'Export'],
@@ -419,9 +415,22 @@ const KAMUS = {
   ],
   sheetLihatSemua: ['Lihat semua usulan', 'See all suggestions'],
   saranTeratas: ['Harpitnas teratas', 'Top harpitnas'],
+  // The definition used to say leverage was "days off gained per leave day spent".
+  // That number is 1.0 for every bridge that has ever existed: buying the N working
+  // days in a gap gains exactly those N days off, because the blocks either side
+  // were already off. What a harpitnas buys is not more days — it is contiguity, and
+  // leverage measures the stretch it produces per day spent. Saying "gained" told
+  // the reader a false version of the app's own headline metric.
   saranPenjelasan: [
-    'Harpitnas adalah hari kerja yang terjepit di antara dua blok libur. Diurutkan menurut leverage: hari libur yang didapat per hari cuti yang dipakai. Bukan saran untuk mengambil cuti — hanya hitungannya.',
-    'A harpitnas is a working day pinched between two blocks of days off. Ranked by leverage: days off gained per leave day spent. Not a recommendation to take leave — just the arithmetic.',
+    'Harpitnas adalah hari kerja yang terjepit di antara dua blok libur. Mengambilnya tidak menambah jumlah hari libur Anda — yang bertambah tepat sebanyak hari yang Anda beli. Yang berubah: hari libur yang tadinya terpisah jadi satu rentetan panjang. Leverage adalah panjang rentetan itu dibagi hari cuti yang dipakai; istilah ini dipakai di aplikasi ini, bukan istilah resmi. Bukan saran untuk mengambil cuti — hanya hitungannya.',
+    'A harpitnas is a working day pinched between two blocks of days off. Taking one does not increase how many days off you have — that goes up by exactly what you bought. What changes is that days off which were separate become one long stretch. Leverage is that stretch divided by the leave days spent; the term is this app\u2019s own, not an official one. Not a recommendation to take leave — just the arithmetic.',
+  ],
+  // The unit on a bridge card. "hari libur" read as "days off gained", which is the
+  // error above in miniature; the stretch is what the figure counts.
+  saranHasilRingkas: ['hari berturut-turut', 'days in a row'],
+  saranLeverageRumus: [
+    'panjang rentetan ÷ hari cuti',
+    'stretch length ÷ leave days',
   ],
   tahunLain: ['Tahun lain', 'Other years'],
 } satisfies Kamus

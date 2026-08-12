@@ -157,7 +157,7 @@ function KartuJembatan({
           </span>
           <span className="flex items-baseline gap-1.5 whitespace-nowrap">
             <span className="angka-sebaris text-liburMerahTeks">{jembatan.hasilHari}</span>
-            <span className="text-xs text-inkPudar">{locale === 'id' ? 'hari libur' : 'days off'}</span>
+            <span className="text-xs text-inkPudar">{t('saranHasilRingkas', locale)}</span>
           </span>
         </p>
         <p className="mt-0.5 truncate text-sm text-inkSedang">{rentang}</p>
@@ -168,7 +168,10 @@ function KartuJembatan({
             announced, so the figure read as a bare "×4.0". Same sr-only pattern the
             hero's proof line already uses. */}
         <span className="angka text-xs text-inkPudar">
-          <span className="sr-only">{t('saranLeverage', locale)} </span>×{jembatan.leverage.toFixed(1)}
+          <span className="sr-only">
+            {t('saranLeverage', locale)}, {t('saranLeverageRumus', locale)}:{' '}
+          </span>
+          ×{jembatan.leverage.toFixed(1)}
         </span>
         <button
           type="button"

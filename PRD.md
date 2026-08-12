@@ -37,7 +37,9 @@ An important architectural consequence. Idul Fitri, Nyepi, Waisak, and Imlek all
 
 Given a leave budget, which days bought give the longest runs off?
 
-Each candidate leave day is a **bridge** — a workday sitting between two blocks of days off. Spending one workday between a holiday and a weekend joins them into a four-day stretch. The metric is **leverage**: consecutive days off gained per leave day spent.
+Each candidate leave day is a **bridge** — a workday sitting between two blocks of days off. Spending one workday between a holiday and a weekend joins them into a four-day stretch.
+
+The metric is **leverage**: the length of the stretch produced, divided by the leave days spent. Note what it is *not* — days off gained per day spent is 1.0 for every bridge, always, because buying the workdays in a gap gains exactly those days and the blocks either side were already off. A bridge does not buy more days off. It buys **contiguity**, and leverage measures how much stretch each leave day is converted into. The UI must say this rather than say "gained", which is a false description of the number.
 
 It's a small, exactly-solvable problem — enumerate the gaps between fixed off-blocks, cost is the workdays in the gap, benefit is the days joined, then select under budget. Brute-forceable at realistic sizes, so the optimum is provable rather than heuristic.
 
