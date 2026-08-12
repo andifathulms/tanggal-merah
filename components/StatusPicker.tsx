@@ -101,6 +101,12 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
                       ? `${t('statusDipotongOleh', locale)} −${p.dipotongHari}`
                       : t('statusTidakDipotong', locale)}
                   </span>
+                  {/* The rule is cited where it is applied. Four cards produce four
+                      different numbers, and the instrument responsible for each was
+                      only discoverable after the choice had been made. */}
+                  <cite className="mt-ruang-sm block text-xs not-italic leading-snug text-inkPudar">
+                    {p.instrumen}
+                  </cite>
                 </span>
               </span>
             </label>
@@ -114,6 +120,10 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
         <span className="sr-only">{t(PANJANG[status.type], locale)}. </span>
         {t('statusTidakYakin', locale)}
       </p>
+
+      {/* An honest account of what the model cannot express, next to the control
+          that cannot express it. */}
+      <p className="teks-catatan mt-ruang-sm text-base">{t('statusSederhana', locale)}</p>
     </fieldset>
   )
 }

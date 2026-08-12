@@ -409,6 +409,12 @@ const KAMUS = {
   statusSwastaTanpaRingkas: ['Swasta, kantor tetap masuk', 'Private, office stays open'],
   statusSwastaTanpaPotongRingkas: ['Swasta, libur tanpa potong cuti', 'Private, closed but no deduction'],
   statusSwastaDipotongRingkas: ['Swasta, libur dan cuti dipotong', 'Private, closed and deducted'],
+  // Disclosed where the choice is made. The model is all-or-nothing and real
+  // companies take a subset, so saying nothing would be an unstated simplification.
+  statusSederhana: [
+    'Aplikasi ini menganggap perusahaan mengambil semua hari cuti bersama atau tidak sama sekali. Kalau perusahaan Anda hanya mengambil sebagian, kurangi angka jatah cuti di panel Pengaturan sebanyak hari yang dipotong.',
+    'This app assumes a company takes all the cuti bersama days or none of them. If yours takes only some, reduce the entitlement figure in the Settings panel by the number of days it charges you.',
+  ],
   statusTidakYakin: [
     'Tidak yakin? Tanyakan ke HR apakah cuti bersama memotong jatah cuti tahunan Anda. Aplikasi ini tidak bisa menebaknya.',
     'Not sure? Ask HR whether cuti bersama comes out of your annual leave. This app cannot guess it.',

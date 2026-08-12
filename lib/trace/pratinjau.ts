@@ -23,6 +23,13 @@ export type PratinjauStatus = {
   readonly dipotongHari: number
   /** Cuti bersama days that land on a working day this year. */
   readonly cutiBersamaHariKerjaHari: number
+  /**
+   * The instrument this branch rests on, so the card can cite the rule at the point
+   * the rule is applied. `hitungEntitlement` has always produced it; the preview
+   * dropped it, which meant the reader met four different numbers with no source
+   * for any of them and found the citation only after choosing.
+   */
+  readonly instrumen: string
 }
 
 export function pratinjauStatus(
@@ -45,6 +52,7 @@ export function pratinjauStatus(
       jenis,
       sisaHari: entitlement.sisaHari,
       dipotongHari: entitlement.dipotongCutiBersamaHari,
+      instrumen: entitlement.instrumen,
       cutiBersamaHariKerjaHari: terselesaikan.cutiBersamaHariKerjaHari,
     }
   })
