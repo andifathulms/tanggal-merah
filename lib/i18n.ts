@@ -116,6 +116,8 @@ const KAMUS = {
   legendaAkhirPekan: ['Akhir pekan', 'Weekend'],
   legendaRun: ['Rentetan 3 hari atau lebih', 'Stretch of 3+ days'],
   legendaDipotong: ['Dipotong dari cuti Anda (−1)', 'Charged to your leave (−1)'],
+  // Spoken form of the −1 on a charged cuti bersama cell.
+  selDipotong: ['dipotong satu hari dari cuti tahunan Anda', 'one day charged to your annual leave'],
 
   // A6 — the citation inspector below the grid.
   kutipanPetunjuk: [

@@ -2,7 +2,7 @@
 
 import { civilOf, type DayNumber } from '@/lib/day'
 import type { KlasifikasiHari } from '@/lib/rules/resolve'
-import { namaLibur, tanggalPanjang, type Locale } from '@/lib/i18n'
+import { namaLibur, t, tanggalPanjang, type Locale } from '@/lib/i18n'
 
 /**
  * One cell of the wall calendar.
@@ -98,12 +98,12 @@ export function DayCell({
 
   const isi = (
     <>
-      {dibebankan && (
-        <span className="angka absolute left-1 top-1 text-2xs font-semibold leading-none text-cutiBersamaTeks">
-          −1
-        </span>
-      )}
-      <span className={`poster block text-right text-lg leading-none ${warnaAngka}`}>{day}</span>
+      <span className={`flex items-start gap-1 ${dibebankan ? 'justify-between' : 'justify-end'}`}>
+        {dibebankan && (
+          <span className="angka text-xs font-semibold leading-none text-cutiBersamaTeks">−1</span>
+        )}
+        <span className={`poster block text-right text-lg leading-none ${warnaAngka}`}>{day}</span>
+      </span>
       {label !== null && (
         <span
           className={`mt-auto block overflow-hidden text-right text-2xs ${
@@ -132,7 +132,11 @@ export function DayCell({
         <button
           type="button"
           onClick={() => onPeriksa(hari)}
-          aria-label={`${tanggalPanjang(hari, locale)} — ${label}`}
+          aria-label={
+            dibebankan
+              ? `${tanggalPanjang(hari, locale)} — ${label} — ${t('selDipotong', locale)}`
+              : `${tanggalPanjang(hari, locale)} — ${label}`
+          }
           title={label}
           className={`${kelas} w-full cursor-help text-left hover:bg-kertasGelap/60`}
         >
