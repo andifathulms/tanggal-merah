@@ -110,12 +110,25 @@ export function DayCell({
         )}
         <span className={`poster block text-right text-lg leading-none ${warnaAngka}`}>{day}</span>
       </span>
+      {/* Hidden below `sm`, where a cell is about 41px wide and 29px of that is
+          text: two clamped lines of 10px type render roughly five characters each,
+          so "Isra Mikraj Nabi Muhammad SAW" arrived as "Isra Mik" — a fragment that
+          identifies nothing. A red or amber numeral still marks the day, the
+          citation region above the grid gives the full name and its decree on
+          activation, and the cell's accessible name has carried it all along. A
+          clean mark you can ask about beats a meaningless truncation.
+
+          The alternative was a minimum cell width plus horizontal panning. It was
+          rejected: no width makes a 29-character name fit, and it would have
+          introduced scrolling on every viewport to buy three more characters. */}
       {label !== null && (
+        /* `line-clamp-2` rather than the inline -webkit-box style this used to
+           carry: an inline `display` beats any class, so `hidden` could never have
+           turned it off. Tailwind 3.4 has the utility built in. */
         <span
-          className={`mt-auto block overflow-hidden text-right text-2xs ${
+          className={`mt-auto hidden text-right text-2xs sm:line-clamp-2 ${
             klasifikasi.type === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'
           }`}
-          style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}
         >
           {label}
         </span>
