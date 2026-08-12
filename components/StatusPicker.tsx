@@ -65,7 +65,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
               className={`flex flex-col justify-between gap-ruang-md border-2 p-ruang-lg text-left transition-shadow ${
                 terpilih
                   ? 'border-ink bg-kertas shadow-angkat'
-                  : 'border-garis bg-kertas/60 hover:border-garisTebal hover:shadow-kartu'
+                  : 'border-garis bg-newsprint hover:border-garisTebal hover:shadow-kartu'
               }`}
             >
               <span className="text-sm font-semibold leading-snug">{t(RINGKAS[p.jenis], locale)}</span>

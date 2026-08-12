@@ -8,7 +8,21 @@
  * tokens, never values (CLAUDE.md conventions).
  *
  * Colours are space-separated RGB channels rather than hex so that Tailwind's
- * alpha modifiers (`bg-akhirPekan/55`) still compose against them.
+ * alpha modifiers still compose against them.
+ *
+ * Tints are used at full strength. There used to be nine different alpha values
+ * across six colours — /30 /40 /45 /50 /55 /60 /70 — each diluted by eye in the
+ * place it was needed, which is not a palette. Every `*Lembut` tint and every
+ * surface clears 4.5:1 for body text at 100%, measured, so the dilution was never
+ * carrying contrast; it was just noise. A rule beside a tint takes that tint's own
+ * fill colour, so a panel's left rule matches the legend swatch for the same thing.
+ *
+ * Alpha survives in exactly three places, each because the transparency is the
+ * meaning rather than a shade:
+ *
+ *   runBar / runBarKuat        the bar reads *over* whatever the cells beneath it are
+ *   ring-cutiPribadi/45        a suggested day, which must not shout as loudly as a chosen one
+ *   hover:*                    a preview of a state, so it reads lighter than the state itself
  */
 :root {
   /* — Surfaces, lightest to deepest — */

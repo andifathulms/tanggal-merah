@@ -128,7 +128,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
   if (hasil.type === 'ditolak') {
     return (
-      <div role="alert" className="border-l-4 border-liburMerah bg-liburMerahLembut/50 p-ruang-xl">
+      <div role="alert" className="border-l-4 border-liburMerah bg-liburMerahLembut p-ruang-xl">
         <h2 className="poster text-2xl text-liburMerahTeks">
           {locale === 'id' ? 'Belum bisa dihitung' : 'Cannot compute'}
         </h2>

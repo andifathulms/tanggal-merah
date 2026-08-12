@@ -83,7 +83,7 @@ function Baris({
         {langkah.anggaranHari}
       </span>
 
-      <span className="h-4 min-w-0 flex-1 bg-kertasGelap/60" aria-hidden>
+      <span className="h-4 min-w-0 flex-1 bg-kertasGelap" aria-hidden>
         <span
           className="block h-full bg-liburMerah"
           style={{ width: `${lebar}%` }}

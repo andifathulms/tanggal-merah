@@ -51,7 +51,7 @@ export function Suggestions({
       <p className="teks-jelas mt-ruang-sm">{t('saranPenjelasan', locale)}</p>
 
       {rencanaOptimal.dipilih.length > 0 && (
-        <div className="mt-ruang-lg border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-ruang-lg">
+        <div className="mt-ruang-lg border-2 border-cutiPribadi bg-cutiPribadiLembut p-ruang-lg">
           <span className="label-bagian text-cutiPribadiTeks">{t('optimalJudul', locale)}</span>
           <p className="mt-1 text-base leading-snug">
             <span className="angka-sebaris text-cutiPribadiTeks">{rencanaOptimal.biayaHari}</span>{' '}
@@ -129,7 +129,7 @@ function KartuJembatan({
   return (
     <li
       className={`flex items-center justify-between gap-ruang-md border p-ruang-md ${
-        sudahDiambil ? 'border-cutiPribadi bg-cutiPribadiLembut/40' : 'border-garis bg-kertas'
+        sudahDiambil ? 'border-cutiPribadi bg-cutiPribadiLembut' : 'border-garis bg-kertas'
       }`}
     >
       <div className="min-w-0">
@@ -195,7 +195,7 @@ function PilihTujuan({
               className={`border-2 px-ruang-lg py-ruang-md text-left transition-shadow ${
                 terpilih
                   ? 'border-ink bg-kertas shadow-angkat'
-                  : 'border-garis bg-kertas/60 hover:border-garisTebal hover:shadow-kartu'
+                  : 'border-garis bg-newsprint hover:border-garisTebal hover:shadow-kartu'
               }`}
             >
               <span className="block text-base font-semibold leading-snug">

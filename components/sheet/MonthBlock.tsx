@@ -31,7 +31,7 @@ export function MonthBlock({
 }: MonthBlockProps) {
   return (
     <section className="kartu overflow-hidden" aria-label={`${namaBulan(blok.month, locale)} ${tahun}`}>
-      <h3 className="poster border-b border-garis bg-kertasGelap/50 px-ruang-sm py-1.5 text-xl text-ink">
+      <h3 className="poster border-b border-garis bg-kertasGelap px-ruang-sm py-1.5 text-xl text-ink">
         {namaBulan(blok.month, locale)}
       </h3>
 

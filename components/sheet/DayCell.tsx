@@ -85,7 +85,7 @@ export function DayCell({
 
   const kelas = [
     'sel-hari relative flex min-h-sel flex-col px-1.5 pt-1 pb-1 text-left',
-    klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan/55' : '',
+    klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan' : '',
     dipilihSendiri ? 'bg-cutiPribadiLembut' : '',
     posisiRun !== 'tidak' ? `bar-run bg-runBar ${sudut}` : '',
     disarankan && !dipilihSendiri ? 'ring-1 ring-inset ring-cutiPribadi/45' : '',

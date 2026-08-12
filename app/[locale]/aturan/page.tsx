@@ -104,7 +104,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                     <li
                       key={b.id}
                       className={`border-l-2 pl-ruang-md text-sm ${
-                        b.id === k.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut/40 py-1' : 'border-garis'
+                        b.id === k.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut py-1' : 'border-garis'
                       }`}
                     >
                       <p className="leading-relaxed">{b.klaim}</p>

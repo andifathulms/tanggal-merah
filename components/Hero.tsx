@@ -62,13 +62,13 @@ export function Hero({ locale, trace }: { readonly locale: Locale; readonly trac
           warna="bg-liburMerah"
           judul={t('legendaLibur', locale)}
           teks={t('istilahLiburTeks', locale)}
-          batas="border-liburMerah/30 bg-liburMerahLembut/40"
+          batas="border-liburMerah bg-liburMerahLembut"
         />
         <Istilah
           warna="bg-cutiBersama"
           judul={t('legendaCutiBersama', locale)}
           teks={t('istilahCutiBersamaTeks', locale)}
-          batas="border-cutiBersama/40 bg-cutiBersamaLembut/50"
+          batas="border-cutiBersama bg-cutiBersamaLembut"
         />
       </div>
 

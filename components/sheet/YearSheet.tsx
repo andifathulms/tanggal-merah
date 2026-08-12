@@ -95,7 +95,7 @@ function Legenda({ locale, adaDipotong }: { readonly locale: Locale; readonly ad
       : ([] as const)),
     ['bg-cutiPribadi', t('legendaCutiPribadi', locale)],
     ['bg-akhirPekan border border-garisTebal', t('legendaAkhirPekan', locale)],
-    ['bg-runBarKuat border border-liburMerah/30', t('legendaRun', locale)],
+    ['bg-runBarKuat border border-liburMerah', t('legendaRun', locale)],
   ]
 
   return (

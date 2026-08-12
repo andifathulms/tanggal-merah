@@ -55,7 +55,7 @@ export function BandingPosisi({
             <li
               key={`${b.kontradiksiId}-${b.posisiId}`}
               className={`flex items-baseline justify-between gap-ruang-md border-l-4 px-ruang-md py-ruang-sm ${
-                b.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut/40' : 'border-garisTebal bg-kertasGelap/40'
+                b.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut' : 'border-garisTebal bg-kertasGelap'
               }`}
             >
               <span className="min-w-0 text-sm leading-snug text-inkSedang">
