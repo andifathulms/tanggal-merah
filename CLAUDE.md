@@ -150,4 +150,10 @@ The site states plainly that it is a personal project, not employment-law advice
 
 ## Current state
 
-M0 — not yet scaffolded. Next: SKB schema and validator, then the current year's data transcribed and cited. **No engine work before the rule pack validates.**
+M0–M4 built. Rule pack, validator, day model, run computation, exact optimiser with its brute-force oracle, status branches, the year sheet, the ledger, ranked suggestions, ICS and PNG export, URL-hash sharing, and the Pages workflow are all in place. 78 tests.
+
+**The one thing blocking a public ship: `data/skb/2026.json` is `perluVerifikasi`.** The dates were transcribed from the widely circulated 2026 calendar, but the SKB and Keppres numbers were never checked against the published documents, so they are recorded as `BELUM DIVERIFIKASI` rather than invented. The app carries a banner while that holds. `UPDATING.md` lists what to check off; when it is done, set `status` to `terverifikasi` and the validator will reject any placeholder left behind.
+
+Next: verify the 2026 pack against the instruments, then M5 — multi-year packs, user-added regional days, a11y.
+
+One addition to the layout above: `lib/sheet/` holds the grid arithmetic and run-bar geometry, because invariant 15 means a component cannot work out which cell a date lands in either.
