@@ -38,7 +38,7 @@ export function Kutipan({
          it: an empty bordered panel below the sheet read as something that had
          failed to load, and it competed with the legend and the instruction line
          already sitting above the grid. Empty, this is one quiet line of text. */
-      className={`mt-ruang-lg min-h-[4.5rem] ${
+      className={`mt-ruang-md min-h-kutipan ${
         kosong ? '' : 'border-l-4 border-garisTebal bg-kertas px-ruang-lg py-ruang-md'
       }`}
     >

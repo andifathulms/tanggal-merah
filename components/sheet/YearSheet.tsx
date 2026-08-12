@@ -66,6 +66,13 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
         {t('sheetPetunjuk', locale)}
       </p>
 
+      {/* Above the grid, not below it. Activating a January cell used to put the
+          citation roughly a screenful further down, so a sighted keyboard user got
+          no visible response anywhere near their focus — the announcement reached
+          screen readers and nobody else. Here it sits beside the instruction that
+          asked for it, and stays on screen as the reader moves through the months. */}
+      <Kutipan klasifikasi={diperiksa === null ? null : klasifikasi.get(diperiksa) ?? null} locale={locale} />
+
       <div className="mt-ruang-lg grid grid-cols-1 gap-ruang-md sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {blok.map((b) => (
           <MonthBlock
@@ -83,8 +90,6 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
           />
         ))}
       </div>
-
-      <Kutipan klasifikasi={diperiksa === null ? null : klasifikasi.get(diperiksa) ?? null} locale={locale} />
     </section>
   )
 }

@@ -91,6 +91,7 @@ const config: Config = {
       /** The wall-calendar grid's own geometry. See globals.css. */
       minHeight: {
         sel: 'var(--sel-tinggi)',
+        kutipan: 'var(--kutipan-tinggi-min)',
       },
       minWidth: {
         tabel: 'var(--tabel-lebar-min)',

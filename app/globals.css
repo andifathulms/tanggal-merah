@@ -120,6 +120,12 @@
    * what keeps wide tabular data inside the WCAG 1.4.10 exception.
    */
   --tabel-lebar-min: 34rem;
+
+  /**
+   * Height held for the citation region above the grid, so filling it in never
+   * shifts the twelve months underneath. Two lines of citation plus its label.
+   */
+  --kutipan-tinggi-min: 4.5rem;
 }
 
 @layer base {
