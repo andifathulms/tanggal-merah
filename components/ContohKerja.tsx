@@ -96,7 +96,7 @@ function Hari({ hari, locale }: { readonly hari: HariContoh; readonly locale: Lo
         : 'border-garisTebal bg-akhirPekan text-inkSedang'
 
   return (
-    <li className={`flex min-w-[3rem] flex-col items-center border px-1 py-1 ${warna}`}>
+    <li className={`flex min-w-sel-contoh flex-col items-center border px-1 py-1 ${warna}`}>
       <span className="sr-only">
         {tanggalPanjang(hari.hari, locale)}
         {nama === null ? '' : ` — ${nama}`} —{' '}

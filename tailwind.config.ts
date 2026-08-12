@@ -98,6 +98,7 @@ const config: Config = {
       },
       minWidth: {
         tabel: 'var(--tabel-lebar-min)',
+        'sel-contoh': 'var(--sel-contoh-lebar)',
       },
       borderRadius: {
         bar: 'var(--bar-sudut)',

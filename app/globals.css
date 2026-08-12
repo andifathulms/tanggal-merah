@@ -135,11 +135,16 @@
   --sel-panel-lebar: 11rem;
 
   /**
-   * The widest the worked example is set. It sits beside the hero's pitch from `xl`,
-   * and its twelve day cells want about 38rem — past that the prose inside it would
-   * stretch beyond a readable measure for no gain.
+   * The worked example's day cells, and the widest the example itself is set.
+   *
+   * These two have to agree or the strip wraps, and a wrapped strip actively teaches
+   * the wrong thing: the example exists to show that twelve days are *contiguous*, and
+   * breaking the twelfth onto its own row says the opposite. At 2.75rem a cell still
+   * holds a two-digit numeral comfortably, and 44rem fits fourteen of them — enough
+   * headroom for a longer bridge in a future pack than 2026's two-day one.
    */
-  --contoh-lebar-maks: 40rem;
+  --sel-contoh-lebar: 2.75rem;
+  --contoh-lebar-maks: 44rem;
 }
 
 @layer base {
