@@ -5,7 +5,7 @@
   "description": "Perencana libur nasional, cuti bersama, dan cuti tahunan Indonesia — data SKB bersitasi, optimiser eksak.",
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm rules:validate && next build",
+    "build": "pnpm rules:validate && next build && node scripts/finish-export.mjs",
     "preview": "node scripts/preview.mjs",
     "test": "vitest",
     "test:run": "vitest run",

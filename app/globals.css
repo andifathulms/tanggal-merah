@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-newsprint text-ink font-prose antialiased;
+  }
+
+  /* Tabular numerals on every count and leverage figure (CLAUDE.md). */
+  .angka {
+    font-variant-numeric: tabular-nums;
+    @apply font-mono;
+  }
+
+  .poster {
+    @apply font-poster tracking-wide;
+  }
+}
+
+@layer components {
+  /* One moment animates: the run bar extending to join two blocks (PRD §8). */
+  .bar-run {
+    transition: background-color 180ms ease-out, border-radius 180ms ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar-run {
+      transition: none;
+    }
+  }
+}

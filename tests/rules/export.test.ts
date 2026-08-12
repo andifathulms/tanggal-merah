@@ -93,7 +93,7 @@ describe('ICS export', () => {
     })
     if (hasil.type !== 'terhitung') throw new Error('seharusnya terhitung')
     const peristiwa = parseIcs(keIcs(hasil, 'id', DTSTAMP))
-    expect(peristiwa.some((p) => p.SUMMARY.startsWith('Cuti Bersama'))).toBe(false)
+    expect(peristiwa.some((p) => p.SUMMARY?.startsWith('Cuti Bersama') === true)).toBe(false)
   })
 
   it('folds long lines at 75 octets', () => {
