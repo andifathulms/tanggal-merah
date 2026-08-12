@@ -21,7 +21,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
   ]
 
   return (
-    <section className="kartu p-ruang-lg" aria-label={t('ledgerJudul', locale)}>
+    <section className="p-ruang-lg" aria-label={t('ledgerJudul', locale)}>
       <h2 className="poster text-xl">{t('ledgerJudul', locale)}</h2>
 
       <dl className="mt-ruang-md space-y-1 text-sm">

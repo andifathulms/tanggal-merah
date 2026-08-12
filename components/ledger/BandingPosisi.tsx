@@ -31,10 +31,10 @@ export function BandingPosisi({
   const selisih = Math.max(...nilai) - Math.min(...nilai)
 
   return (
-    <section className="kartu p-ruang-lg" aria-labelledby="judul-banding">
-      <h2 id="judul-banding" className="poster text-xl">
+    <section className="border-t border-garis p-ruang-lg" aria-labelledby="judul-banding">
+      <h3 id="judul-banding" className="label-bagian">
         {t('bandingJudul', locale)}
-      </h2>
+      </h3>
       <p className="mt-ruang-md text-sm leading-relaxed text-inkSedang">{t('bandingPenjelasan', locale)}</p>
 
       <ul className="mt-ruang-lg space-y-ruang-sm">

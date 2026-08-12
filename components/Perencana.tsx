@@ -259,11 +259,23 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
             onStatus={setStatus}
             onPattern={setPattern}
           />
-          <Ledger trace={trace} locale={locale} />
-          <LiburHilang hilang={trace.hilang} locale={locale} />
-          <BandingPosisi banding={trace.ledger.banding} locale={locale} />
+          {/* One card, ranked inside. The ledger is the account and keeps card
+              weight; the other two are commentary *on* the ledger — what the
+              weekend ate, and what the rejected reading would have cost — so
+              they are sections under it rather than peers beside it.
 
-          <section className="kartu p-ruang-lg">
+              They were three identical `kartu` shells with three identical
+              headings in a 296px column, which is the same equal-weight-blocks
+              failure the Headline comment complains about, one level down. */}
+          <div className="kartu">
+            <Ledger trace={trace} locale={locale} />
+            <LiburHilang hilang={trace.hilang} locale={locale} />
+            <BandingPosisi banding={trace.ledger.banding} locale={locale} />
+          </div>
+
+          {/* Export is a set of actions, not a panel of information. It loses the
+              card so it stops competing with the ledger for the reader's eye. */}
+          <section>
             <h2 className="label-bagian">{t('eksporJudul', locale)}</h2>
             <div className="mt-ruang-sm flex flex-wrap gap-ruang-sm">
               <button type="button" onClick={unduhIcs} className={TOMBOL}>

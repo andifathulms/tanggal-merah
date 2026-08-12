@@ -37,10 +37,10 @@ export function LiburHilang({
   const samaSaja = liburNasionalDiAkhirPekanHari === liburNasionalDiAkhirPekanPolaLainHari
 
   return (
-    <section className="kartu p-ruang-lg" aria-labelledby="judul-hilang">
-      <h2 id="judul-hilang" className="poster text-xl">
+    <section className="border-t border-garis p-ruang-lg" aria-labelledby="judul-hilang">
+      <h3 id="judul-hilang" className="label-bagian">
         {t('hilangJudul', locale)}
-      </h2>
+      </h3>
 
       <p className="mt-ruang-md text-sm leading-relaxed text-inkSedang">
         {t('hilangDari', locale)}{' '}
@@ -53,7 +53,7 @@ export function LiburHilang({
       {/* The figure that survives, stated as a figure rather than left as a
           subtraction for the reader to do. */}
       <p className="mt-ruang-md flex flex-wrap items-baseline gap-x-ruang-sm border-t border-garis pt-ruang-md">
-        <span className="angka-bagian text-liburMerahTeks">{liburNasionalMenambahHari}</span>
+        <span className="angka-sebaris text-liburMerahTeks">{liburNasionalMenambahHari}</span>
         <span className="text-sm text-inkSedang">{t('hilangMenambah', locale)}</span>
       </p>
 
