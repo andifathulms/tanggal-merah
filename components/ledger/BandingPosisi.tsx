@@ -37,32 +37,46 @@ export function BandingPosisi({
       </h3>
       <p className="mt-ruang-md text-sm leading-relaxed text-inkSedang">{t('bandingPenjelasan', locale)}</p>
 
-      <ul className="mt-ruang-lg space-y-ruang-sm">
-        {banding.map((b) => (
-          <li
-            key={`${b.kontradiksiId}-${b.posisiId}`}
-            className={`flex items-baseline justify-between gap-ruang-md border-l-4 px-ruang-md py-ruang-sm ${
-              b.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut/40' : 'border-garisTebal bg-kertasGelap/40'
-            }`}
-          >
-            <span className="min-w-0 text-sm leading-snug text-inkSedang">
-              {b.posisiJudul}
-              {b.dipakai && (
-                <span className="label-bagian ml-ruang-sm text-cutiPribadiTeks">{t('bandingDipakai', locale)}</span>
-              )}
-            </span>
-            <span className="shrink-0 whitespace-nowrap">
-              <span className={`angka-sebaris ${b.dipakai ? 'text-cutiPribadiTeks' : 'text-inkPudar'}`}>
-                {b.sisaHari}
-              </span>{' '}
-              <span className="text-xs text-inkPudar">{t('ringkasHari', locale)}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
+      {/* For all three private-sector branches every position lands on the same
+          number, because the dispute is about ASN. A two-row table of one value
+          against itself, followed by a sentence explaining that the rows are
+          identical, promises a difference it does not contain — so when the
+          positions agree the figure is stated once and the sentence carries the
+          rest. The disagreement is still recorded; it is Aturan's job to set out
+          both readings in full, and it does. */}
+      {sepakat ? (
+        <p className="mt-ruang-lg flex flex-wrap items-baseline gap-x-ruang-sm">
+          <span className="angka-sebaris text-cutiPribadiTeks">{nilai[0]}</span>
+          <span className="text-sm text-inkSedang">{t('bandingSisa', locale)}</span>
+        </p>
+      ) : (
+        <ul className="mt-ruang-lg space-y-ruang-sm">
+          {banding.map((b) => (
+            <li
+              key={`${b.kontradiksiId}-${b.posisiId}`}
+              className={`flex items-baseline justify-between gap-ruang-md border-l-4 px-ruang-md py-ruang-sm ${
+                b.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut/40' : 'border-garisTebal bg-kertasGelap/40'
+              }`}
+            >
+              <span className="min-w-0 text-sm leading-snug text-inkSedang">
+                {b.posisiJudul}
+                {b.dipakai && (
+                  <span className="label-bagian ml-ruang-sm text-cutiPribadiTeks">
+                    {t('bandingDipakai', locale)}
+                  </span>
+                )}
+              </span>
+              <span className="shrink-0 whitespace-nowrap">
+                <span className={`angka-sebaris ${b.dipakai ? 'text-cutiPribadiTeks' : 'text-inkPudar'}`}>
+                  {b.sisaHari}
+                </span>{' '}
+                <span className="text-xs text-inkPudar">{t('ringkasHari', locale)}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
 
-      {/* Most readers are not affected by this dispute at all, and saying so is
-          better than letting a panel of numbers imply that they are. */}
       <p className="teks-catatan mt-ruang-md text-sm">
         {sepakat
           ? t('bandingSepakat', locale)
