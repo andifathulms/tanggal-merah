@@ -51,3 +51,26 @@ describe.skipIf(!existsSync(OUT))('exported document language', () => {
     }
   })
 })
+
+describe.skipIf(!existsSync(OUT))('crawlability', () => {
+  it('makes the root a redirect anything can follow', () => {
+    const isi = readFileSync(join(OUT, 'index.html'), 'utf8')
+    // Next's `redirect()` under `output: 'export'` emits a JS-only hop inside its error
+    // shell, so the entry point served `<html id="__next_error__">` with no content.
+    expect(isi).not.toContain('__next_error__')
+    expect(isi).toMatch(/<meta http-equiv="refresh" content="0; url=[^"]*\/id\/tahun\/">/)
+    expect(isi).toContain('rel="canonical"')
+    // A visible link for anyone the refresh fails.
+    expect(isi).toMatch(/<a href="[^"]*\/id\/tahun\/">/)
+  })
+
+  it('ships a sitemap listing every locale route, and a robots pointing at it', () => {
+    const peta = readFileSync(join(OUT, 'sitemap.xml'), 'utf8')
+    for (const locale of LOCALES) {
+      for (const halaman of ['tahun', 'rencana', 'aturan']) {
+        expect(peta, `${locale}/${halaman}`).toContain(`/${locale}/${halaman}/`)
+      }
+    }
+    expect(readFileSync(join(OUT, 'robots.txt'), 'utf8')).toContain('sitemap.xml')
+  })
+})

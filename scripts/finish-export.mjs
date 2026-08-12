@@ -15,6 +15,12 @@
  *    every English page shipped `lang="id"` and was read to screen readers with
  *    Indonesian pronunciation (WCAG 3.1.1). The locale is a path segment, so it
  *    is known here with certainty. Asserted in `tests/rules/export.test.ts`.
+ * 4. The root document is rewritten as a real redirect. `app/page.tsx` calls Next's
+ *    `redirect()`, which under `output: 'export'` emits a client-JS-only hop wrapped in
+ *    Next's error shell — the site's entry point served `<html id="__next_error__">`
+ *    with no content, no meta refresh and no link. A crawler or a reader without JS got
+ *    an error page. Replaced here with a document that redirects without scripting and
+ *    says where it is going.
  */
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -90,3 +96,32 @@ for (const locale of readdirSync(out)) {
   }
 }
 console.log(`  ✓ <html lang> diperbaiki pada ${diperbaiki} halaman non-${LOCALE_DEFAULT}`)
+
+
+/**
+ * A redirect the whole world can follow: a meta refresh for browsers and crawlers, a
+ * canonical so the root does not compete with the page it points at, and a visible link
+ * for anyone the refresh fails.
+ */
+const TUJUAN = `${BASE}/${LOCALE_DEFAULT}/tahun/`
+const SITUS = process.env.SITE_URL ?? 'https://andifathulms.github.io'
+
+writeFileSync(
+  join(out, 'index.html'),
+  `<!doctype html>
+<html lang="${LOCALE_DEFAULT}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tanggal Merah</title>
+<link rel="canonical" href="${SITUS}${TUJUAN}">
+<meta http-equiv="refresh" content="0; url=${TUJUAN}">
+<meta name="robots" content="noindex, follow">
+</head>
+<body style="font-family:system-ui,sans-serif;background:#EFEDE6;color:#1C1B18;margin:0;padding:2rem">
+<p><a href="${TUJUAN}">Tanggal Merah — libur nasional dan cuti bersama</a></p>
+</body>
+</html>
+`,
+)
+console.log(`  ✓ out/index.html → ${TUJUAN} (meta refresh, no JS needed)`)
