@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import { Bebas_Neue, Manrope, Overpass_Mono } from 'next/font/google'
+import { SITUS } from '@/lib/metadata'
+import { t, LOCALE_DEFAULT } from '@/lib/i18n'
 import './globals.css'
+
+/** The site's own name and tagline, from the dictionary the masthead renders. */
+const JUDUL_SITUS = t('judul', LOCALE_DEFAULT)
+const TAGLINE = t('subjudul', LOCALE_DEFAULT)
 
 /**
  * Fonts self-hosted via next/font — downloaded at build time, served from the
@@ -22,21 +28,25 @@ const mono = Overpass_Mono({ subsets: ['latin'], variable: '--font-mono', displa
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
 /**
- * Absolute origin for social cards. Without a `metadataBase`, Next resolves
- * og:image against `http://localhost:3000` and every shared link ships a
- * broken preview — which matters here, because the PNG of the year sheet is
- * the distribution mechanism (PRD §5.6).
+ * Site-wide metadata only.
+ *
+ * Title, description, canonical, og:url and the hreflang alternates are per route and
+ * per locale, and are built in `lib/metadata` from the same dictionary the pages render
+ * — a root layout cannot see the `[locale]` param, which is how six URLs came to share
+ * one hand-written Indonesian title in the first place. What is left here is what is
+ * genuinely true of every page.
+ *
+ * The `title.default` is the fallback for the routes that have no metadata of their own:
+ * the root redirect and the 404.
  */
-const SITUS = process.env.SITE_URL ?? 'https://andifathulms.github.io'
-
-const JUDUL = 'Tanggal Merah — libur nasional, cuti bersama, dan cuti tahunan'
-const RINGKAS =
-  'Libur nasional dan cuti bersama Indonesia dari SKB yang disitasi, dan di mana cuti tahunan Anda menghasilkan rentetan libur terpanjang.'
-
 export const metadata: Metadata = {
-  title: JUDUL,
-  description: RINGKAS,
-  applicationName: 'Tanggal Merah',
+  title: {
+    default: `${JUDUL_SITUS} — ${TAGLINE}`,
+    // Routes supply their own full title, so nothing is appended to it.
+    template: '%s',
+  },
+  description: TAGLINE,
+  applicationName: JUDUL_SITUS,
   metadataBase: new URL(SITUS),
   // `manifest` is deliberately not set here: Next strips basePath from it, and
   // the emitted href then 404s on Pages. The link is rendered by hand below.
@@ -47,20 +57,6 @@ export const metadata: Metadata = {
       { url: `${BASE}/icon-32.png`, sizes: '32x32', type: 'image/png' },
     ],
     apple: [{ url: `${BASE}/apple-touch-icon.png`, sizes: '180x180', type: 'image/png' }],
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'id_ID',
-    siteName: 'Tanggal Merah',
-    title: JUDUL,
-    description: RINGKAS,
-    images: [{ url: `${BASE}/og.png`, width: 1200, height: 630, alt: 'Tanggal Merah' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: JUDUL,
-    description: RINGKAS,
-    images: [`${BASE}/og.png`],
   },
 }
 
