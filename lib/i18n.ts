@@ -55,9 +55,12 @@ type Kamus = {
 
 const KAMUS = {
   judul: ['Tanggal Merah', 'Tanggal Merah'],
+  // A masthead tagline, not a headline — short enough to be read at a glance
+  // beside the wordmark. It names the function, because the product name alone
+  // does not tell a first-time visitor what the site is for.
   subjudul: [
-    'Libur nasional dan cuti bersama, dan di mana cuti tahunan Anda paling berguna.',
-    'Indonesian public holidays and joint leave, and where your annual leave buys the most.',
+    'Perencana libur nasional & cuti bersama',
+    'Indonesian public holiday & cuti bersama planner',
   ],
   navTahun: ['Tahun', 'Year'],
   navRencana: ['Rencana', 'Plan'],
@@ -174,13 +177,16 @@ const KAMUS = {
   ],
 
   // — Penjelasan untuk pembaca yang baru pertama kali membuka —
+  // The heading leads with what the site does rather than with a claim about
+  // the reader. The claim is still the best hook, so it opens the paragraph
+  // instead of standing where the reader is looking for a purpose.
   heroJudul: [
-    'Cuti Anda tidak sebanyak yang Anda kira.',
-    'You have less leave than you think.',
+    'Semua tanggal merah, dan di mana cuti Anda paling untung.',
+    'Every Indonesian public holiday, and where your leave buys the most.',
   ],
   heroTeks: [
-    'Setiap tahun pemerintah menetapkan libur nasional dan cuti bersama lewat SKB. Yang sering tidak disadari: di banyak perusahaan swasta, hari cuti bersama dipotong dari jatah cuti tahunan Anda. Halaman ini menghitung berapa sisa cuti Anda sebenarnya, lalu menunjukkan di tanggal mana cuti itu paling berguna.',
-    'Each year the government sets public holidays and cuti bersama (joint leave) by decree. What most people miss: at many private companies, those cuti bersama days are deducted from your annual leave. This page works out what you actually have left, then shows you which dates buy the most time off.',
+    'Cuti Anda mungkin tidak sebanyak yang Anda kira. Setiap tahun pemerintah menetapkan libur nasional dan cuti bersama lewat SKB, dan yang sering tidak disadari: di banyak perusahaan swasta, hari cuti bersama dipotong dari jatah cuti tahunan Anda. Halaman ini menghitung berapa sisa cuti Anda sebenarnya, lalu menunjukkan di tanggal mana cuti itu paling berguna.',
+    'You may have less leave than you think. Each year the government sets public holidays and cuti bersama (joint leave) by decree, and what most people miss is that at many private companies those cuti bersama days are deducted from your annual leave. This page works out what you actually have left, then shows you which dates buy the most time off.',
   ],
   heroLangkah1: ['Pilih status Anda', 'Pick your status'],
   heroLangkah1Teks: [

@@ -18,7 +18,7 @@ export function Hero({ locale }: { readonly locale: Locale }) {
   return (
     <section className="border-b border-garis pb-7">
       <div className="max-w-prosa">
-        <h2 className="poster text-2xl text-liburMerahTeks sm:text-4xl">{t('heroJudul', locale)}</h2>
+        <h2 className="poster text-4xl text-liburMerahTeks sm:text-5xl">{t('heroJudul', locale)}</h2>
         <p className="mt-ruang-md text-lg leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
       </div>
 

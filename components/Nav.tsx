@@ -15,14 +15,18 @@ export function Nav({ locale, halaman }: NavProps) {
   ]
 
   return (
-    <header className="mb-8 border-b-2 border-liburMerah pb-3">
+    <header className="mb-ruang-xl border-b-2 border-liburMerah pb-ruang-md">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <div className="flex items-center gap-3">
+        {/* A wordmark, not a headline. It used to be set at the same size and
+            nearly the same red as the hero heading directly beneath it, so two
+            48px red lines competed and neither won — the page had no entry
+            point. The masthead identifies; the hero states the purpose. */}
+        <div className="flex items-center gap-ruang-md">
           {/* The mark carries the same three colours the sheet uses, so it
               reads as a key before the legend is even reached. */}
-          <Mark className="h-11 w-11 shrink-0 sm:h-12 sm:w-12" />
+          <Mark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
           <div>
-            <h1 className="poster text-2xl text-liburMerah sm:text-4xl">{t('judul', locale)}</h1>
+            <h1 className="poster text-xl text-liburMerah sm:text-2xl">{t('judul', locale)}</h1>
             <p className="mt-0.5 max-w-prosa text-sm text-inkSedang">{t('subjudul', locale)}</p>
           </div>
         </div>
