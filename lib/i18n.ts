@@ -263,6 +263,11 @@ const KAMUS = {
     'On a five-day week, with Saturdays off,',
   ],
   hilangPolaAkhiran: ['hari.', 'are eaten.'],
+  hilangYangMana: ['Yang termakan:', 'The ones eaten:'],
+  hilangTidakDitandai: [
+    'Hari-hari ini tidak bisa dibedakan di kalender: aplikasi menampilkannya sebagai akhir pekan, karena memang itulah nilainya bagi Anda.',
+    'These are not distinguishable on the calendar: the app draws them as weekend, because that is what they are worth to you.',
+  ],
   hilangSamaSaja: [
     'Pola kerja tidak mengubah angka ini tahun ini.',
     'The working week does not change this figure this year.',

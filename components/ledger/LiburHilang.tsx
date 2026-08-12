@@ -1,6 +1,7 @@
 'use client'
 
-import { t, type Locale } from '@/lib/i18n'
+import { namaLibur, t, tanggalPanjang, type Locale } from '@/lib/i18n'
+import { fromIsoDate } from '@/lib/day'
 import type { RingkasanHilang } from '@/lib/rules/hilang'
 
 /**
@@ -31,6 +32,7 @@ export function LiburHilang({
     liburNasionalMenambahHari,
     cutiBersamaDiAkhirPekanHari,
     liburNasionalDiAkhirPekanPolaLainHari,
+    liburNasionalDiAkhirPekan,
     pattern,
   } = hilang
 
@@ -56,6 +58,29 @@ export function LiburHilang({
         <span className="angka-sebaris text-liburMerahTeks">{liburNasionalMenambahHari}</span>
         <span className="text-sm text-inkSedang">{t('hilangMenambah', locale)}</span>
       </p>
+
+      {/* Named, not just counted. And the reason they cannot be found on the grid
+          is said out loud: the resolver draws a holiday landing on a day already off
+          as an ordinary weekend, so a reader who went looking for these would have
+          come back empty-handed and reasonably concluded the number was wrong. */}
+      {liburNasionalDiAkhirPekan.length > 0 && (
+        <div className="mt-ruang-md">
+          <span className="label-bagian">{t('hilangYangMana', locale)}</span>
+          <ul className="mt-1 space-y-1 text-sm leading-snug text-inkSedang">
+            {liburNasionalDiAkhirPekan.map((entri) => (
+              <li key={entri.tanggal}>
+                <span className="angka text-inkPudar">
+                  {tanggalPanjang(fromIsoDate(entri.tanggal), locale)}
+                </span>{' '}
+                — {namaLibur(entri, locale)}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-ruang-sm text-sm leading-relaxed text-inkPudar">
+            {t('hilangTidakDitandai', locale)}
+          </p>
+        </div>
+      )}
 
       {cutiBersamaDiAkhirPekanHari > 0 && (
         <p className="mt-ruang-md text-sm leading-relaxed text-cutiBersamaTeks">

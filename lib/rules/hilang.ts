@@ -1,6 +1,6 @@
 import { fromIsoDate } from '@/lib/day'
 import { akhirPekanOf, isAkhirPekan, WORK_PATTERNS, type WorkPattern } from '@/lib/day/pattern'
-import type { RulePack } from './schema'
+import type { HariLibur, RulePack } from './schema'
 
 /**
  * What the calendar's colour hides: a libur nasional that falls on a day you
@@ -42,6 +42,15 @@ export type RingkasanHilang = {
    */
   readonly polaLain: WorkPattern
   readonly liburNasionalDiAkhirPekanPolaLainHari: number
+  /**
+   * Which libur nasional the weekend ate, in date order.
+   *
+   * The count alone was unverifiable, and worse than unverifiable: the resolver's
+   * precedence classifies a holiday landing on a day already off as `akhirPekan`, so
+   * those days are not distinguishable anywhere on the grid. A reader was told a
+   * number about days the interface had made invisible.
+   */
+  readonly liburNasionalDiAkhirPekan: readonly HariLibur[]
 }
 
 /** The other of the two working weeks. */
@@ -54,6 +63,7 @@ export function polaLainnya(pattern: WorkPattern): WorkPattern {
 export function hitungHilang(pack: RulePack, pattern: WorkPattern): RingkasanHilang {
   const polaLain = polaLainnya(pattern)
 
+  const liburNasionalDiAkhirPekan: HariLibur[] = []
   let liburNasionalHari = 0
   let liburNasionalDiAkhirPekanHari = 0
   let liburNasionalDiAkhirPekanPolaLainHari = 0
@@ -65,7 +75,10 @@ export function hitungHilang(pack: RulePack, pattern: WorkPattern): RingkasanHil
     switch (entri.jenis) {
       case 'liburNasional': {
         liburNasionalHari += 1
-        if (isAkhirPekan(hari, pattern)) liburNasionalDiAkhirPekanHari += 1
+        if (isAkhirPekan(hari, pattern)) {
+          liburNasionalDiAkhirPekanHari += 1
+          liburNasionalDiAkhirPekan.push(entri)
+        }
         if (isAkhirPekan(hari, polaLain)) liburNasionalDiAkhirPekanPolaLainHari += 1
         break
       }
@@ -88,6 +101,7 @@ export function hitungHilang(pack: RulePack, pattern: WorkPattern): RingkasanHil
     cutiBersamaDiAkhirPekanHari,
     polaLain,
     liburNasionalDiAkhirPekanPolaLainHari,
+    liburNasionalDiAkhirPekan,
   }
 }
 

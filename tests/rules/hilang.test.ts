@@ -124,3 +124,42 @@ describe('hitungHilang', () => {
     expect(r.liburNasionalMenambahHari).toBe(2)
   })
 })
+
+describe('which holidays the weekend ate', () => {
+  it('lists exactly as many entries as it counts, in date order', () => {
+    for (const tahun of tahunTersedia()) {
+      const pack = packTahun(tahun)
+      if (pack === undefined) continue
+
+      for (const pattern of WORK_PATTERNS) {
+        const r = hitungHilang(pack, pattern)
+        expect(r.liburNasionalDiAkhirPekan.length, `${tahun} ${pattern}`).toBe(
+          r.liburNasionalDiAkhirPekanHari,
+        )
+
+        const hari = r.liburNasionalDiAkhirPekan.map((h) => fromIsoDate(h.tanggal))
+        expect([...hari].sort((a, b) => a - b)).toEqual(hari)
+        // Every listed entry really is a libur nasional that really is on a day off.
+        for (const entri of r.liburNasionalDiAkhirPekan) {
+          expect(entri.jenis).toBe('liburNasional')
+          expect(isAkhirPekan(fromIsoDate(entri.tanggal), pattern)).toBe(true)
+        }
+      }
+    }
+  })
+
+  it('lists the Saturday holidays a six-day week keeps', () => {
+    // 2026-01-03 is a Saturday, 2026-01-04 a Sunday.
+    const pack = packUji(2026, [
+      ['2026-01-03', 'liburNasional'],
+      ['2026-01-04', 'liburNasional'],
+    ])
+    expect(hitungHilang(pack, 'lima-hari').liburNasionalDiAkhirPekan.map((h) => h.tanggal)).toEqual([
+      '2026-01-03',
+      '2026-01-04',
+    ])
+    expect(hitungHilang(pack, 'enam-hari').liburNasionalDiAkhirPekan.map((h) => h.tanggal)).toEqual([
+      '2026-01-04',
+    ])
+  })
+})
