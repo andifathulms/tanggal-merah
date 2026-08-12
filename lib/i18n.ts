@@ -266,6 +266,15 @@ const KAMUS = {
 
   aturanJudul: ['Aturan dan sitasi', 'Rules and citations'],
   aturanSumber: ['Sumber', 'Sources'],
+  // Names the citation table. One table per year, so each needs its own name for
+  // a reader navigating by table (WCAG 1.3.1).
+  aturanTabelJudul: [
+    'Libur nasional dan cuti bersama yang ditetapkan untuk',
+    'Public holidays and cuti bersama decreed for',
+  ],
+  aturanTanggal: ['Tanggal', 'Date'],
+  aturanNama: ['Nama', 'Name'],
+  aturanJenis: ['Jenis', 'Type'],
   aturanKontradiksi: ['Catatan kontradiksi', 'Contradiction ledger'],
   aturanBacaan: ['Bacaan', 'Readings'],
   aturanDipakai: ['Dipakai', 'Used'],

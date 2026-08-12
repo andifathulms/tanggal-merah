@@ -59,14 +59,37 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
               {/* tabIndex makes the scroll container reachable, so a keyboard
                   user can actually pan it — an overflow container that only a
                   mouse can move is a 2.1.1 failure of its own. */}
-              <div className="mt-ruang-md overflow-x-auto" tabIndex={0}>
+              <div
+                className="mt-ruang-md overflow-x-auto"
+                tabIndex={0}
+                role="region"
+                aria-labelledby={`tabel-${y}`}
+              >
                 <table className="w-full min-w-tabel border-collapse text-sm">
+                  {/* Each year gets its own table, so each needs its own name for
+                      a reader navigating by table. The caption is the native way
+                      to give one — the year in the <h3> above is not associated
+                      with anything. `role="region"` on the scroller is the one
+                      ARIA here: a focusable overflow container otherwise announces
+                      as nothing, so a screen reader user lands in it with no idea
+                      what they have entered. */}
+                  <caption id={`tabel-${y}`} className="sr-only">
+                    {t('aturanTabelJudul', locale)} {y}
+                  </caption>
                   <thead>
                     <tr className="border-b-2 border-garisTebal text-left">
-                      <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Tanggal' : 'Date'}</th>
-                      <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Nama' : 'Name'}</th>
-                      <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Jenis' : 'Type'}</th>
-                      <th className="label-bagian py-ruang-sm">{t('ledgerInstrumen', locale)}</th>
+                      <th scope="col" className="label-bagian py-ruang-sm pr-ruang-md">
+                        {t('aturanTanggal', locale)}
+                      </th>
+                      <th scope="col" className="label-bagian py-ruang-sm pr-ruang-md">
+                        {t('aturanNama', locale)}
+                      </th>
+                      <th scope="col" className="label-bagian py-ruang-sm pr-ruang-md">
+                        {t('aturanJenis', locale)}
+                      </th>
+                      <th scope="col" className="label-bagian py-ruang-sm">
+                        {t('ledgerInstrumen', locale)}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
