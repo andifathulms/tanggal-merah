@@ -59,7 +59,12 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
         <Legenda locale={locale} adaDipotong={trace.ledger.entitlement.dipotongCutiBersamaHari > 0} />
       </div>
 
-      <p className="teks-jelas mt-ruang-sm">{t('sheetPetunjuk', locale)}</p>
+      {/* Described to each month's grid, so a reader arriving at the grid by
+          keyboard is told what the cells do rather than having to have read past
+          it. */}
+      <p id="petunjuk-sheet" className="teks-jelas mt-ruang-sm">
+        {t('sheetPetunjuk', locale)}
+      </p>
 
       <div className="mt-ruang-lg grid grid-cols-1 gap-ruang-md sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {blok.map((b) => (
@@ -74,6 +79,7 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
             posisiRun={posisiRun}
             onToggle={onToggle}
             onPeriksa={setDiperiksa}
+            petunjukId="petunjuk-sheet"
           />
         ))}
       </div>

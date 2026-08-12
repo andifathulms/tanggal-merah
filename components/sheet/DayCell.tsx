@@ -32,6 +32,10 @@ export type DayCellProps = {
   readonly onToggle: (hari: DayNumber) => void
   /** Show this day's citation in the region below the grid. */
   readonly onPeriksa: (hari: DayNumber) => void
+  /** 0 for the one cell of the month that holds the tab stop, -1 for the rest. */
+  readonly tabIndex: number
+  /** Keeps the month's roving tab stop on whichever cell the reader focused. */
+  readonly onFokus: (hari: DayNumber) => void
 }
 
 export function DayCell({
@@ -43,6 +47,8 @@ export function DayCell({
   locale,
   onToggle,
   onPeriksa,
+  tabIndex,
+  onFokus,
 }: DayCellProps) {
   const { day } = civilOf(hari)
   const bisaDipilih = klasifikasi.libur === false
@@ -122,14 +128,33 @@ export function DayCell({
     </>
   )
 
+  /**
+   * Shared by all three cell shapes. Each also carries `role="gridcell"` in its
+   * own markup rather than through this spread, so the a11y linter can see it and
+   * verify that `aria-selected` is valid — a role hidden in a spread reads to it as
+   * a plain button, and it flagged the attribute as unsupported.
+   *
+   * `role="gridcell"` replaces the native button role, which is what makes the
+   * month a grid a screen reader will drive with arrow keys — see MonthBlock for
+   * why that trade is worth making.
+   * `data-hari` is how the grid finds a cell to focus, since a cell may be a button
+   * or a plain div depending on whether there is anything to do on that day.
+   */
+  const sifatSel = {
+    tabIndex,
+    'data-hari': hari,
+    onFocus: () => onFokus(hari),
+  } as const
+
   if (!bisaDipilih) {
-    // A decreed day is not something you can buy, but it is something you can
-    // ask about: clicking it names the instrument it came from, in the region
-    // below the grid. That also gives the 10px holiday name a real accessible
-    // name, which a plain div never had.
+    // A decreed day is not something you can buy, but it is something you can ask
+    // about: activating it names the instrument it came from, in the region below
+    // the grid.
     if (label !== null) {
       return (
         <button
+          {...sifatSel}
+          role="gridcell"
           type="button"
           onClick={() => onPeriksa(hari)}
           aria-label={
@@ -137,24 +162,38 @@ export function DayCell({
               ? `${tanggalDenganHari(hari, locale)} — ${label} — ${t('selDipotong', locale)}`
               : `${tanggalDenganHari(hari, locale)} — ${label}`
           }
-          className={`${kelas} w-full cursor-help text-left hover:bg-kertasGelap/60`}
+          className={`${kelas} w-full cursor-help text-left hover:bg-kertasGelap`}
         >
           {isi}
         </button>
       )
     }
 
-    return <div className={kelas}>{isi}</div>
+    /**
+     * A weekend with nothing decreed on it. There is no action, so it is not a
+     * button — but it is still a cell of the grid, and it is focusable so that
+     * arrow keys walk the whole month rather than skipping the weekends. A
+     * focusable non-interactive element is exactly what `role="gridcell"` is for;
+     * it adds no tab stop, because the roving `tabIndex` is -1 on all but one cell.
+     */
+    return (
+      <div {...sifatSel} role="gridcell" aria-label={tanggalDenganHari(hari, locale)} className={kelas}>
+        {isi}
+      </div>
+    )
   }
 
   // Working days are the only cells you can spend leave on, and they say so on
   // hover: a faint green wash is the affordance that the sheet is something you
-  // act on.
+  // act on. `aria-selected` rather than `aria-pressed`, because a gridcell carries
+  // selection state and `aria-pressed` is only valid on a button.
   return (
     <button
+      {...sifatSel}
+      role="gridcell"
       type="button"
       onClick={() => onToggle(hari)}
-      aria-pressed={dipilihSendiri}
+      aria-selected={dipilihSendiri}
       aria-label={tanggalDenganHari(hari, locale)}
       className={`${kelas} w-full cursor-pointer hover:bg-cutiPribadiLembut/70`}
     >
