@@ -142,14 +142,23 @@ function KartuJembatan({
     >
       <div className="min-w-0">
         {/* The trade, set at a size that reads before the date does. */}
-        <p className="flex items-baseline gap-1.5 whitespace-nowrap">
-          <span className="angka-sebaris text-cutiPribadiTeks">{jembatan.biayaHari}</span>
-          <span className="text-xs text-inkPudar">{t('saranHariCuti', locale)}</span>
+        {/* The whole line used to be `whitespace-nowrap` — about 200px of
+            unbreakable text in a card that also holds a leverage figure and a
+            button, which overflowed at 320px and under text zoom (WCAG 1.4.10,
+            1.4.4). Each figure keeps its unit on the same line; the arrow is where
+            it may now break. */}
+        <p className="flex flex-wrap items-baseline gap-x-1.5">
+          <span className="flex items-baseline gap-1.5 whitespace-nowrap">
+            <span className="angka-sebaris text-cutiPribadiTeks">{jembatan.biayaHari}</span>
+            <span className="text-xs text-inkPudar">{t('saranHariCuti', locale)}</span>
+          </span>
           <span className="text-inkSamar" aria-hidden>
             →
           </span>
-          <span className="angka-sebaris text-liburMerahTeks">{jembatan.hasilHari}</span>
-          <span className="text-xs text-inkPudar">{locale === 'id' ? 'hari libur' : 'days off'}</span>
+          <span className="flex items-baseline gap-1.5 whitespace-nowrap">
+            <span className="angka-sebaris text-liburMerahTeks">{jembatan.hasilHari}</span>
+            <span className="text-xs text-inkPudar">{locale === 'id' ? 'hari libur' : 'days off'}</span>
+          </span>
         </p>
         <p className="mt-0.5 truncate text-sm text-inkSedang">{rentang}</p>
       </div>

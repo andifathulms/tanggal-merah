@@ -163,6 +163,18 @@
   }
 
   /**
+   * Inside the wall-calendar grid the ring is drawn inward instead.
+   *
+   * The month block is `overflow-hidden` so its rounded card edge clips cleanly,
+   * which also clipped the outward ring and its offset on every cell along the
+   * block's outer edge — the focused cell simply lost its indicator on one side
+   * (WCAG 2.4.11). An inset ring cannot leave the cell, so it cannot be clipped.
+   */
+  .sel-hari:focus-visible {
+    @apply ring-inset ring-offset-0;
+  }
+
+  /**
    * The same ring, for a control whose real input is visually hidden.
    *
    * A single-select group has to be built from radios to announce correctly, and
@@ -235,10 +247,24 @@
     transition: background-color 120ms ease-out;
   }
 
+  /**
+   * Reduced motion, by default rather than by enumeration.
+   *
+   * This block used to name `.bar-run` and `.sel-hari` specifically, which meant
+   * anything added later was unprotected — and four transitions had already got in
+   * that way: two `transition-shadow` on the option cards and two
+   * `transition-colors` in the footer. Killing transitions and animations wholesale
+   * means the next component is covered without anyone having to remember this file
+   * exists. `!important` because the utilities that set these are equally specific.
+   */
   @media (prefers-reduced-motion: reduce) {
-    .bar-run,
-    .sel-hari {
-      transition: none;
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 }
