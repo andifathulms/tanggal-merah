@@ -2,6 +2,9 @@
 
 import { t, tanggalPanjang, type Locale } from '@/lib/i18n'
 import type { LeaveTrace } from '@/lib/trace'
+import { contohJembatan } from '@/lib/trace/contoh'
+import type { Jembatan } from '@/lib/optimise'
+import { ContohKerja } from './ContohKerja'
 
 /**
  * The first screen a stranger sees.
@@ -15,12 +18,20 @@ import type { LeaveTrace } from '@/lib/trace'
  * year, defines the two terms the rest of the page leans on, and shows the three
  * steps. It is the only place on the site that explains rather than computes.
  */
-export function Hero({ locale, trace }: { readonly locale: Locale; readonly trace: LeaveTrace }) {
-  // A lookup, not a computation — invariant 15 holds. `saran` arrives already
-  // ranked by leverage from lib/optimise, so its first entry is the year's best
-  // trade. Undefined when nothing fits the budget, in which case there is
-  // nothing honest to show and the strip is omitted.
-  const bukti = trace.saran[0]
+export function Hero({
+  locale,
+  trace,
+  onAmbil,
+}: {
+  readonly locale: Locale
+  readonly trace: LeaveTrace
+  readonly onAmbil: (jembatan: Jembatan) => void
+}) {
+  // The year's best trade, taken apart in lib/ — invariant 15. Undefined when there
+  // is no candidate, in which case there is nothing honest to draw.
+  const contoh = contohJembatan(trace)
+  const sudahDiambil =
+    contoh !== undefined && contoh.jembatan.hari.every((d) => trace.dipilihSendiri.includes(d))
 
   return (
     <section className="border-b border-garis pb-ruang-2xl">
@@ -29,32 +40,16 @@ export function Hero({ locale, trace }: { readonly locale: Locale; readonly trac
         <p className="mt-ruang-md text-lg leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
       </div>
 
-      {/* The arithmetic *is* the explanation. Everything above is prose, and the
-          figure that makes the point — one leave day buying four days off — used
-          to sit three screens down, past the status question. A reader who sees
-          1 → 5 understands the site before reading a word of it.
+      {/* The arithmetic *is* the explanation, and it used to stop at the
+          conclusion: "2 hari cuti → 12 hari libur" with a date beside it. A reader
+          could not see that the twelve days are a block they already had, plus the
+          two they bought, plus another block they already had — which is the entire
+          mechanism. The example derives it, with the real dates, and then offers the
+          trade so the next thing the reader does is watch the bar close.
 
-          Invariant 13: this states a trade, it does not recommend taking it. */}
-      {bukti !== undefined && (
-        <div className="mt-ruang-xl inline-block border-l-4 border-liburMerah bg-kertas px-ruang-lg py-ruang-md shadow-kartu">
-          <span className="label-bagian">{t('buktiLabel', locale)}</span>
-          <p className="mt-1 flex flex-wrap items-baseline gap-x-ruang-sm gap-y-1">
-            <span className="angka-bagian text-cutiPribadiTeks">{bukti.biayaHari}</span>
-            <span className="text-base text-inkSedang">{t('saranHariCuti', locale)}</span>
-            <span className="text-xl text-inkSamar" aria-hidden>
-              →
-            </span>
-            <span className="angka-bagian text-liburMerahTeks">{bukti.hasilHari}</span>
-            <span className="text-base text-inkSedang">{t('buktiHasil', locale)}</span>
-          </p>
-          <p className="mt-ruang-sm text-sm text-inkPudar">
-            {tanggalPanjang(bukti.mulai, locale)}
-            <span aria-hidden> · </span>
-            <span className="angka">
-              <span className="sr-only">{t('saranLeverage', locale)} </span>×{bukti.leverage.toFixed(1)}
-            </span>
-          </p>
-        </div>
+          Invariant 13: it states a trade and offers to apply it. It does not advise. */}
+      {contoh !== undefined && (
+        <ContohKerja contoh={contoh} locale={locale} sudahDiambil={sudahDiambil} onAmbil={onAmbil} />
       )}
 
       <div className="mt-ruang-xl grid gap-ruang-md sm:grid-cols-2">

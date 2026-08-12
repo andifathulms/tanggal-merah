@@ -415,6 +415,37 @@ const KAMUS = {
   buktiLabel: ['Contoh dari tahun ini', 'From this year, for example'],
   buktiHasil: ['hari libur berturut-turut', 'consecutive days off'],
 
+  // The worked example. The app had a result, a date and a ranking, but never the
+  // middle of the calculation — so a reader could not see that the long stretch is
+  // mostly days they already had, joined up.
+  contohJudul: ['Contoh, dengan tanggal sebenarnya', 'A worked example, with real dates'],
+  contohSudahLibur: ['sudah libur', 'already off'],
+  contohBeli: ['hari kerja yang Anda beli', 'a working day you buy'],
+  // The strip uses the same colours as the year sheet, so it teaches the sheet's
+  // colour language before the sheet appears.
+  contohWarna: [
+    'Merah tanggal merah, kuning cuti bersama, abu akhir pekan — semuanya sudah libur. Hijau hari kerja yang Anda beli.',
+    'Red is a public holiday, amber cuti bersama, grey a weekend — all of them already off. Green is a working day you buy.',
+  ],
+  contohSebelum: [
+    'Sebelum: %k hari libur di satu sisi, %n di sisi lain, terpisah oleh %b hari kerja. Dua blok terpisah.',
+    'Before: %k days off on one side, %n on the other, separated by %b working days. Two separate blocks.',
+  ],
+  contohSesudah: [
+    'Ambil %b hari cuti itu dan ketiganya jadi satu: %s hari berturut-turut.',
+    'Spend those %b leave days and the three become one: %s consecutive days.',
+  ],
+  contohInti: [
+    'Perhatikan yang sebenarnya terjadi: hari libur Anda hanya bertambah %b — tepat sebanyak yang Anda beli. Yang berubah adalah hari-hari itu jadi tersambung.',
+    'Notice what actually happened: your days off went up by %b — exactly what you paid for. What changed is that they became contiguous.',
+  ],
+  contohCoba: ['Coba ambil hari ini', 'Take these days'],
+  contohCobaKet: [
+    'Lihat batang merahnya menyambung di kalender setahun di bawah.',
+    'Watch the red bar join up on the year sheet below.',
+  ],
+  contohSudahDiambil: ['Sudah diambil — batalkan', 'Taken — undo'],
+
   istilahJudul: ['Dua hal yang beda', 'Two different things'],
   istilahLiburTeks: [
     'Tanggal merah. Libur untuk semua orang, dan tidak memotong cuti tahunan siapa pun.',
