@@ -1,0 +1,300 @@
+{
+  "tahun": 2026,
+  "status": "perluVerifikasi",
+  "catatan": "Transkripsi draf. Tanggal di bawah ini disusun dari kalender libur nasional dan cuti bersama 2026 yang beredar luas, TETAPI nomor SKB, tanggal penetapan, dan daftar cuti bersama belum dicocokkan dengan dokumen SKB yang diterbitkan. Sebelum status diubah menjadi 'terverifikasi', buka dokumen SKB 3 Menteri dan Keppres yang bersangkutan, cocokkan setiap baris, dan isi nomor sebenarnya. Lihat UPDATING.md. Aplikasi tetap tidak pernah menghitung tanggal keagamaan sendiri — SKB yang menetapkan, dan penetapan 1 Ramadan, Idulfitri, serta Iduladha dilakukan terpisah oleh Kementerian Agama.",
+  "sumber": [
+    {
+      "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+      "nomor": "BELUM DIVERIFIKASI — isi nomor SKB sebenarnya sebelum status diubah ke terverifikasi",
+      "ditandatangani": "2025-01-01"
+    }
+  ],
+  "hari": [
+    {
+      "tanggal": "2026-01-01",
+      "nama": "Tahun Baru 2026 Masehi",
+      "namaEn": "New Year's Day 2026",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-01-16",
+      "nama": "Isra Mikraj Nabi Muhammad SAW",
+      "namaEn": "Isra and Mi'raj of the Prophet Muhammad",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-02-17",
+      "nama": "Tahun Baru Imlek 2577 Kongzili",
+      "namaEn": "Chinese New Year 2577",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-18",
+      "nama": "Cuti Bersama Idulfitri 1447 Hijriah",
+      "namaEn": "Joint leave, Eid al-Fitr 1447 AH",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-19",
+      "nama": "Hari Suci Nyepi Tahun Baru Saka 1948",
+      "namaEn": "Nyepi, Saka New Year 1948",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-20",
+      "nama": "Idulfitri 1447 Hijriah",
+      "namaEn": "Eid al-Fitr 1447 AH (day 1)",
+      "jenis": "liburNasional",
+      "catatan": "SKB menyatakan penetapan tanggal Idulfitri dilakukan terpisah oleh Kementerian Agama. Aplikasi tidak menghitungnya.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-21",
+      "nama": "Idulfitri 1447 Hijriah",
+      "namaEn": "Eid al-Fitr 1447 AH (day 2)",
+      "jenis": "liburNasional",
+      "catatan": "SKB menyatakan penetapan tanggal Idulfitri dilakukan terpisah oleh Kementerian Agama. Aplikasi tidak menghitungnya.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-23",
+      "nama": "Cuti Bersama Idulfitri 1447 Hijriah",
+      "namaEn": "Joint leave, Eid al-Fitr 1447 AH",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-24",
+      "nama": "Cuti Bersama Idulfitri 1447 Hijriah",
+      "namaEn": "Joint leave, Eid al-Fitr 1447 AH",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-03-25",
+      "nama": "Cuti Bersama Idulfitri 1447 Hijriah",
+      "namaEn": "Joint leave, Eid al-Fitr 1447 AH",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-04-03",
+      "nama": "Wafat Yesus Kristus",
+      "namaEn": "Good Friday",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-04-05",
+      "nama": "Kebangkitan Yesus Kristus (Paskah)",
+      "namaEn": "Easter Sunday",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-01",
+      "nama": "Hari Buruh Internasional",
+      "namaEn": "International Labour Day",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-14",
+      "nama": "Kenaikan Yesus Kristus",
+      "namaEn": "Ascension of Jesus Christ",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-15",
+      "nama": "Cuti Bersama Kenaikan Yesus Kristus",
+      "namaEn": "Joint leave, Ascension of Jesus Christ",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-27",
+      "nama": "Iduladha 1447 Hijriah",
+      "namaEn": "Eid al-Adha 1447 AH",
+      "jenis": "liburNasional",
+      "catatan": "SKB menyatakan penetapan tanggal Iduladha dilakukan terpisah oleh Kementerian Agama. Aplikasi tidak menghitungnya.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-28",
+      "nama": "Cuti Bersama Iduladha 1447 Hijriah",
+      "namaEn": "Joint leave, Eid al-Adha 1447 AH",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-29",
+      "nama": "Cuti Bersama Iduladha 1447 Hijriah",
+      "namaEn": "Joint leave, Eid al-Adha 1447 AH",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-05-31",
+      "nama": "Hari Raya Waisak 2570 BE",
+      "namaEn": "Vesak Day 2570 BE",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-06-01",
+      "nama": "Hari Lahir Pancasila",
+      "namaEn": "Pancasila Day",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-06-16",
+      "nama": "1 Muharam Tahun Baru Islam 1448 Hijriah",
+      "namaEn": "Islamic New Year 1448 AH",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-08-17",
+      "nama": "Hari Kemerdekaan Republik Indonesia",
+      "namaEn": "Indonesian Independence Day",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-08-25",
+      "nama": "Maulid Nabi Muhammad SAW",
+      "namaEn": "Birthday of the Prophet Muhammad",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-12-24",
+      "nama": "Cuti Bersama Kelahiran Yesus Kristus",
+      "namaEn": "Joint leave, Christmas",
+      "jenis": "cutiBersama",
+      "catatan": "Draf — daftar cuti bersama 2026 belum dicocokkan dengan SKB yang diterbitkan.",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    },
+    {
+      "tanggal": "2026-12-25",
+      "nama": "Kelahiran Yesus Kristus (Natal)",
+      "namaEn": "Christmas Day",
+      "jenis": "liburNasional",
+      "sitasi": {
+        "instrumen": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026",
+        "nomor": "BELUM DIVERIFIKASI",
+        "ditandatangani": "2025-01-01"
+      }
+    }
+  ]
+}

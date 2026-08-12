@@ -50,8 +50,25 @@ export const hariLiburSchema = z.object({
 })
 export type HariLibur = z.infer<typeof hariLiburSchema>
 
+/**
+ * Provenance of the transcription itself.
+ *
+ * `terverifikasi` — every date and every decree number in this pack has been
+ * checked against the published instrument by a human.
+ * `perluVerifikasi` — the pack is a draft transcription. The app still refuses
+ * to compute a religious date, but it must say plainly that these dates have
+ * not been checked against the document. A draft pack never passes silently:
+ * the validator warns, and the UI carries a banner on every page that uses it.
+ *
+ * This exists because the alternative is a fabricated decree number, which is
+ * indistinguishable from a real one to a reader and worse than no data.
+ */
+export const statusPackSchema = z.enum(['terverifikasi', 'perluVerifikasi'])
+export type StatusPack = z.infer<typeof statusPackSchema>
+
 export const rulePackSchema = z.object({
   tahun: z.number().int().min(1945).max(2100),
+  status: statusPackSchema,
   /** The instruments this pack as a whole rests on. */
   sumber: z.array(sitasiSchema).min(1),
   hari: z.array(hariLiburSchema).min(1),

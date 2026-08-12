@@ -1,0 +1,31 @@
+{
+  "id": "cuti-bersama-entitlement",
+  "judul": "Apakah cuti bersama memotong cuti tahunan — dan untuk siapa?",
+  "pertanyaan": "SKB yang menetapkan cuti bersama menyatakan dalam diktumnya bahwa cuti bersama mengurangi hak cuti tahunan pekerja, dan bahwa bagi lembaga swasta pelaksanaannya diatur oleh masing-masing manajemen. Sementara itu Keppres tentang cuti PNS mengatur bahwa bagi ASN cuti bersama tidak mengurangi hak cuti tahunan, dan ASN yang karena jabatannya tidak dapat menggunakan cuti bersama mendapat tambahan hak cuti tahunan sebanyak hari yang tidak diberikan. Sekurang-kurangnya satu pemberitaan atas SKB 2026 membalik penetapan ini: menyebut cuti bersama memotong cuti tahunan ASN, sedangkan untuk swasta diserahkan pada manajemen. Mana yang dipakai?",
+  "bacaan": [
+    {
+      "id": "instrumen-asn-tidak-dipotong",
+      "klaim": "Bagi ASN, cuti bersama tidak mengurangi hak cuti tahunan; ASN yang karena jabatannya tidak dapat menggunakan cuti bersama memperoleh tambahan hak cuti tahunan sebanyak jumlah hari yang tidak diberikan itu.",
+      "sumber": "Keppres tentang pemberian cuti bersama bagi Pegawai Negeri Sipil / Aparatur Sipil Negara (lihat UPDATING.md — nomor Keppres perlu dicocokkan dengan dokumen)",
+      "jenisSumber": "instrumen",
+      "tanggal": "2025-01-01"
+    },
+    {
+      "id": "instrumen-swasta-fakultatif",
+      "klaim": "Cuti bersama mengurangi hak cuti tahunan pekerja, tetapi bagi lembaga swasta pelaksanaannya diatur oleh pimpinan masing-masing. Artinya bagi pekerja swasta cuti bersama bersifat fakultatif: perusahaan yang memutuskan ikut atau tidak, dan kalau tidak ikut, pekerja masuk seperti biasa tanpa cuti tahunannya dipotong.",
+      "sumber": "SKB 3 Menteri tentang Hari Libur Nasional dan Cuti Bersama, diktum keempat dan keenam (lihat UPDATING.md — nomor SKB perlu dicocokkan dengan dokumen)",
+      "jenisSumber": "instrumen",
+      "tanggal": "2025-01-01"
+    },
+    {
+      "id": "pemberitaan-terbalik",
+      "klaim": "Cuti bersama memotong hak cuti tahunan ASN, sedangkan bagi lembaga swasta kebijakannya diserahkan kepada masing-masing manajemen.",
+      "sumber": "Pemberitaan atas SKB Hari Libur Nasional dan Cuti Bersama 2026 (setidaknya satu media nasional)",
+      "jenisSumber": "pemberitaan",
+      "tanggal": "2025-01-01"
+    }
+  ],
+  "dipakai": "instrumen-swasta-fakultatif",
+  "alasan": "Aplikasi ini mengikuti instrumen, bukan pemberitaan. Dua bacaan bersumber instrumen tidak saling bertentangan — keduanya dipakai bersama: pemotongan cuti tahunan berlaku pada pekerja swasta yang perusahaannya ikut cuti bersama dan memotongnya, sedangkan bagi ASN Keppres secara khusus menyatakan cuti bersama tidak mengurangi hak cuti tahunan. Bacaan pemberitaan membalik penetapan itu dan tidak dipakai, tetapi tetap dicatat di sini karena justru itulah fakta yang paling sering salah diterima pembaca. Aplikasi tidak pernah mengasumsikan kebijakan perusahaan; kebijakan itu ditanyakan kepada pengguna.",
+  "berlakuTahun": [2026]
+}
