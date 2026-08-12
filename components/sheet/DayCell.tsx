@@ -2,7 +2,7 @@
 
 import { civilOf, type DayNumber } from '@/lib/day'
 import type { KlasifikasiHari } from '@/lib/rules/resolve'
-import { namaLibur, type Locale } from '@/lib/i18n'
+import { namaLibur, tanggalPanjang, type Locale } from '@/lib/i18n'
 
 /**
  * One cell of the wall calendar.
@@ -30,6 +30,8 @@ export type DayCellProps = {
   readonly posisiRun: PosisiRun
   readonly locale: Locale
   readonly onToggle: (hari: DayNumber) => void
+  /** Show this day's citation in the region below the grid. */
+  readonly onPeriksa: (hari: DayNumber) => void
 }
 
 export function DayCell({
@@ -40,6 +42,7 @@ export function DayCell({
   posisiRun,
   locale,
   onToggle,
+  onPeriksa,
 }: DayCellProps) {
   const { day } = civilOf(hari)
   const bisaDipilih = klasifikasi.libur === false
@@ -120,21 +123,36 @@ export function DayCell({
   )
 
   if (!bisaDipilih) {
-    return (
-      <div className={kelas} title={label ?? undefined}>
-        {isi}
-      </div>
-    )
+    // A decreed day is not something you can buy, but it is something you can
+    // ask about: clicking it names the instrument it came from, in the region
+    // below the grid. That also gives the 10px holiday name a real accessible
+    // name, which a plain div never had.
+    if (label !== null) {
+      return (
+        <button
+          type="button"
+          onClick={() => onPeriksa(hari)}
+          aria-label={`${tanggalPanjang(hari, locale)} — ${label}`}
+          title={label}
+          className={`${kelas} w-full cursor-help text-left hover:bg-kertasGelap/60`}
+        >
+          {isi}
+        </button>
+      )
+    }
+
+    return <div className={kelas}>{isi}</div>
   }
 
-  // Working days are the only interactive cells, and they say so on hover: a
-  // faint green wash is the affordance that the sheet is something you act on.
+  // Working days are the only cells you can spend leave on, and they say so on
+  // hover: a faint green wash is the affordance that the sheet is something you
+  // act on.
   return (
     <button
       type="button"
       onClick={() => onToggle(hari)}
       aria-pressed={dipilihSendiri}
-      aria-label={`${day}`}
+      aria-label={tanggalPanjang(hari, locale)}
       className={`${kelas} w-full cursor-pointer hover:bg-cutiPribadiLembut/70`}
     >
       {isi}

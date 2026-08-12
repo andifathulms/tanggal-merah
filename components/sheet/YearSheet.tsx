@@ -1,12 +1,13 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { DayNumber } from '@/lib/day'
 import type { LeaveTrace } from '@/lib/trace'
 import { t, type Locale } from '@/lib/i18n'
 import { hariRentetanPanjang, posisiRunHari, tataLetakTahun } from '@/lib/sheet/layout'
 import type { PosisiRun } from './DayCell'
 import { MonthBlock } from './MonthBlock'
+import { Kutipan } from './Kutipan'
 
 export type YearSheetProps = {
   readonly trace: LeaveTrace
@@ -27,6 +28,10 @@ export type YearSheetProps = {
  */
 export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProps) {
   const blok = useMemo(() => tataLetakTahun(trace.tahun), [trace.tahun])
+
+  // Which decreed day the reader last asked about. Deliberately not in the URL
+  // hash: it is a question, not part of the plan being shared.
+  const [diperiksa, setDiperiksa] = useState<DayNumber | null>(null)
 
   const klasifikasi = useMemo(
     () => new Map(trace.terselesaikan.hari.map((h) => [h.hari, h])),
@@ -68,9 +73,12 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
             disarankan={disarankan}
             posisiRun={posisiRun}
             onToggle={onToggle}
+            onPeriksa={setDiperiksa}
           />
         ))}
       </div>
+
+      <Kutipan klasifikasi={diperiksa === null ? null : klasifikasi.get(diperiksa) ?? null} locale={locale} />
     </section>
   )
 }

@@ -15,6 +15,7 @@ export type MonthBlockProps = {
   readonly disarankan: ReadonlySet<DayNumber>
   readonly posisiRun: ReadonlyMap<DayNumber, PosisiRun>
   readonly onToggle: (hari: DayNumber) => void
+  readonly onPeriksa: (hari: DayNumber) => void
 }
 
 export function MonthBlock({
@@ -26,6 +27,7 @@ export function MonthBlock({
   disarankan,
   posisiRun,
   onToggle,
+  onPeriksa,
 }: MonthBlockProps) {
   return (
     <section className="kartu overflow-hidden" aria-label={`${namaBulan(blok.month, locale)} ${tahun}`}>
@@ -61,6 +63,7 @@ export function MonthBlock({
               posisiRun={posisiRun.get(sel.hari) ?? 'tidak'}
               locale={locale}
               onToggle={onToggle}
+              onPeriksa={onPeriksa}
             />
           )
         })}

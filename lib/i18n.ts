@@ -117,6 +117,17 @@ const KAMUS = {
   legendaRun: ['Rentetan 3 hari atau lebih', 'Stretch of 3+ days'],
   legendaDipotong: ['Dipotong dari cuti Anda (−1)', 'Charged to your leave (−1)'],
 
+  // A6 — the citation inspector below the grid.
+  kutipanPetunjuk: [
+    'Klik tanggal merah atau hari cuti bersama untuk melihat SKB yang menetapkannya.',
+    'Click a red date or a cuti bersama day to see the decree that set it.',
+  ],
+  kutipanDitandatangani: ['ditandatangani', 'signed'],
+  kutipanBelumDiverifikasi: [
+    'nomor SKB belum dicocokkan dengan dokumen',
+    'decree number not yet checked against the document',
+  ],
+
   // `harpitnas` — hari kejepit nasional. The word people already use for the
   // thing this app computes better than anything else, and the one term from
   // the PRD's copy direction the UI never actually said out loud.
