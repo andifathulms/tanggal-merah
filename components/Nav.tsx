@@ -14,11 +14,11 @@ export function Nav({ locale, halaman }: NavProps) {
   ]
 
   return (
-    <header className="mb-6 border-b-2 border-liburMerah pb-3">
+    <header className="mb-8 border-b-2 border-liburMerah pb-3">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <div>
-          <h1 className="poster text-4xl leading-none text-liburMerah">{t('judul', locale)}</h1>
-          <p className="mt-1 max-w-xl text-sm text-ink/70">{t('subjudul', locale)}</p>
+          <h1 className="poster text-poster-lg text-liburMerah">{t('judul', locale)}</h1>
+          <p className="mt-1 max-w-prosa text-sm text-inkSedang">{t('subjudul', locale)}</p>
         </div>
 
         <nav className="flex items-baseline gap-4 text-sm">
@@ -29,20 +29,20 @@ export function Nav({ locale, halaman }: NavProps) {
               className={
                 halaman === kunci
                   ? 'border-b-2 border-liburMerah font-semibold text-ink'
-                  : 'text-ink/60 hover:text-ink'
+                  : 'text-inkPudar hover:text-ink'
               }
             >
               {label}
             </Link>
           ))}
-          <span className="text-ink/25" aria-hidden>
+          <span className="text-inkSamar" aria-hidden>
             |
           </span>
           {LOCALES.map((l) => (
             <Link
               key={l}
               href={`/${l}/${halaman}/`}
-              className={l === locale ? 'font-semibold uppercase text-ink' : 'uppercase text-ink/50 hover:text-ink'}
+              className={l === locale ? 'font-semibold uppercase text-ink' : 'uppercase text-inkPudar hover:text-ink'}
             >
               {l}
             </Link>

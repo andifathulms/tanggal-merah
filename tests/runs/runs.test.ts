@@ -5,6 +5,7 @@ import { packTahun } from '@/lib/rules/loader'
 import { resolveTahun } from '@/lib/rules/resolve'
 import type { WorkPattern } from '@/lib/day/pattern'
 import type { Status } from '@/lib/status'
+import { hariRentetanPanjang } from '@/lib/sheet/layout'
 
 /** Naive day-by-day scan. Deliberately dumb; it is the thing we trust. */
 function runsNaif(liburHari: readonly DayNumber[], dari: DayNumber, sampai: DayNumber): Run[] {
@@ -90,5 +91,33 @@ describe('run computation', () => {
     expect(terpanjang).toBeDefined()
     expect(terpanjang!.mulai).toBeLessThanOrEqual(fromIsoDate('2026-03-20'))
     expect(terpanjang!.selesai).toBeGreaterThanOrEqual(fromIsoDate('2026-03-21'))
+  })
+})
+
+describe('run bars on the sheet', () => {
+  it('ignores an ordinary two-day weekend', () => {
+    // Sat–Sun alone is a run, but marking it would light up every weekend
+    // column and leave the bar meaning nothing.
+    expect(hariRentetanPanjang([10, 11]).size).toBe(0)
+  })
+
+  it('marks every day of a three-day stretch', () => {
+    expect([...hariRentetanPanjang([10, 11, 12])].sort((a, b) => a - b)).toEqual([10, 11, 12])
+  })
+
+  it('marks the long stretch and leaves the short one alone', () => {
+    expect([...hariRentetanPanjang([1, 2, 10, 11, 12, 13])].sort((a, b) => a - b)).toEqual([10, 11, 12, 13])
+  })
+
+  it('agrees with the runs it is derived from', () => {
+    const pack = packTahun(2026)
+    if (pack === undefined) throw new Error('pack 2026 tidak termuat')
+    for (const pattern of PATTERNS) {
+      const tahun = resolveTahun(pack, pattern, STATUSES[2]!)
+      const ditandai = hariRentetanPanjang(tahun.liburHari)
+      const panjang = hitungRun(tahun.liburHari).filter((r) => r.panjangHari >= 3)
+      expect(ditandai.size).toBe(panjang.reduce((n, r) => n + r.panjangHari, 0))
+      for (const r of panjang) for (let d = r.mulai; d <= r.selesai; d += 1) expect(ditandai.has(d)).toBe(true)
+    }
   })
 })

@@ -82,6 +82,12 @@ const KAMUS = {
   polaJudul: ['Pola kerja', 'Working week'],
   polaLima: ['Lima hari (Sabtu libur)', 'Five days (Saturday off)'],
   polaEnam: ['Enam hari (Sabtu masuk)', 'Six days (Saturday worked)'],
+  polaLimaRingkas: ['5 hari', '5 days'],
+  polaEnamRingkas: ['6 hari', '6 days'],
+  polaKeterangan: [
+    'Banyak orang Indonesia masuk hari Sabtu, dan itu mengubah semua hitungan libur panjang.',
+    'Many Indonesians work Saturdays, and that changes every long-weekend calculation.',
+  ],
 
   jatahJudul: ['Jatah cuti tahunan', 'Annual leave entitlement'],
   jatahSatuan: ['hari', 'days'],
@@ -105,7 +111,7 @@ const KAMUS = {
   legendaCutiBersama: ['Cuti bersama', 'Joint leave'],
   legendaCutiPribadi: ['Cuti Anda', 'Your leave'],
   legendaAkhirPekan: ['Akhir pekan', 'Weekend'],
-  legendaRun: ['Rentetan libur', 'Consecutive stretch'],
+  legendaRun: ['Rentetan 3 hari atau lebih', 'Stretch of 3+ days'],
 
   saranJudul: ['Jembatan dengan leverage tertinggi', 'Highest-leverage bridges'],
   saranKosong: [
@@ -122,6 +128,14 @@ const KAMUS = {
   optimalJudul: ['Pilihan optimal untuk sisa cuti Anda', 'The optimum for your remaining leave'],
   optimalTerapkan: ['Terapkan semuanya', 'Apply all'],
   optimalKosong: ['Tidak ada yang bisa dibeli dengan sisa cuti Anda.', 'Nothing your remaining leave can buy.'],
+  optimalNilai: [
+    'total hari libur di rentetan yang tersambung',
+    'total days off across the stretches it joins',
+  ],
+  optimalCatatanRentetan: [
+    'Angka ini menjumlahkan beberapa rentetan, bukan satu rentetan panjang.',
+    'This figure adds up several stretches; it is not one long run.',
+  ],
   optimalEksak: [
     'Dihitung eksak, bukan perkiraan — hasilnya dicocokkan dengan pencarian menyeluruh.',
     'Computed exactly, not approximated — checked against an exhaustive search.',
@@ -157,6 +171,85 @@ const KAMUS = {
   tidakMenghitung: [
     'Aplikasi ini tidak pernah menghitung tanggal hari raya. Tanggal libur ditetapkan pemerintah lewat SKB, dan penetapan 1 Ramadan, Idulfitri, serta Iduladha dilakukan terpisah oleh Kementerian Agama.',
     'This app never computes a religious date. Holidays are decreed by SKB, and 1 Ramadan, Idulfitri, and Iduladha are determined separately by the Ministry of Religious Affairs.',
+  ],
+
+  // — Penjelasan untuk pembaca yang baru pertama kali membuka —
+  heroJudul: [
+    'Cuti Anda tidak sebanyak yang Anda kira.',
+    'You have less leave than you think.',
+  ],
+  heroTeks: [
+    'Setiap tahun pemerintah menetapkan libur nasional dan cuti bersama lewat SKB. Yang sering tidak disadari: di banyak perusahaan swasta, hari cuti bersama dipotong dari jatah cuti tahunan Anda. Halaman ini menghitung berapa sisa cuti Anda sebenarnya, lalu menunjukkan di tanggal mana cuti itu paling berguna.',
+    'Each year the government sets public holidays and cuti bersama (joint leave) by decree. What most people miss: at many private companies, those cuti bersama days are deducted from your annual leave. This page works out what you actually have left, then shows you which dates buy the most time off.',
+  ],
+  heroLangkah1: ['Pilih status Anda', 'Pick your status'],
+  heroLangkah1Teks: [
+    'ASN dan swasta punya aturan berbeda, dan itulah yang paling mengubah hitungannya.',
+    'Civil servants and private employees fall under different rules, and that changes the arithmetic most.',
+  ],
+  heroLangkah2: ['Lihat sisa cuti Anda', 'See what is left'],
+  heroLangkah2Teks: [
+    'Kami hitung berapa hari yang benar-benar tersisa setelah cuti bersama.',
+    'We work out how many days genuinely remain after cuti bersama.',
+  ],
+  heroLangkah3: ['Ambil yang paling untung', 'Spend it where it counts'],
+  heroLangkah3Teks: [
+    'Satu hari cuti yang tepat bisa jadi empat hari libur berturut-turut.',
+    'One well-placed leave day can turn into four consecutive days off.',
+  ],
+
+  istilahJudul: ['Dua hal yang beda', 'Two different things'],
+  istilahLiburTeks: [
+    'Tanggal merah. Libur untuk semua orang, dan tidak memotong cuti tahunan siapa pun.',
+    'A red date. Everyone is off, and it costs nobody any annual leave.',
+  ],
+  istilahCutiBersamaTeks: [
+    'Libur yang ditetapkan bersama hari raya — tetapi di banyak perusahaan swasta, hari ini dipotong dari jatah cuti tahunan Anda. Inilah yang bikin kaget di bulan November.',
+    'Days off set alongside the major holidays — but at many private companies they come out of your annual leave. This is what catches people out in November.',
+  ],
+
+  // — Pertanyaan status —
+  langkahSatu: ['Langkah 1', 'Step 1'],
+  langkahDua: ['Langkah 2', 'Step 2'],
+  langkahTiga: ['Langkah 3', 'Step 3'],
+  statusPertanyaan: ['Anda bekerja sebagai apa?', 'How are you employed?'],
+  statusSisaJadi: ['sisa cuti Anda', 'leave left'],
+  statusTidakDipotong: ['Tidak dipotong cuti bersama', 'Cuti bersama not deducted'],
+  statusDipotongOleh: ['Dipotong cuti bersama', 'Deducted by cuti bersama'],
+  statusAsnRingkas: ['ASN / PNS', 'Civil servant'],
+  statusSwastaTanpaRingkas: ['Swasta, kantor tetap masuk', 'Private, office stays open'],
+  statusSwastaTanpaPotongRingkas: ['Swasta, libur tanpa potong cuti', 'Private, closed but no deduction'],
+  statusSwastaDipotongRingkas: ['Swasta, libur dan cuti dipotong', 'Private, closed and deducted'],
+  statusTidakYakin: [
+    'Tidak yakin? Tanyakan ke HR apakah cuti bersama memotong jatah cuti tahunan Anda. Aplikasi ini tidak bisa menebaknya.',
+    'Not sure? Ask HR whether cuti bersama comes out of your annual leave. This app cannot guess it.',
+  ],
+
+  // — Hasil utama —
+  hasilJudul: ['Hasilnya', 'The result'],
+  hasilKalimat: [
+    'Dengan sisa cuti Anda, rentetan libur terpanjang tahun ini bisa jadi',
+    'With the leave you have left, your longest stretch this year can reach',
+  ],
+  hasilTanpaCuti: [
+    'Tanpa mengambil cuti sama sekali, rentetan terpanjang Anda',
+    'Taking no leave at all, your longest stretch is',
+  ],
+  hasilBelumPilih: [
+    'Pilih hari di kalender, atau ambil salah satu usulan di bawah.',
+    'Pick a day on the calendar, or take one of the suggestions below.',
+  ],
+  hasilSudahPilih: ['hari cuti terpakai', 'leave days spent'],
+
+  sheetPetunjuk: [
+    'Klik hari kerja mana pun untuk menandainya sebagai cuti. Batang merah menunjukkan hari libur yang menyambung.',
+    'Click any working day to mark it as leave. The red bar shows days off joining up.',
+  ],
+  sheetLihatSemua: ['Lihat semua usulan', 'See all suggestions'],
+  saranTeratas: ['Usulan teratas', 'Top suggestions'],
+  saranPenjelasan: [
+    'Diurutkan menurut leverage: hari libur yang didapat per hari cuti yang dipakai. Bukan saran untuk mengambil cuti — hanya hitungannya.',
+    'Ranked by leverage: days off gained per leave day spent. Not a recommendation to take leave — just the arithmetic.',
   ],
   tahunLain: ['Tahun lain', 'Other years'],
 } satisfies Kamus

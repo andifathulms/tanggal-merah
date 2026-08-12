@@ -1,4 +1,5 @@
 import { dayNumberOf, daysInMonth, weekdayOf, type DayNumber, type Month } from '@/lib/day'
+import { hitungRun } from '@/lib/runs'
 import type { PosisiRun } from '@/components/sheet/DayCell'
 
 /**
@@ -40,13 +41,35 @@ export function tataLetakTahun(tahun: number): readonly BlokBulan[] {
 }
 
 /**
+ * Days belonging to a run long enough to be worth drawing a bar under.
+ *
+ * An ordinary two-day weekend is a run, but marking it makes the bar
+ * meaningless: every Saturday and Sunday column lights up and the signal is
+ * gone. The bar exists to show a stretch you would not otherwise have had, so
+ * it starts at three days — one day longer than the weekend everybody already
+ * gets.
+ */
+export function hariRentetanPanjang(
+  libur: Iterable<DayNumber>,
+  minHari = 3,
+): ReadonlySet<DayNumber> {
+  const out = new Set<DayNumber>()
+  for (const run of hitungRun(libur)) {
+    if (run.panjangHari < minHari) continue
+    for (let d = run.mulai; d <= run.selesai; d += 1) out.add(d)
+  }
+  return out
+}
+
+/**
  * Where this day sits in its run bar.
  *
- * A lone day off is not a stretch, so it draws no bar — the bar exists to show
- * that days join up. Bars also cap at the ends of a week row, because a grid
- * row break is a visual break: the bar cannot be drawn across it.
+ * `dalamRentetan` is the set from `hariRentetanPanjang`, not every day off.
+ * Bars cap at the ends of a week row, because a grid row break is a visual
+ * break: the bar cannot be drawn across it.
  */
-export function posisiRunHari(hari: DayNumber, libur: ReadonlySet<DayNumber>): PosisiRun {
+export function posisiRunHari(hari: DayNumber, dalamRentetan: ReadonlySet<DayNumber>): PosisiRun {
+  const libur = dalamRentetan
   if (!libur.has(hari)) return 'tidak'
 
   const sebelum = libur.has(hari - 1)

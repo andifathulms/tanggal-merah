@@ -28,17 +28,17 @@ export function MonthBlock({
   onToggle,
 }: MonthBlockProps) {
   return (
-    <section className="border border-ink/15 bg-newsprint" aria-label={`${namaBulan(blok.month, locale)} ${tahun}`}>
-      <h3 className="poster border-b border-ink/15 px-2 py-1 text-lg leading-none text-ink">
+    <section className="kartu overflow-hidden" aria-label={`${namaBulan(blok.month, locale)} ${tahun}`}>
+      <h3 className="poster border-b border-garis bg-kertasGelap/50 px-2.5 py-1.5 text-poster-sm text-ink">
         {namaBulan(blok.month, locale)}
       </h3>
 
-      <div className="grid grid-cols-7 border-b border-ink/10">
+      <div className="grid grid-cols-7 border-b border-garis">
         {[0, 1, 2, 3, 4, 5, 6].map((w) => (
           <div
             key={w}
-            className={`px-1 py-1 text-center text-[9px] uppercase tracking-wide ${
-              w === 0 ? 'text-liburMerah' : 'text-ink/50'
+            className={`px-1 py-1.5 text-center text-[9px] font-semibold uppercase tracking-[0.06em] ${
+              w === 0 ? 'text-liburMerahTeks' : 'text-inkPudar'
             }`}
           >
             {namaHariPendek(w, locale)}
@@ -48,9 +48,9 @@ export function MonthBlock({
 
       <div className="grid grid-cols-7">
         {blok.minggu.flat().map((sel, i) => {
-          if (sel.hari === null) return <div key={`kosong-${i}`} className="min-h-[46px]" />
+          if (sel.hari === null) return <div key={`kosong-${i}`} className="min-h-[58px]" />
           const k = klasifikasi.get(sel.hari)
-          if (k === undefined) return <div key={`kosong-${i}`} className="min-h-[46px]" />
+          if (k === undefined) return <div key={`kosong-${i}`} className="min-h-[58px]" />
           return (
             <DayCell
               key={sel.hari}

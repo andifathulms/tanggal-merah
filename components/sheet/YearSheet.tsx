@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import type { DayNumber } from '@/lib/day'
 import type { LeaveTrace } from '@/lib/trace'
 import { t, type Locale } from '@/lib/i18n'
-import { posisiRunHari, tataLetakTahun } from '@/lib/sheet/layout'
+import { hariRentetanPanjang, posisiRunHari, tataLetakTahun } from '@/lib/sheet/layout'
 import type { PosisiRun } from './DayCell'
 import { MonthBlock } from './MonthBlock'
 
@@ -20,6 +20,10 @@ export type YearSheetProps = {
  * (PRD §5.1). Runs of consecutive days off draw as a continuous bar across the
  * grid — a bridge day is not one red square, it is the thing that joins two
  * blocks into one stretch.
+ *
+ * The instruction above the grid matters more than it looks: without it the
+ * sheet reads as a picture, and the reader never discovers that the cells are
+ * the control.
  */
 export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProps) {
   const blok = useMemo(() => tataLetakTahun(trace.tahun), [trace.tahun])
@@ -32,16 +36,27 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
   const dipilihSendiri = useMemo(() => new Set(trace.dipilihSendiri), [trace.dipilihSendiri])
 
   const posisiRun = useMemo(() => {
-    const libur = new Set<DayNumber>([...trace.terselesaikan.liburHari, ...trace.dipilihSendiri])
+    const rentetan = hariRentetanPanjang([...trace.terselesaikan.liburHari, ...trace.dipilihSendiri])
     const peta = new Map<DayNumber, PosisiRun>()
-    for (const hari of libur) peta.set(hari, posisiRunHari(hari, libur))
+    for (const hari of rentetan) peta.set(hari, posisiRunHari(hari, rentetan))
     return peta
   }, [trace.terselesaikan, trace.dipilihSendiri])
 
   return (
-    <div>
-      <Legenda locale={locale} />
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <section aria-labelledby="judul-sheet">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <div>
+          <span className="label-bagian">{t('langkahTiga', locale)}</span>
+          <h2 id="judul-sheet" className="poster mt-0.5 text-poster-md">
+            {t('sheetJudul', locale)} <span className="angka text-liburMerahTeks">{trace.tahun}</span>
+          </h2>
+        </div>
+        <Legenda locale={locale} />
+      </div>
+
+      <p className="mt-2 max-w-prosa text-[13px] leading-relaxed text-inkPudar">{t('sheetPetunjuk', locale)}</p>
+
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {blok.map((b) => (
           <MonthBlock
             key={b.month}
@@ -56,7 +71,7 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
           />
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -65,15 +80,15 @@ function Legenda({ locale }: { readonly locale: Locale }) {
     ['bg-liburMerah', t('legendaLibur', locale)],
     ['bg-cutiBersama', t('legendaCutiBersama', locale)],
     ['bg-cutiPribadi', t('legendaCutiPribadi', locale)],
-    ['bg-akhirPekan border border-ink/20', t('legendaAkhirPekan', locale)],
-    ['bg-runBar border border-liburMerah/30', t('legendaRun', locale)],
+    ['bg-akhirPekan border border-garisTebal', t('legendaAkhirPekan', locale)],
+    ['bg-runBarKuat border border-liburMerah/30', t('legendaRun', locale)],
   ]
 
   return (
-    <ul className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink/70">
+    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-inkSedang">
       {butir.map(([warna, label]) => (
         <li key={label} className="flex items-center gap-1.5">
-          <span className={`inline-block h-2.5 w-2.5 ${warna}`} aria-hidden />
+          <span className={`inline-block h-2.5 w-2.5 shrink-0 ${warna}`} aria-hidden />
           {label}
         </li>
       ))}

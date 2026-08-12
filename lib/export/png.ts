@@ -1,6 +1,6 @@
 import { civilOf, weekdayOf, type DayNumber } from '@/lib/day'
 import { namaBulan, namaHariPendek, type Locale } from '@/lib/i18n'
-import { tataLetakTahun } from '@/lib/sheet/layout'
+import { hariRentetanPanjang, tataLetakTahun } from '@/lib/sheet/layout'
 import type { LeaveTrace } from '@/lib/trace'
 
 /**
@@ -14,13 +14,19 @@ import type { LeaveTrace } from '@/lib/trace'
  * colour is all that survives.
  */
 
+/**
+ * The text-safe variants, not the fills. At thumbnail size a numeral is small
+ * text, and the amber fill measures 2.48:1 on newsprint — unreadable exactly
+ * where this artefact is meant to be read.
+ */
 const WARNA = {
   newsprint: '#EFEDE6',
   ink: '#1C1B18',
-  inkPudar: '#6B6862',
+  inkPudar: '#5F5C54',
   liburMerah: '#C62828',
-  cutiBersama: '#D98324',
-  cutiPribadi: '#3D7A5A',
+  liburMerahTeks: '#B71C1C',
+  cutiBersamaTeks: '#8A4E0C',
+  cutiPribadiTeks: '#2F6046',
   akhirPekan: '#E3E0D6',
   runBar: 'rgba(198, 40, 40, 0.16)',
 } as const
@@ -54,7 +60,9 @@ export function gambarSheet(
   if (ctx === null) throw new Error('Canvas 2D tidak tersedia')
   ctx.scale(skala, skala)
 
-  const libur = new Set<DayNumber>([...trace.terselesaikan.liburHari, ...trace.dipilihSendiri])
+  // Same three-day threshold as the sheet, so the shared image and the site
+  // never disagree about what counts as a stretch.
+  const libur = hariRentetanPanjang([...trace.terselesaikan.liburHari, ...trace.dipilihSendiri])
   const dipilih = new Set(trace.dipilihSendiri)
   const klasifikasi = new Map(trace.terselesaikan.hari.map((h) => [h.hari, h]))
 
@@ -151,11 +159,11 @@ function gambarSel(
   }
 
   ctx.fillStyle = dipilih.has(hari)
-    ? WARNA.cutiPribadi
+    ? WARNA.cutiPribadiTeks
     : k.type === 'liburNasional'
-      ? WARNA.liburMerah
+      ? WARNA.liburMerahTeks
       : k.type === 'cutiBersama' && k.libur
-        ? WARNA.cutiBersama
+        ? WARNA.cutiBersamaTeks
         : k.type === 'akhirPekan'
           ? WARNA.inkPudar
           : WARNA.ink

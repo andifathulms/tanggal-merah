@@ -1,22 +1,27 @@
 'use client'
 
+import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { DayNumber } from '@/lib/day'
 import type { WorkPattern } from '@/lib/day/pattern'
 import { tahunTersedia } from '@/lib/rules/loader'
 import { pesanPenolakan, messagePenolakanEn } from '@/lib/rules/refusal'
 import type { Status } from '@/lib/status'
-import { hitungTrace, type LeaveTrace } from '@/lib/trace'
+import { hitungTrace } from '@/lib/trace'
 import type { Jembatan } from '@/lib/optimise'
 import { dariHash, keHash } from '@/lib/share'
 import { t, type Locale } from '@/lib/i18n'
 import { keIcs } from '@/lib/export/ics'
 import { gambarSheet } from '@/lib/export/png'
+import { pratinjauStatus } from '@/lib/trace/pratinjau'
 import { Controls } from './Controls'
 import { BannerDraf, CatatanTidakMenghitung, Penafian } from './Banner'
 import { YearSheet } from './sheet/YearSheet'
 import { Ledger } from './ledger/Ledger'
 import { Suggestions } from './suggest/Suggestions'
+import { Hero } from './Hero'
+import { StatusPicker } from './StatusPicker'
+import { Headline } from './Headline'
 
 /**
  * State container. Everything shown is computed by `hitungTrace` in `lib/` —
@@ -68,6 +73,19 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
     [tahun, status, pattern, dipilihSendiri],
   )
 
+  // What each status would leave, so the choice can carry its own
+  // explanation. Computed in lib/, not here.
+  const pratinjau = useMemo(
+    () =>
+      pratinjauStatus(
+        tahun,
+        pattern,
+        status.jatahHari,
+        status.type === 'asn' ? status.tidakDiberikanHari : 0,
+      ),
+    [tahun, pattern, status],
+  )
+
   // Keep the hash current so the address bar is always a shareable link.
   useEffect(() => {
     const hash = keHash({ tahun, status, pattern, dipilihSendiri })
@@ -104,22 +122,22 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
   if (hasil.type === 'ditolak') {
     return (
-      <div role="alert" className="border-2 border-liburMerah bg-liburMerah/5 p-6">
-        <h2 className="poster text-2xl text-liburMerah">{locale === 'id' ? 'Belum bisa dihitung' : 'Cannot compute'}</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed">
+      <div role="alert" className="border-l-4 border-liburMerah bg-liburMerahLembut/50 p-6">
+        <h2 className="poster text-poster-md text-liburMerahTeks">
+          {locale === 'id' ? 'Belum bisa dihitung' : 'Cannot compute'}
+        </h2>
+        <p className="mt-2 max-w-prosa text-sm leading-relaxed text-inkSedang">
           {locale === 'id' ? pesanPenolakan(hasil.penolakan) : messagePenolakanEn(hasil.penolakan)}
         </p>
         <div className="mt-4">
-          <span className="text-xs font-semibold uppercase tracking-wide text-ink/60">
-            {t('tahunLain', locale)}
-          </span>
+          <span className="label-bagian">{t('tahunLain', locale)}</span>
           <div className="mt-1 flex gap-2">
             {TERSEDIA.map((y) => (
               <button
                 key={y}
                 type="button"
                 onClick={() => setTahun(y)}
-                className="angka border border-ink/30 px-2 py-0.5 text-sm hover:bg-ink/5"
+                className="angka border border-garisTebal bg-kertas px-3 py-1 text-sm hover:bg-kertasGelap"
               >
                 {y}
               </button>
@@ -155,28 +173,55 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       {trace.perluVerifikasi && <BannerDraf locale={locale} />}
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="order-2 space-y-6 lg:order-1">
+      {/* The explanation comes before the instrument. A reader who does not
+          know what cuti bersama costs cannot answer the status question, and
+          the status question is the first thing the page asks. */}
+      {tampilkan === 'tahun' && <Hero locale={locale} />}
+
+      <StatusPicker locale={locale} status={status} pratinjau={pratinjau} onStatus={setStatus} />
+
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_296px]">
+        {/* The answer and the sheet lead on every viewport. The settings rail
+            follows on mobile — it used to come first, which meant a phone
+            opened on a form instead of on the result. */}
+        <div className="space-y-10">
+          <Headline trace={trace} locale={locale} />
+
           {tampilkan === 'tahun' ? (
             <>
-              <Ringkasan trace={trace} locale={locale} />
+              <Suggestions
+                trace={trace}
+                locale={locale}
+                dipilihSendiri={new Set(trace.dipilihSendiri)}
+                onAmbil={ambilJembatan}
+                onTerapkanOptimal={terapkanOptimal}
+                batas={4}
+              />
+              <p className="-mt-6">
+                <Link href={`/${locale}/rencana/`} className="text-sm font-semibold text-liburMerahTeks underline underline-offset-4 hover:text-liburMerah">
+                  {t('sheetLihatSemua', locale)} →
+                </Link>
+              </p>
               <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
             </>
           ) : (
-            <Suggestions
-              trace={trace}
-              locale={locale}
-              dipilihSendiri={new Set(trace.dipilihSendiri)}
-              onAmbil={ambilJembatan}
-              onTerapkanOptimal={terapkanOptimal}
-            />
+            <>
+              <Suggestions
+                trace={trace}
+                locale={locale}
+                dipilihSendiri={new Set(trace.dipilihSendiri)}
+                onAmbil={ambilJembatan}
+                onTerapkanOptimal={terapkanOptimal}
+              />
+              <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
+            </>
           )}
         </div>
 
-        <aside className="order-1 space-y-4 lg:order-2">
+        <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
           <Controls
             locale={locale}
             tahun={tahun}
@@ -189,9 +234,9 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
           />
           <Ledger trace={trace} locale={locale} />
 
-          <section className="border border-ink/20 bg-newsprint p-4">
-            <h2 className="poster text-xl leading-none">{t('eksporJudul', locale)}</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
+          <section className="kartu p-4">
+            <h2 className="label-bagian">{t('eksporJudul', locale)}</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
               <button type="button" onClick={unduhIcs} className={TOMBOL}>
                 {t('eksporIcs', locale)}
               </button>
@@ -214,40 +259,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 }
 
 const TOMBOL =
-  'border border-ink/30 px-3 py-1 text-sm hover:bg-ink/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-liburMerah'
-
-function Ringkasan({ trace, locale }: { readonly trace: LeaveTrace; readonly locale: Locale }) {
-  const totalLibur = trace.run.reduce((n, r) => n + r.panjangHari, 0)
-
-  return (
-    <section className="flex flex-wrap gap-x-10 gap-y-3 border border-ink/20 bg-newsprint p-4">
-      <Angka label={t('ringkasTerpanjang', locale)} nilai={trace.runTerpanjangHari} satuan={t('ringkasHari', locale)} warna="text-liburMerah" />
-      <Angka label={t('ringkasTotalLibur', locale)} nilai={totalLibur} satuan={t('ringkasHari', locale)} warna="text-ink" />
-      <Angka label={t('ledgerSisa', locale)} nilai={trace.ledger.sisaHari} satuan={t('ringkasHari', locale)} warna="text-cutiPribadi" />
-    </section>
-  )
-}
-
-function Angka({
-  label,
-  nilai,
-  satuan,
-  warna,
-}: {
-  readonly label: string
-  readonly nilai: number
-  readonly satuan: string
-  readonly warna: string
-}) {
-  return (
-    <div>
-      <div className="text-xs uppercase tracking-wide text-ink/55">{label}</div>
-      <div className={`angka text-3xl leading-none ${warna}`}>
-        {nilai} <span className="text-xs text-ink/50">{satuan}</span>
-      </div>
-    </div>
-  )
-}
+  'border border-garisTebal bg-kertas px-3 py-1.5 text-xs font-semibold text-inkSedang hover:bg-kertasGelap'
 
 function unduh(blob: Blob, nama: string): void {
   const url = URL.createObjectURL(blob)

@@ -9,14 +9,14 @@ import { t, type Locale } from '@/lib/i18n'
  */
 export function Penafian({ locale }: { readonly locale: Locale }) {
   return (
-    <p className="border-t border-ink/15 pt-3 text-xs leading-relaxed text-ink/60">
+    <p className="border-t border-garis pt-3 text-xs leading-relaxed text-inkPudar">
       {t('penafian', locale)}
     </p>
   )
 }
 
 export function CatatanTidakMenghitung({ locale }: { readonly locale: Locale }) {
-  return <p className="text-xs leading-relaxed text-ink/60">{t('tidakMenghitung', locale)}</p>
+  return <p className="text-xs leading-relaxed text-inkPudar">{t('tidakMenghitung', locale)}</p>
 }
 
 /**
@@ -26,8 +26,8 @@ export function CatatanTidakMenghitung({ locale }: { readonly locale: Locale }) 
  */
 export function BannerDraf({ locale }: { readonly locale: Locale }) {
   return (
-    <div role="alert" className="border-2 border-cutiBersama bg-cutiBersama/10 px-4 py-3 text-sm leading-relaxed">
-      <span className="font-semibold text-cutiBersama">
+    <div role="alert" className="border-l-4 border-cutiBersama bg-cutiBersamaLembut px-4 py-3 text-sm leading-relaxed text-inkSedang">
+      <span className="font-semibold text-cutiBersamaTeks">
         {locale === 'id' ? 'Data belum diverifikasi. ' : 'Data not verified. '}
       </span>
       {t('bannerDraf', locale)}

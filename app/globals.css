@@ -5,10 +5,26 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   body {
     @apply bg-newsprint text-ink font-prose antialiased;
+    /* The wall calendar is a printed object; a faint tooth keeps it from
+       reading as a dashboard. Cheap: one repeating gradient, no image. */
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(28, 27, 24, 0.014) 0px,
+      rgba(28, 27, 24, 0.014) 1px,
+      transparent 1px,
+      transparent 3px
+    );
   }
 
   /* Tabular numerals on every count and leverage figure (CLAUDE.md). */
@@ -18,18 +34,38 @@
   }
 
   .poster {
-    @apply font-poster tracking-wide;
+    @apply font-poster tracking-[0.02em];
+  }
+
+  /* One visible focus treatment everywhere, so keyboard users are never lost. */
+  :where(a, button, input, select, [tabindex]):focus-visible {
+    @apply outline-none ring-2 ring-liburMerah ring-offset-2 ring-offset-newsprint;
   }
 }
 
 @layer components {
+  .kartu {
+    @apply border border-garis bg-kertas shadow-kartu;
+  }
+
+  .label-bagian {
+    @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-inkPudar;
+  }
+
   /* One moment animates: the run bar extending to join two blocks (PRD §8). */
   .bar-run {
-    transition: background-color 180ms ease-out, border-radius 180ms ease-out;
+    transition:
+      background-color 200ms cubic-bezier(0.2, 0.7, 0.3, 1),
+      border-radius 200ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  .sel-hari {
+    transition: background-color 120ms ease-out;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .bar-run {
+    .bar-run,
+    .sel-hari {
       transition: none;
     }
   }

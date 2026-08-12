@@ -13,6 +13,11 @@ import { namaLibur, type Locale } from '@/lib/i18n'
  * Invariant 14: red is the subject. Libur nasional at full strength; cuti
  * bersama in amber because it is a different thing with a different cost;
  * leave green for days the user chooses.
+ *
+ * The date numeral is set in the poster face at a size a wall calendar would
+ * use — it is the thing you scan for. Holiday names sit beneath it in small
+ * print, as they are on a real calendar, clamped to two lines so a long name
+ * cannot push the grid out of alignment.
  */
 
 export type PosisiRun = 'tidak' | 'awal' | 'tengah' | 'akhir' | 'tunggal'
@@ -40,13 +45,13 @@ export function DayCell({
   const bisaDipilih = klasifikasi.libur === false
 
   const warnaAngka = dipilihSendiri
-    ? 'text-cutiPribadi'
+    ? 'text-cutiPribadiTeks'
     : klasifikasi.type === 'liburNasional'
-      ? 'text-liburMerah'
+      ? 'text-liburMerahTeks'
       : klasifikasi.type === 'cutiBersama' && klasifikasi.libur
-        ? 'text-cutiBersama'
+        ? 'text-cutiBersamaTeks'
         : klasifikasi.type === 'akhirPekan'
-          ? 'text-ink/45'
+          ? 'text-inkPudar'
           : 'text-ink'
 
   const label =
@@ -54,55 +59,63 @@ export function DayCell({
       ? namaLibur(klasifikasi.entri, locale)
       : null
 
+  const sudut =
+    posisiRun === 'tunggal'
+      ? 'rounded-[4px]'
+      : posisiRun === 'awal'
+        ? 'rounded-l-[4px]'
+        : posisiRun === 'akhir'
+          ? 'rounded-r-[4px]'
+          : ''
+
+  const kelas = [
+    'sel-hari relative flex min-h-[58px] flex-col px-1.5 pt-1 pb-1 text-left',
+    klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan/55' : '',
+    dipilihSendiri ? 'bg-cutiPribadiLembut' : '',
+    posisiRun !== 'tidak' ? `bar-run bg-runBar ${sudut}` : '',
+    disarankan && !dipilihSendiri ? 'ring-1 ring-inset ring-cutiPribadi/45' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   const isi = (
     <>
-      <span className={`angka block text-right text-[13px] leading-none ${warnaAngka}`}>{day}</span>
+      <span className={`poster block text-right text-[17px] leading-none ${warnaAngka}`}>{day}</span>
       {label !== null && (
         <span
-          className={`mt-0.5 block text-right text-[8px] leading-[1.15] ${
-            klasifikasi.type === 'liburNasional' ? 'text-liburMerah/85' : 'text-cutiBersama/90'
+          className={`mt-auto block overflow-hidden text-right text-[8.5px] leading-[1.2] ${
+            klasifikasi.type === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'
           }`}
+          style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}
         >
           {label}
         </span>
       )}
       {dipilihSendiri && (
-        <span className="mt-0.5 block text-right text-[8px] leading-none text-cutiPribadi">
+        <span className="mt-auto block text-right text-[8.5px] font-semibold leading-none text-cutiPribadiTeks">
           {locale === 'id' ? 'cuti' : 'leave'}
         </span>
       )}
     </>
   )
 
-  const sudut =
-    posisiRun === 'tunggal'
-      ? 'rounded-[3px]'
-      : posisiRun === 'awal'
-        ? 'rounded-l-[3px]'
-        : posisiRun === 'akhir'
-          ? 'rounded-r-[3px]'
-          : ''
-
-  const kelas = [
-    'bar-run relative min-h-[46px] px-1 pt-1 pb-0.5 text-left align-top',
-    klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan/60' : '',
-    posisiRun !== 'tidak' ? `bg-runBar ${sudut}` : '',
-    dipilihSendiri ? 'ring-1 ring-inset ring-cutiPribadi/60' : '',
-    disarankan && !dipilihSendiri ? 'ring-1 ring-inset ring-cutiPribadi/30' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
-
   if (!bisaDipilih) {
-    return <div className={kelas}>{isi}</div>
+    return (
+      <div className={kelas} title={label ?? undefined}>
+        {isi}
+      </div>
+    )
   }
 
+  // Working days are the only interactive cells, and they say so on hover: a
+  // faint green wash is the affordance that the sheet is something you act on.
   return (
     <button
       type="button"
       onClick={() => onToggle(hari)}
       aria-pressed={dipilihSendiri}
-      className={`${kelas} w-full cursor-pointer hover:bg-cutiPribadi/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cutiPribadi`}
+      aria-label={`${day}`}
+      className={`${kelas} w-full cursor-pointer hover:bg-cutiPribadiLembut/70`}
     >
       {isi}
     </button>
