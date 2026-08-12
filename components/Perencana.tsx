@@ -54,6 +54,21 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   const [tersalin, setTersalin] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
+  /**
+   * Focus recovery. Taking a bridge shrinks the remaining budget and removes those
+   * days from the buyable set, so that bridge leaves `saran` and the button the
+   * reader just pressed unmounts. Applying the whole plan empties
+   * `rencanaOptimal.dipilih`, which unmounts the entire panel the button sat in.
+   * Either way focus fell to <body> and a keyboard user was returned to the top of
+   * the document with no idea anything had happened (WCAG 2.4.3).
+   *
+   * Focus goes to the suggestions heading: it is always mounted, it is where the
+   * reader was working, and the live region added alongside says what changed — so
+   * this restores position without talking over the announcement.
+   */
+  const judulSaranRef = useRef<HTMLHeadingElement>(null)
+  const [pulihkanFokus, setPulihkanFokus] = useState(0)
+
   // Read the shared link once on mount, then resolve "this year" from the
   // clock — the only place in the app that touches it.
   useEffect(() => {
@@ -98,6 +113,11 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
     window.history.replaceState(null, '', `#${hash}`)
   }, [tahun, status, pattern, tujuan, dipilihSendiri])
 
+  useEffect(() => {
+    if (pulihkanFokus === 0) return
+    judulSaranRef.current?.focus()
+  }, [pulihkanFokus])
+
   const toggleHari = useCallback((hari: DayNumber) => {
     setDipilihSendiri((sebelumnya) =>
       sebelumnya.includes(hari)
@@ -107,6 +127,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   }, [])
 
   const ambilJembatan = useCallback((jembatan: Jembatan) => {
+    setPulihkanFokus((n) => n + 1)
     setDipilihSendiri((sebelumnya) => {
       const sudah = jembatan.hari.every((d) => sebelumnya.includes(d))
       return sudah
@@ -117,6 +138,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
   const terapkanOptimal = useCallback(() => {
     if (hasil.type !== 'terhitung') return
+    setPulihkanFokus((n) => n + 1)
     const hari = hasil.rencanaOptimal.dipilih.flatMap((b) => b.hari)
     setDipilihSendiri((sebelumnya) => [...new Set([...sebelumnya, ...hari])].sort((a, b) => a - b))
   }, [hasil])
@@ -238,6 +260,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
                 onTerapkanOptimal={terapkanOptimal}
                 tujuan={tujuan}
                 onTujuan={setTujuan}
+                fokusRef={judulSaranRef}
               />
               {/* The price list belongs on the plan page rather than the
                   overview: the overview states the answer, this asks what each

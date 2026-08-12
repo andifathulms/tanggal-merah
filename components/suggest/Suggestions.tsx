@@ -1,5 +1,6 @@
 'use client'
 
+import type { RefObject } from 'react'
 import type { DayNumber } from '@/lib/day'
 import type { Jembatan } from '@/lib/optimise'
 import { SEMUA_TUJUAN, type Tujuan } from '@/lib/optimise/tujuan'
@@ -23,6 +24,12 @@ export type SuggestionsProps = {
   readonly onTerapkanOptimal: () => void
   readonly tujuan: Tujuan
   readonly onTujuan: (tujuan: Tujuan) => void
+  /**
+   * Where focus is sent after a button in here unmounts itself. Taking a bridge
+   * removes it from the list, so the button the reader just pressed disappears and
+   * focus would otherwise fall to <body> (WCAG 2.4.3).
+   */
+  readonly fokusRef?: RefObject<HTMLHeadingElement>
   /** Cap the list on the overview; the plan page shows everything. */
   readonly batas?: number
 }
@@ -35,6 +42,7 @@ export function Suggestions({
   onTerapkanOptimal,
   tujuan,
   onTujuan,
+  fokusRef,
   batas,
 }: SuggestionsProps) {
   const { rencanaOptimal, saran } = trace
@@ -45,7 +53,7 @@ export function Suggestions({
       {/* Step 2, not 3. This and the year sheet were both labelled "Langkah 3",
           so the numbering told the reader nothing about where they were. */}
       <span className="label-bagian">{t('langkahDua', locale)}</span>
-      <h2 id="judul-saran" className="poster mt-0.5 text-2xl">
+      <h2 id="judul-saran" ref={fokusRef} tabIndex={-1} className="poster mt-0.5 text-2xl">
         {batas === undefined ? t('saranJudul', locale) : t('saranTeratas', locale)}
       </h2>
       <p className="teks-jelas mt-ruang-sm">{t('saranPenjelasan', locale)}</p>
