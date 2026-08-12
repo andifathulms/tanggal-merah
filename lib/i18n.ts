@@ -116,6 +116,17 @@ const KAMUS = {
 
   jatahJudul: ['Jatah cuti tahunan', 'Annual leave entitlement'],
   jatahSatuan: ['hari', 'days'],
+  // Every date in this app names the decree it came from. The entitlement figure
+  // named nothing — it was simply defaulted to 12 — even though it is the input most
+  // likely to be wrong for any given reader.
+  jatahDasar: [
+    'Bawaannya 12 hari: itu batas minimum menurut UU Ketenagakerjaan bagi pekerja yang sudah 12 bulan bekerja terus-menerus. Kontrak atau peraturan perusahaan Anda bisa memberi lebih — angka ini milik Anda untuk diperiksa, bukan hasil hitungan aplikasi.',
+    'The default is 12 days: that is the statutory minimum under the Manpower Law for an employee with twelve months of continuous service. Your contract or company rules may give more — this figure is yours to check, not something the app worked out.',
+  ],
+  jatahDasarBelumDicek: [
+    'Nomor pasalnya belum dicocokkan dengan dokumen undang-undangnya, sama seperti nomor SKB tahun ini.',
+    'The article number has not been checked against the statute, the same as this year’s decree numbers.',
+  ],
   tidakDiberikanJudul: ['Cuti bersama yang tidak bisa diambil', 'Cuti bersama you could not take'],
   tidakDiberikanBantu: [
     'ASN yang karena jabatannya tidak dapat mengambil cuti bersama mendapat tambahan hak cuti sebanyak itu.',
@@ -225,8 +236,8 @@ const KAMUS = {
     'This figure adds up several stretches; it is not one long run.',
   ],
   optimalEksak: [
-    'Dihitung eksak, bukan perkiraan — hasilnya dicocokkan dengan pencarian menyeluruh.',
-    'Computed exactly, not approximated — checked against an exhaustive search.',
+    'Ini kombinasi terbaik yang benar-benar ada, bukan yang pertama ditemukan. Cara cepat yang biasa dipakai — ambil harpitnas dengan leverage tertinggi lebih dulu, lalu yang berikutnya — bisa melewatkan pasangan yang kalau diambil bersama justru menyambung tiga blok sekaligus. Aplikasi ini memeriksa semua kombinasi yang muat dalam anggaran Anda, dan hasilnya diuji ulang dengan pencarian menyeluruh.',
+    'This is the best combination that exists, not the first one found. The usual shortcut — take the highest-leverage harpitnas, then the next — can miss a pair that only pays off taken together, joining three blocks at once. This app checks every combination that fits your budget, and the answer is re-tested against an exhaustive search.',
   ],
 
   // A1 — the value the calendar's colour hides. Neutral wording on purpose:
@@ -360,8 +371,8 @@ const KAMUS = {
     'Every Indonesian public holiday, and where your leave buys the most.',
   ],
   heroTeks: [
-    'Cuti Anda mungkin tidak sebanyak yang Anda kira. Setiap tahun pemerintah menetapkan libur nasional dan cuti bersama lewat SKB, dan yang sering tidak disadari: di banyak perusahaan swasta, hari cuti bersama dipotong dari jatah cuti tahunan Anda. Halaman ini menghitung berapa sisa cuti Anda sebenarnya, lalu menunjukkan di tanggal mana cuti itu paling berguna.',
-    'You may have less leave than you think. Each year the government sets public holidays and cuti bersama (joint leave) by decree, and what most people miss is that at many private companies those cuti bersama days are deducted from your annual leave. This page works out what you actually have left, then shows you which dates buy the most time off.',
+    'Cuti Anda mungkin tidak sebanyak yang Anda kira. Setiap tahun pemerintah menetapkan libur nasional dan cuti bersama lewat SKB — Surat Keputusan Bersama tiga menteri — dan yang sering tidak disadari: di banyak perusahaan swasta, hari cuti bersama dipotong dari jatah cuti tahunan Anda. Halaman ini menghitung berapa sisa cuti Anda sebenarnya, lalu menunjukkan di tanggal mana cuti itu paling berguna.',
+    'You may have less leave than you think. Each year the government sets public holidays and cuti bersama (joint leave) by an SKB — a joint decree of three ministers — and what most people miss is that at many private companies those cuti bersama days are deducted from your annual leave. This page works out what you actually have left, then shows you which dates buy the most time off.',
   ],
   // These three describe the three numbered sections of the page, in the order
   // they appear. They used to promise a step 2 ("see what is left") that turned

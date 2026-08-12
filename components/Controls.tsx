@@ -100,20 +100,30 @@ export function Controls({
           <p className="mt-1.5 text-sm leading-relaxed text-inkPudar">{t('polaKeterangan', locale)}</p>
         </fieldset>
 
-        <label className="block">
-          <span className="text-xs font-semibold text-inkSedang">{t('jatahJudul', locale)}</span>
-          <div className="mt-1 flex items-center gap-ruang-sm">
-            <input
-              type="number"
-              min={0}
-              max={365}
-              value={status.jatahHari}
-              onChange={(e) => gantiJatah(Math.max(0, Math.min(365, Number(e.target.value) || 0)))}
-              className="angka w-20 border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
-            />
-            <span className="text-xs text-inkPudar">{t('jatahSatuan', locale)}</span>
-          </div>
-        </label>
+        <div>
+          {/* The one figure in the app that cited nothing, and the one most likely to
+              be wrong for a given reader. `aria-describedby` rather than nesting it in
+              the label, so the field's name stays "Jatah cuti tahunan". */}
+          <label className="block">
+            <span className="text-xs font-semibold text-inkSedang">{t('jatahJudul', locale)}</span>
+            <div className="mt-1 flex items-center gap-ruang-sm">
+              <input
+                type="number"
+                min={0}
+                max={365}
+                value={status.jatahHari}
+                onChange={(e) => gantiJatah(Math.max(0, Math.min(365, Number(e.target.value) || 0)))}
+                aria-describedby="dasar-jatah"
+                className="angka w-20 border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
+              />
+              <span className="text-xs text-inkPudar">{t('jatahSatuan', locale)}</span>
+            </div>
+          </label>
+          <p id="dasar-jatah" className="mt-ruang-sm text-sm leading-relaxed text-inkPudar">
+            {t('jatahDasar', locale)}{' '}
+            <span className="text-cutiBersamaTeks">{t('jatahDasarBelumDicek', locale)}</span>
+          </p>
+        </div>
 
         {status.type === 'asn' && (
           /* The explanation is a description, not part of the name. Inside the
