@@ -17,7 +17,16 @@ export default function LocaleLayout({
   return (
     // Column layout so the footer sits at the bottom of the viewport on short
     // pages rather than floating halfway up.
-    <div className="mx-auto flex min-h-screen max-w-[1400px] flex-col px-ruang-lg py-ruang-xl">
+    //
+    // `lang` is set here as well as on <html>. Only a root layout may render
+    // <html>, and a root layout never receives the `[locale]` param, so the
+    // document-level attribute is corrected at export time by
+    // `scripts/finish-export.mjs`. This one covers every word on the page in
+    // the dev server too, and matches the document attribute in the build.
+    <div
+      lang={locale}
+      className="mx-auto flex min-h-screen max-w-[1400px] flex-col px-ruang-lg py-ruang-xl"
+    >
       <main className="flex-1">{children}</main>
       <SiteFooter locale={locale} />
     </div>

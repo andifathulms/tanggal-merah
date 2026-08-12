@@ -9,8 +9,14 @@
  *    competing `rel="manifest"` tags, one of them wrong. Writing it at export
  *    time keeps every path in it prefixed by the same `BASE_PATH` the build
  *    used, and leaves exactly one link, rendered by hand in `app/layout.tsx`.
+ * 3. `<html lang>` is corrected per locale. Only a root layout may render the
+ *    <html> element and a root layout never receives a nested dynamic segment's
+ *    params, so `app/layout.tsx` can only hard-code one language — which meant
+ *    every English page shipped `lang="id"` and was read to screen readers with
+ *    Indonesian pronunciation (WCAG 3.1.1). The locale is a path segment, so it
+ *    is known here with certainty. Asserted in `tests/rules/export.test.ts`.
  */
-import { existsSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const out = join(process.cwd(), 'out')
@@ -48,3 +54,39 @@ const manifest = {
 
 writeFileSync(join(out, 'manifest.webmanifest'), `${JSON.stringify(manifest, null, 2)}\n`)
 console.log(`  ✓ out/manifest.webmanifest (basePath ${BASE || '/'})`)
+
+
+/**
+ * Rewrite the document language for every page under a locale directory whose
+ * language is not the one `app/layout.tsx` hard-codes.
+ */
+const LOCALE_DEFAULT = 'id'
+
+function berkasHtml(dir) {
+  const out = []
+  for (const entri of readdirSync(dir)) {
+    const penuh = join(dir, entri)
+    if (statSync(penuh).isDirectory()) out.push(...berkasHtml(penuh))
+    else if (entri.endsWith('.html')) out.push(penuh)
+  }
+  return out
+}
+
+let diperbaiki = 0
+for (const locale of readdirSync(out)) {
+  if (locale === LOCALE_DEFAULT) continue
+  const dir = join(out, locale)
+  if (!statSync(dir).isDirectory() || locale.startsWith('_') || locale.startsWith('.')) continue
+  // Only directories that look like a locale the app actually builds.
+  if (!/^[a-z]{2}$/.test(locale)) continue
+
+  for (const berkas of berkasHtml(dir)) {
+    const isi = readFileSync(berkas, 'utf8')
+    const baru = isi.replace(`<html lang="${LOCALE_DEFAULT}"`, `<html lang="${locale}"`)
+    if (baru !== isi) {
+      writeFileSync(berkas, baru)
+      diperbaiki += 1
+    }
+  }
+}
+console.log(`  ✓ <html lang> diperbaiki pada ${diperbaiki} halaman non-${LOCALE_DEFAULT}`)
