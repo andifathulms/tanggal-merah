@@ -143,6 +143,25 @@ const KAMUS = {
   saranAmbil: ['Ambil', 'Take'],
   saranBatal: ['Batalkan', 'Undo'],
 
+  // A5 — the objective. Asked inside the suggestion panel rather than up front:
+  // making a reader state an objective before they have seen a single result is
+  // the friction the hero exists to remove, so this is a re-ask, not a setting.
+  tujuanPertanyaan: ['Anda mengejar yang mana?', 'Which are you after?'],
+  tujuanTotal: ['Banyak libur panjang', 'Many long weekends'],
+  tujuanTotalKet: [
+    'Total hari libur terbanyak, tersebar sepanjang tahun.',
+    'The most total days off, spread through the year.',
+  ],
+  tujuanRentetan: ['Satu libur terpanjang', 'One long break'],
+  tujuanRentetanKet: [
+    'Satu rentetan sepanjang mungkin. Sisa tahun tidak dihitung.',
+    'The longest single stretch. The rest of the year is not counted.',
+  ],
+  optimalNilaiRentetan: [
+    'hari libur berturut-turut dalam satu rentetan',
+    'consecutive days off in a single stretch',
+  ],
+
   optimalJudul: ['Pilihan optimal untuk sisa cuti Anda', 'The optimum for your remaining leave'],
   optimalTerapkan: ['Terapkan semuanya', 'Apply all'],
   optimalKosong: ['Tidak ada yang bisa dibeli dengan sisa cuti Anda.', 'Nothing your remaining leave can buy.'],

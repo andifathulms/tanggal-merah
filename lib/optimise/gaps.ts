@@ -109,8 +109,29 @@ export function saringJembatan(peta: PetaJembatan, maksBiayaHari: number): PetaJ
  * the block between them.
  */
 export function nilaiPilihan(peta: PetaJembatan, dipilih: Iterable<number>): { nilai: number; biaya: number } {
+  const { panjang, biaya } = rentetanPilihan(peta, dipilih)
+  return { nilai: panjang.reduce((n, p) => n + p, 0), biaya }
+}
+
+/**
+ * The individual merged stretches a selection produces, and what it costs.
+ *
+ * This is the geometry both objectives are defined against: summing `panjang`
+ * gives the total days off across every stretch, and taking its maximum gives
+ * the single longest run. Keeping one definition means the two objectives cannot
+ * drift apart, and means both brute-force oracles measure the same thing the
+ * optimiser does.
+ *
+ * Bridges that sit either side of a shared block compound: closing two gaps in a
+ * row merges three blocks into one stretch, counted once, so two adjacent
+ * bridges never both claim the block between them.
+ */
+export function rentetanPilihan(
+  peta: PetaJembatan,
+  dipilih: Iterable<number>,
+): { panjang: readonly number[]; biaya: number } {
   const pilih = new Set(dipilih)
-  if (pilih.size === 0) return { nilai: 0, biaya: 0 }
+  if (pilih.size === 0) return { panjang: [], biaya: 0 }
 
   // Bridge index i in the bridge list corresponds to the gap between block
   // `blokKiri(i)` and the next block. Adjacency in the *block* sequence, not
@@ -118,7 +139,7 @@ export function nilaiPilihan(peta: PetaJembatan, dipilih: Iterable<number>): { n
   const urut = [...pilih].sort((a, b) => a - b)
   const byIndeks = new Map(peta.jembatan.map((j) => [j.indeks, j]))
 
-  let nilai = 0
+  const panjang: number[] = []
   let biaya = 0
   let i = 0
   while (i < urut.length) {
@@ -144,11 +165,11 @@ export function nilaiPilihan(peta: PetaJembatan, dipilih: Iterable<number>): { n
 
     // The merged stretch runs from the left block's start to the right
     // block's end, counting every day in between exactly once.
-    nilai += blokKanan.selesai - blokKiri.mulai + 1
+    panjang.push(blokKanan.selesai - blokKiri.mulai + 1)
     for (let k = i; k <= akhir; k += 1) biaya += byIndeks.get(urut[k]!)!.biayaHari
 
     i = akhir + 1
   }
 
-  return { nilai, biaya }
+  return { panjang, biaya }
 }

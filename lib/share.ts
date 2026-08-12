@@ -1,6 +1,7 @@
 import { fromIsoDate, toIsoDate, type DayNumber } from '@/lib/day'
 import { WORK_PATTERNS, type WorkPattern } from '@/lib/day/pattern'
 import { SEMUA_STATUS, type JenisStatus, type Status } from '@/lib/status'
+import { isTujuan, TUJUAN_BAWAAN, type Tujuan } from '@/lib/optimise/tujuan'
 
 /**
  * Year, status, work pattern, and chosen days encode into the URL hash
@@ -15,6 +16,7 @@ export type Pengaturan = {
   readonly status: Status
   readonly pattern: WorkPattern
   readonly dipilihSendiri: readonly DayNumber[]
+  readonly tujuan: Tujuan
 }
 
 export function keHash(p: Pengaturan): string {
@@ -26,6 +28,9 @@ export function keHash(p: Pengaturan): string {
     params.set('x', String(p.status.tidakDiberikanHari))
   }
   params.set('p', p.pattern)
+  // Omitted when it is the default, so existing shared links keep working and
+  // stay as short as they were.
+  if (p.tujuan !== TUJUAN_BAWAAN) params.set('o', p.tujuan)
   if (p.dipilihSendiri.length > 0) {
     params.set('c', p.dipilihSendiri.map(toIsoDate).join(','))
   }
@@ -71,6 +76,9 @@ export function dariHash(hash: string, bawaan: Pengaturan): Pengaturan {
       ? (polaMentah as WorkPattern)
       : bawaan.pattern
 
+  const tujuanMentah = params.get('o')
+  const tujuan: Tujuan = tujuanMentah !== null && isTujuan(tujuanMentah) ? tujuanMentah : bawaan.tujuan
+
   const dipilihSendiri: DayNumber[] = []
   const cMentah = params.get('c')
   if (cMentah !== null && cMentah.length > 0) {
@@ -84,5 +92,11 @@ export function dariHash(hash: string, bawaan: Pengaturan): Pengaturan {
     }
   }
 
-  return { tahun, status, pattern, dipilihSendiri: [...new Set(dipilihSendiri)].sort((a, b) => a - b) }
+  return {
+    tahun,
+    status,
+    pattern,
+    tujuan,
+    dipilihSendiri: [...new Set(dipilihSendiri)].sort((a, b) => a - b),
+  }
 }

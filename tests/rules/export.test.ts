@@ -117,6 +117,7 @@ describe('URL hash sharing', () => {
     tahun: 2026,
     status: ASN,
     pattern: 'lima-hari',
+    tujuan: 'totalHariLibur',
     dipilihSendiri: [],
   }
 
@@ -125,6 +126,7 @@ describe('URL hash sharing', () => {
       tahun: 2026,
       status: { type: 'swastaCutiBersamaDipotong', jatahHari: 15 },
       pattern: 'enam-hari',
+      tujuan: 'rentetanTerpanjang',
       dipilihSendiri: [fromIsoDate('2026-08-18'), fromIsoDate('2026-12-28')],
     }
     expect(dariHash(keHash(p), bawaan)).toEqual(p)
@@ -135,9 +137,21 @@ describe('URL hash sharing', () => {
       tahun: 2026,
       status: { type: 'asn', jatahHari: 12, tidakDiberikanHari: 4 },
       pattern: 'lima-hari',
+      tujuan: 'totalHariLibur',
       dipilihSendiri: [],
     }
     expect(dariHash(keHash(p), bawaan)).toEqual(p)
+  })
+
+  it('keeps a link written before the objective existed on the default', () => {
+    // The parameter is omitted when it is the default, so an older shared link
+    // has no `o` at all and must not change meaning.
+    expect(keHash(bawaan)).not.toContain('o=')
+    expect(dariHash('#t=2026&s=asn&j=12&p=lima-hari', bawaan).tujuan).toBe('totalHariLibur')
+    expect(dariHash('#t=2026&s=asn&j=12&p=lima-hari&o=bukan-tujuan', bawaan).tujuan).toBe('totalHariLibur')
+    expect(dariHash('#t=2026&s=asn&j=12&p=lima-hari&o=rentetanTerpanjang', bawaan).tujuan).toBe(
+      'rentetanTerpanjang',
+    )
   })
 
   it('falls back to the defaults on a junk hash rather than throwing', () => {

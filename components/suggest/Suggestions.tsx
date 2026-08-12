@@ -2,6 +2,7 @@
 
 import type { DayNumber } from '@/lib/day'
 import type { Jembatan } from '@/lib/optimise'
+import { SEMUA_TUJUAN, type Tujuan } from '@/lib/optimise/tujuan'
 import type { LeaveTrace } from '@/lib/trace'
 import { t, tanggalPanjang, type Locale } from '@/lib/i18n'
 
@@ -20,6 +21,8 @@ export type SuggestionsProps = {
   readonly dipilihSendiri: ReadonlySet<DayNumber>
   readonly onAmbil: (jembatan: Jembatan) => void
   readonly onTerapkanOptimal: () => void
+  readonly tujuan: Tujuan
+  readonly onTujuan: (tujuan: Tujuan) => void
   /** Cap the list on the overview; the plan page shows everything. */
   readonly batas?: number
 }
@@ -30,6 +33,8 @@ export function Suggestions({
   dipilihSendiri,
   onAmbil,
   onTerapkanOptimal,
+  tujuan,
+  onTujuan,
   batas,
 }: SuggestionsProps) {
   const { rencanaOptimal, saran } = trace
@@ -45,6 +50,14 @@ export function Suggestions({
       </h2>
       <p className="teks-jelas mt-ruang-sm">{t('saranPenjelasan', locale)}</p>
 
+      {/* The objective, asked here rather than in the settings rail. "Optimal"
+          was never a property of the calendar — it is a property of the calendar
+          plus a question, and two readers with identical status, working week and
+          budget have genuinely different correct answers. Asking after the reader
+          has seen a result, instead of before, is the whole reason this sits in
+          the middle of the page. */}
+      <PilihTujuan tujuan={tujuan} onTujuan={onTujuan} locale={locale} />
+
       {rencanaOptimal.dipilih.length > 0 && (
         <div className="mt-4 border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-4">
           <span className="label-bagian text-cutiPribadiTeks">{t('optimalJudul', locale)}</span>
@@ -53,12 +66,16 @@ export function Suggestions({
             <span className="text-inkSedang">{t('saranHariCuti', locale)}</span>{' '}
             <span className="text-inkPudar">→</span>{' '}
             <span className="angka text-xl text-liburMerahTeks">{rencanaOptimal.nilaiHari}</span>{' '}
-            <span className="text-inkSedang">{t('optimalNilai', locale)}</span>
+            <span className="text-inkSedang">
+              {t(rencanaOptimal.tujuan === 'rentetanTerpanjang' ? 'optimalNilaiRentetan' : 'optimalNilai', locale)}
+            </span>
           </p>
-          {/* The plan's value sums the stretches it joins. Calling that a
-              single run would be a confidently wrong claim about someone's
-              time off, which is the one thing this project must not do. */}
-          {rencanaOptimal.dipilih.length > 1 && (
+          {/* Under the total-days objective the figure sums the stretches it
+              joins, and calling that a single run would be a confidently wrong
+              claim about someone's time off. Under the longest-run objective it
+              genuinely is one stretch, so the caveat would be false — which is
+              exactly why the objective had to become explicit. */}
+          {rencanaOptimal.tujuan === 'totalHariLibur' && rencanaOptimal.dipilih.length > 1 && (
             <p className="mt-1 text-sm text-inkPudar">{t('optimalCatatanRentetan', locale)}</p>
           )}
           <p className="mt-1 text-sm text-inkPudar">{t('optimalEksak', locale)}</p>
@@ -144,5 +161,51 @@ function KartuJembatan({
         </button>
       </div>
     </li>
+  )
+}
+
+/**
+ * Two questions, both answered exactly. Nothing here marks either as the better
+ * one — invariant 13 — and the description under each says what it optimises so
+ * the reader picks on the arithmetic rather than on the wording.
+ */
+function PilihTujuan({
+  tujuan,
+  onTujuan,
+  locale,
+}: {
+  readonly tujuan: Tujuan
+  readonly onTujuan: (tujuan: Tujuan) => void
+  readonly locale: Locale
+}) {
+  return (
+    <div className="mt-ruang-lg">
+      <span className="label-bagian">{t('tujuanPertanyaan', locale)}</span>
+      <div className="mt-ruang-sm grid gap-ruang-sm sm:grid-cols-2">
+        {SEMUA_TUJUAN.map((kandidat) => {
+          const terpilih = kandidat === tujuan
+          return (
+            <button
+              key={kandidat}
+              type="button"
+              onClick={() => onTujuan(kandidat)}
+              aria-pressed={terpilih}
+              className={`border-2 px-ruang-lg py-ruang-md text-left transition-shadow ${
+                terpilih
+                  ? 'border-ink bg-kertas shadow-angkat'
+                  : 'border-garis bg-kertas/60 hover:border-garisTebal hover:shadow-kartu'
+              }`}
+            >
+              <span className="block text-base font-semibold leading-snug">
+                {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetan' : 'tujuanTotal', locale)}
+              </span>
+              <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
+                {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetanKet' : 'tujuanTotalKet', locale)}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
   )
 }

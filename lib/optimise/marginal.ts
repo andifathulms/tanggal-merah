@@ -1,5 +1,6 @@
 import { pilihJembatan } from './index'
 import type { PetaJembatan } from './gaps'
+import { TUJUAN_BAWAAN, type Tujuan } from './tujuan'
 
 /**
  * What the nth leave day buys.
@@ -39,14 +40,18 @@ export type LangkahMarginal = {
  * tests: more budget never yields a worse result. `tambahanHari` therefore
  * cannot be negative, and the tests here assert that rather than clamping it.
  */
-export function kurvaMarginal(peta: PetaJembatan, maksAnggaranHari: number): readonly LangkahMarginal[] {
+export function kurvaMarginal(
+  peta: PetaJembatan,
+  maksAnggaranHari: number,
+  tujuan: Tujuan = TUJUAN_BAWAAN,
+): readonly LangkahMarginal[] {
   if (maksAnggaranHari <= 0) return []
 
   const langkah: LangkahMarginal[] = []
   let sebelumnya = 0
 
   for (let anggaranHari = 1; anggaranHari <= maksAnggaranHari; anggaranHari += 1) {
-    const rencana = pilihJembatan(peta, anggaranHari)
+    const rencana = pilihJembatan(peta, anggaranHari, tujuan)
     langkah.push({
       anggaranHari,
       nilaiHari: rencana.nilaiHari,

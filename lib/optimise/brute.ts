@@ -1,4 +1,5 @@
-import { nilaiPilihan, type PetaJembatan } from './gaps'
+import { nilaiPilihan, rentetanPilihan, type PetaJembatan } from './gaps'
+import type { Tujuan } from './tujuan'
 
 /**
  * Exhaustive oracle. TESTS ONLY.
@@ -13,6 +14,7 @@ import { nilaiPilihan, type PetaJembatan } from './gaps'
 export function pilihBruteForce(
   peta: PetaJembatan,
   anggaranHari: number,
+  tujuan: Tujuan = 'totalHariLibur',
 ): { readonly nilai: number; readonly biaya: number; readonly dipilih: readonly number[] } {
   const n = peta.jembatan.length
   if (n > 22) throw new Error(`Terlalu banyak jembatan untuk brute force: ${n}`)
@@ -24,7 +26,7 @@ export function pilihBruteForce(
     for (let i = 0; i < n; i += 1) {
       if ((mask & (1 << i)) !== 0) dipilih.push(peta.jembatan[i]!.indeks)
     }
-    const { nilai, biaya } = nilaiPilihan(peta, dipilih)
+    const { nilai, biaya } = ukur(peta, dipilih, tujuan)
     if (biaya > anggaranHari) continue
     // Tie-break on cost so the oracle prefers the cheaper of two equal plans,
     // matching the optimiser.
@@ -34,4 +36,30 @@ export function pilihBruteForce(
   }
 
   return terbaik
+}
+
+/**
+ * The objective, measured on a selection. Both readings are taken from the same
+ * merged-stretch geometry in `gaps.ts`, so the oracle cannot be measuring
+ * something subtly different from what the optimiser maximises.
+ */
+function ukur(
+  peta: PetaJembatan,
+  dipilih: readonly number[],
+  tujuan: Tujuan,
+): { readonly nilai: number; readonly biaya: number } {
+  switch (tujuan) {
+    case 'totalHariLibur':
+      return nilaiPilihan(peta, dipilih)
+    case 'rentetanTerpanjang': {
+      const { panjang, biaya } = rentetanPilihan(peta, dipilih)
+      return { nilai: panjang.reduce((n, p) => (p > n ? p : n), 0), biaya }
+    }
+    default:
+      return exhaustive(tujuan)
+  }
+}
+
+function exhaustive(value: never): never {
+  throw new Error(`Tujuan tidak dikenal: ${String(value)}`)
 }

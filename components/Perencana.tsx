@@ -9,6 +9,7 @@ import { pesanPenolakan, messagePenolakanEn } from '@/lib/rules/refusal'
 import type { Status } from '@/lib/status'
 import { hitungTrace } from '@/lib/trace'
 import type { Jembatan } from '@/lib/optimise'
+import { TUJUAN_BAWAAN, type Tujuan } from '@/lib/optimise/tujuan'
 import { dariHash, keHash } from '@/lib/share'
 import { t, type Locale } from '@/lib/i18n'
 import { keIcs } from '@/lib/export/ics'
@@ -47,6 +48,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   const [tahun, setTahun] = useState(TAHUN_AWAL)
   const [status, setStatus] = useState<Status>({ type: 'asn', jatahHari: 12, tidakDiberikanHari: 0 })
   const [pattern, setPattern] = useState<WorkPattern>('lima-hari')
+  const [tujuan, setTujuan] = useState<Tujuan>(TUJUAN_BAWAAN)
   const [dipilihSendiri, setDipilihSendiri] = useState<readonly DayNumber[]>([])
   const [tersalin, setTersalin] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -54,13 +56,14 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   // Read the shared link once on mount, then resolve "this year" from the
   // clock — the only place in the app that touches it.
   useEffect(() => {
-    const bawaan = { tahun: TAHUN_AWAL, status, pattern, dipilihSendiri }
+    const bawaan = { tahun: TAHUN_AWAL, status, pattern, tujuan, dipilihSendiri }
     const dariTautan = window.location.hash.length > 1 ? dariHash(window.location.hash, bawaan) : null
 
     if (dariTautan !== null) {
       setTahun(dariTautan.tahun)
       setStatus(dariTautan.status)
       setPattern(dariTautan.pattern)
+      setTujuan(dariTautan.tujuan)
       setDipilihSendiri(dariTautan.dipilihSendiri)
       return
     }
@@ -71,8 +74,8 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   }, [])
 
   const hasil = useMemo(
-    () => hitungTrace({ tahun, status, pattern, dipilihSendiri }),
-    [tahun, status, pattern, dipilihSendiri],
+    () => hitungTrace({ tahun, status, pattern, tujuan, dipilihSendiri }),
+    [tahun, status, pattern, tujuan, dipilihSendiri],
   )
 
   // What each status would leave, so the choice can carry its own
@@ -90,9 +93,9 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
   // Keep the hash current so the address bar is always a shareable link.
   useEffect(() => {
-    const hash = keHash({ tahun, status, pattern, dipilihSendiri })
+    const hash = keHash({ tahun, status, pattern, tujuan, dipilihSendiri })
     window.history.replaceState(null, '', `#${hash}`)
-  }, [tahun, status, pattern, dipilihSendiri])
+  }, [tahun, status, pattern, tujuan, dipilihSendiri])
 
   const toggleHari = useCallback((hari: DayNumber) => {
     setDipilihSendiri((sebelumnya) =>
@@ -204,6 +207,8 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
                 dipilihSendiri={new Set(trace.dipilihSendiri)}
                 onAmbil={ambilJembatan}
                 onTerapkanOptimal={terapkanOptimal}
+                tujuan={tujuan}
+                onTujuan={setTujuan}
                 batas={4}
               />
               <p className="-mt-6">
@@ -221,6 +226,8 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
                 dipilihSendiri={new Set(trace.dipilihSendiri)}
                 onAmbil={ambilJembatan}
                 onTerapkanOptimal={terapkanOptimal}
+                tujuan={tujuan}
+                onTujuan={setTujuan}
               />
               {/* The price list belongs on the plan page rather than the
                   overview: the overview states the answer, this asks what each

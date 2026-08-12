@@ -16,6 +16,7 @@ import {
   type Jembatan,
   type Rencana,
 } from '@/lib/optimise'
+import { TUJUAN_BAWAAN, type Tujuan } from '@/lib/optimise/tujuan'
 
 /**
  * The engine. Pure: `(tahun, status, pola, pilihan) → LeaveTrace`.
@@ -43,6 +44,11 @@ export type PermintaanTrace = {
   readonly pattern: WorkPattern
   /** Leave days the user has already picked by hand, as day numbers. */
   readonly dipilihSendiri?: readonly DayNumber[]
+  /**
+   * Which question to answer. Defaults to the one the app has always answered,
+   * so an omitted objective changes nothing.
+   */
+  readonly tujuan?: Tujuan
 }
 
 export type Ledger = {
@@ -62,6 +68,8 @@ export type LeaveTrace = {
   readonly tahun: number
   readonly pattern: WorkPattern
   readonly status: Status
+  /** The objective `rencanaOptimal` is the optimum for. */
+  readonly tujuan: Tujuan
   readonly terselesaikan: TahunTerselesaikan
   /** Runs before any leave is spent. */
   readonly runDasar: readonly Run[]
@@ -132,13 +140,15 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
 
   const runDasar = hitungRun(terselesaikan.liburHari)
   const run = hitungRun(liburDenganPilihan)
-  const rencanaOptimal = pilihJembatan(peta, sisaSetelahPilihan)
+  const tujuan = permintaan.tujuan ?? TUJUAN_BAWAAN
+  const rencanaOptimal = pilihJembatan(peta, sisaSetelahPilihan, tujuan)
 
   return {
     type: 'terhitung',
     tahun: permintaan.tahun,
     pattern: permintaan.pattern,
     status: permintaan.status,
+    tujuan,
     terselesaikan,
     runDasar,
     run,
@@ -152,7 +162,7 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
     },
     saran: peringkatJembatan(peta, sisaSetelahPilihan),
     rencanaOptimal,
-    kurva: kurvaMarginal(petaDasar, Math.min(entitlement.sisaHari, KURVA_MAKS_HARI)),
+    kurva: kurvaMarginal(petaDasar, Math.min(entitlement.sisaHari, KURVA_MAKS_HARI), tujuan),
     hilang: hitungHilang(pack, permintaan.pattern),
     dipilihSendiri,
     perluVerifikasi: pack.status === 'perluVerifikasi',
