@@ -52,40 +52,49 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                 </p>
               )}
 
-              <table className="mt-ruang-md w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b-2 border-garisTebal text-left">
-                    <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Tanggal' : 'Date'}</th>
-                    <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Nama' : 'Name'}</th>
-                    <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Jenis' : 'Type'}</th>
-                    <th className="label-bagian py-ruang-sm">{t('ledgerInstrumen', locale)}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pack.hari.map((h) => (
-                    <tr key={`${h.tanggal}-${h.jenis}`} className="border-b border-dotted border-garis align-top">
-                      <td className="angka py-ruang-sm pr-ruang-md text-sm whitespace-nowrap text-inkSedang">
-                        {tanggalPanjang(fromIsoDate(h.tanggal), locale)}
-                      </td>
-                      <td className="py-ruang-sm pr-ruang-md">
-                        {namaLibur(h, locale)}
-                        {h.catatan !== undefined && (
-                          <span className="mt-0.5 block text-sm leading-snug text-inkPudar">{h.catatan}</span>
-                        )}
-                      </td>
-                      <td className="py-ruang-sm pr-ruang-md text-sm whitespace-nowrap">
-                        <span className={h.jenis === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'}>
-                          {h.jenis === 'liburNasional' ? t('legendaLibur', locale) : t('legendaCutiBersama', locale)}
-                        </span>
-                      </td>
-                      <td className="py-ruang-sm text-sm leading-snug text-inkPudar">
-                        {h.sitasi.instrumen}
-                        <span className="block">{h.sitasi.nomor}</span>
-                      </td>
+              {/* The table scrolls inside its own container so the page body
+                  never does. Four columns of dates, names and full decree titles
+                  cannot reflow into 320px, and a sideways-scrolling page is a
+                  WCAG 1.4.10 failure while a sideways-scrolling table is not. */}
+              {/* tabIndex makes the scroll container reachable, so a keyboard
+                  user can actually pan it — an overflow container that only a
+                  mouse can move is a 2.1.1 failure of its own. */}
+              <div className="mt-ruang-md overflow-x-auto" tabIndex={0}>
+                <table className="w-full min-w-tabel border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b-2 border-garisTebal text-left">
+                      <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Tanggal' : 'Date'}</th>
+                      <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Nama' : 'Name'}</th>
+                      <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Jenis' : 'Type'}</th>
+                      <th className="label-bagian py-ruang-sm">{t('ledgerInstrumen', locale)}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {pack.hari.map((h) => (
+                      <tr key={`${h.tanggal}-${h.jenis}`} className="border-b border-dotted border-garis align-top">
+                        <td className="angka py-ruang-sm pr-ruang-md text-sm whitespace-nowrap text-inkSedang">
+                          {tanggalPanjang(fromIsoDate(h.tanggal), locale)}
+                        </td>
+                        <td className="py-ruang-sm pr-ruang-md">
+                          {namaLibur(h, locale)}
+                          {h.catatan !== undefined && (
+                            <span className="mt-0.5 block text-sm leading-snug text-inkPudar">{h.catatan}</span>
+                          )}
+                        </td>
+                        <td className="py-ruang-sm pr-ruang-md text-sm">
+                          <span className={h.jenis === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'}>
+                            {h.jenis === 'liburNasional' ? t('legendaLibur', locale) : t('legendaCutiBersama', locale)}
+                          </span>
+                        </td>
+                        <td className="py-ruang-sm text-sm leading-snug text-inkPudar">
+                          {h.sitasi.instrumen}
+                          <span className="block">{h.sitasi.nomor}</span>
+                        </td>
+                      </tr>
+                    ))}
+                    </tbody>
+                </table>
+              </div>
             </section>
           )
         })}

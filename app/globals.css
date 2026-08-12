@@ -113,6 +113,13 @@
    */
   --sel-tinggi: 58px;
   --bar-sudut: 4px;
+
+  /**
+   * The narrowest a four-column citation table stays readable at. Below this it
+   * scrolls inside its own container rather than scrolling the page, which is
+   * what keeps wide tabular data inside the WCAG 1.4.10 exception.
+   */
+  --tabel-lebar-min: 34rem;
 }
 
 @layer base {

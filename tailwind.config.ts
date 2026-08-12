@@ -92,6 +92,9 @@ const config: Config = {
       minHeight: {
         sel: 'var(--sel-tinggi)',
       },
+      minWidth: {
+        tabel: 'var(--tabel-lebar-min)',
+      },
       borderRadius: {
         bar: 'var(--bar-sudut)',
       },
