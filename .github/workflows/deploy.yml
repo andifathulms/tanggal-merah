@@ -1,0 +1,64 @@
+name: Deploy
+
+# `main` builds and deploys; rule validation gates it (CLAUDE.md, Deployment).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  periksa:
+    name: Validasi dan uji
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Rule validation runs first and on its own: a pack that fails must stop
+      # the deploy before anything else is spent on it.
+      - run: pnpm rules:validate
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test:run
+
+  bangun:
+    name: Bangun dan terbitkan
+    needs: periksa
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # basePath must match the repository name (PRD §11).
+      - run: pnpm build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+      - id: deployment
+        uses: actions/deploy-pages@v4
