@@ -116,7 +116,10 @@ const KAMUS = {
   legendaAkhirPekan: ['Akhir pekan', 'Weekend'],
   legendaRun: ['Rentetan 3 hari atau lebih', 'Stretch of 3+ days'],
 
-  saranJudul: ['Jembatan dengan leverage tertinggi', 'Highest-leverage bridges'],
+  // `harpitnas` — hari kejepit nasional. The word people already use for the
+  // thing this app computes better than anything else, and the one term from
+  // the PRD's copy direction the UI never actually said out loud.
+  saranJudul: ['Harpitnas dengan leverage tertinggi', 'Highest-leverage harpitnas'],
   saranKosong: [
     'Tidak ada jembatan yang muat dalam sisa cuti Anda.',
     'No bridge fits inside your remaining leave.',
@@ -207,8 +210,8 @@ const KAMUS = {
   ],
   heroLangkah2: ['Ambil yang paling untung', 'Take the best trades'],
   heroLangkah2Teks: [
-    'Kami hitung sisa cuti Anda setelah cuti bersama, lalu mengurutkan tanggalnya menurut leverage.',
-    'We work out what genuinely remains after cuti bersama, then rank the dates by leverage.',
+    'Kami hitung sisa cuti Anda setelah cuti bersama, lalu mengurutkan harpitnas menurut leverage.',
+    'We work out what genuinely remains after cuti bersama, then rank the harpitnas by leverage.',
   ],
   heroLangkah3: ['Tandai di kalender', 'Mark up the year'],
   heroLangkah3Teks: [
@@ -269,10 +272,10 @@ const KAMUS = {
     'Click any working day to mark it as leave. The red bar shows days off joining up.',
   ],
   sheetLihatSemua: ['Lihat semua usulan', 'See all suggestions'],
-  saranTeratas: ['Usulan teratas', 'Top suggestions'],
+  saranTeratas: ['Harpitnas teratas', 'Top harpitnas'],
   saranPenjelasan: [
-    'Diurutkan menurut leverage: hari libur yang didapat per hari cuti yang dipakai. Bukan saran untuk mengambil cuti — hanya hitungannya.',
-    'Ranked by leverage: days off gained per leave day spent. Not a recommendation to take leave — just the arithmetic.',
+    'Harpitnas adalah hari kerja yang terjepit di antara dua blok libur. Diurutkan menurut leverage: hari libur yang didapat per hari cuti yang dipakai. Bukan saran untuk mengambil cuti — hanya hitungannya.',
+    'A harpitnas is a working day pinched between two blocks of days off. Ranked by leverage: days off gained per leave day spent. Not a recommendation to take leave — just the arithmetic.',
   ],
   tahunLain: ['Tahun lain', 'Other years'],
 } satisfies Kamus
