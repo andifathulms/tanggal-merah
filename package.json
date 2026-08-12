@@ -1,0 +1,38 @@
+{
+  "name": "tanggal-merah",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Perencana libur nasional, cuti bersama, dan cuti tahunan Indonesia — data SKB bersitasi, optimiser eksak.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "pnpm rules:validate && next build",
+    "preview": "node scripts/preview.mjs",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:optimiser": "vitest run tests/optimiser",
+    "test:status": "vitest run tests/status",
+    "rules:validate": "tsx scripts/validate-rules.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "autoprefixer": "10.4.19",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.15",
+    "postcss": "8.4.39",
+    "tailwindcss": "3.4.10",
+    "tsx": "4.16.2",
+    "typescript": "5.5.4",
+    "vitest": "2.0.5"
+  },
+  "packageManager": "pnpm@9.15.9"
+}
