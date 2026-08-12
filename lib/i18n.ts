@@ -115,6 +115,7 @@ const KAMUS = {
   legendaCutiPribadi: ['Cuti Anda', 'Your leave'],
   legendaAkhirPekan: ['Akhir pekan', 'Weekend'],
   legendaRun: ['Rentetan 3 hari atau lebih', 'Stretch of 3+ days'],
+  legendaDipotong: ['Dipotong dari cuti Anda (−1)', 'Charged to your leave (−1)'],
 
   // `harpitnas` — hari kejepit nasional. The word people already use for the
   // thing this app computes better than anything else, and the one term from

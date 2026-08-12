@@ -65,6 +65,32 @@ export function cutiBersamaLibur(status: Status): boolean {
   }
 }
 
+/**
+ * Whether a cuti bersama day landing on a working day is charged to this
+ * person's annual leave.
+ *
+ * One of the four branches charges it: private sector, company closes and
+ * deducts, per the SKB's fourth diktum. For ASN the Keppres on cuti bersama for
+ * civil servants states the opposite, and the two remaining private branches
+ * either do not close or close without deducting.
+ *
+ * Invariant 5: nothing outside this module branches on status. The sheet needs
+ * to know which amber cells were billed, and it asks here rather than
+ * re-deriving it from the ledger's total.
+ */
+export function cutiBersamaMemotong(status: Status): boolean {
+  switch (status.type) {
+    case 'swastaCutiBersamaDipotong':
+      return true
+    case 'asn':
+    case 'swastaTanpaCutiBersama':
+    case 'swastaCutiBersamaTanpaPotong':
+      return false
+    default:
+      return exhaustive(status)
+  }
+}
+
 export type Entitlement = {
   /** Annual leave the person starts the year with. */
   readonly jatahHari: number

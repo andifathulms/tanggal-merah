@@ -51,7 +51,7 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
             {t('sheetJudul', locale)} <span className="angka text-liburMerahTeks">{trace.tahun}</span>
           </h2>
         </div>
-        <Legenda locale={locale} />
+        <Legenda locale={locale} adaDipotong={trace.ledger.entitlement.dipotongCutiBersamaHari > 0} />
       </div>
 
       <p className="teks-jelas mt-ruang-sm">{t('sheetPetunjuk', locale)}</p>
@@ -75,10 +75,16 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
   )
 }
 
-function Legenda({ locale }: { readonly locale: Locale }) {
+function Legenda({ locale, adaDipotong }: { readonly locale: Locale; readonly adaDipotong: boolean }) {
   const butir: readonly (readonly [string, string])[] = [
     ['bg-liburMerah', t('legendaLibur', locale)],
     ['bg-cutiBersama', t('legendaCutiBersama', locale)],
+    // Only shown when this reader's status actually charges cuti bersama; for
+    // the other three branches no cell carries the mark and a legend entry for
+    // it would be describing something that is not on the page.
+    ...(adaDipotong
+      ? ([['bg-cutiBersamaTeks', t('legendaDipotong', locale)]] as const)
+      : ([] as const)),
     ['bg-cutiPribadi', t('legendaCutiPribadi', locale)],
     ['bg-akhirPekan border border-garisTebal', t('legendaAkhirPekan', locale)],
     ['bg-runBarKuat border border-liburMerah/30', t('legendaRun', locale)],

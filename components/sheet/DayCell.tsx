@@ -68,18 +68,38 @@ export function DayCell({
           ? 'rounded-r-[4px]'
           : ''
 
+  /**
+   * This cuti bersama day was charged to the reader's annual leave. The ledger
+   * already reports how many were charged; marking them here is what turns that
+   * total into something they can point at. Under the three branches that
+   * deduct nothing, no cell carries the mark.
+   *
+   * A cuti bersama landing on a Sunday never reaches this branch — the resolver
+   * classifies it as a weekend, because it cost nobody anything. Those are
+   * counted in the "eaten by the weekend" panel instead.
+   */
+  const dibebankan = klasifikasi.type === 'cutiBersama' && klasifikasi.dipotong
+
   const kelas = [
     'sel-hari relative flex min-h-[58px] flex-col px-1.5 pt-1 pb-1 text-left',
     klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan/55' : '',
     dipilihSendiri ? 'bg-cutiPribadiLembut' : '',
     posisiRun !== 'tidak' ? `bar-run bg-runBar ${sudut}` : '',
     disarankan && !dipilihSendiri ? 'ring-1 ring-inset ring-cutiPribadi/45' : '',
+    // Border rather than a fill: a fill would race the run bar for the same
+    // background property and the winner would depend on stylesheet order.
+    dibebankan ? 'border-l-2 border-cutiBersama' : '',
   ]
     .filter(Boolean)
     .join(' ')
 
   const isi = (
     <>
+      {dibebankan && (
+        <span className="angka absolute left-1 top-1 text-2xs font-semibold leading-none text-cutiBersamaTeks">
+          −1
+        </span>
+      )}
       <span className={`poster block text-right text-lg leading-none ${warnaAngka}`}>{day}</span>
       {label !== null && (
         <span

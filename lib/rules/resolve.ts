@@ -1,6 +1,6 @@
 import { daysOfYear, fromIsoDate, type DayNumber } from '@/lib/day'
 import { isAkhirPekan, type WorkPattern } from '@/lib/day/pattern'
-import { cutiBersamaLibur, type Status } from '@/lib/status'
+import { cutiBersamaLibur, cutiBersamaMemotong, type Status } from '@/lib/status'
 import type { HariLibur, RulePack } from './schema'
 
 /**
@@ -24,6 +24,17 @@ export type KlasifikasiHari =
       readonly entri: HariLibur
       /** False when the person's employer does not take cuti bersama. */
       readonly libur: boolean
+      /**
+       * True when this particular day was charged to the person's annual leave.
+       * Only the deducting private branch charges anything, and only for a day
+       * that fell on a day they would otherwise have worked — a cuti bersama on
+       * a Sunday is classified as a weekend below and never reaches here.
+       *
+       * The ledger reports how many days were charged; this says which ones,
+       * so the deduction is a fact the reader can point at on the grid rather
+       * than a total they have to take on trust.
+       */
+      readonly dipotong: boolean
     }
   | { readonly type: 'akhirPekan'; readonly hari: DayNumber; readonly libur: true }
   | { readonly type: 'hariKerja'; readonly hari: DayNumber; readonly libur: false }
@@ -64,6 +75,7 @@ export function resolveTahun(pack: RulePack, pattern: WorkPattern, status: Statu
   }
 
   const cutiBersamaIkut = cutiBersamaLibur(status)
+  const cutiBersamaDipotong = cutiBersamaMemotong(status)
   const hari: KlasifikasiHari[] = []
   const liburHari: DayNumber[] = []
   const hariKerja: DayNumber[] = []
@@ -83,7 +95,13 @@ export function resolveTahun(pack: RulePack, pattern: WorkPattern, status: Statu
     if (bersama !== undefined && !akhirPekan) {
       // Only a cuti bersama landing on a working day costs anything.
       cutiBersamaHariKerjaHari += 1
-      hari.push({ type: 'cutiBersama', hari: d, entri: bersama, libur: cutiBersamaIkut })
+      hari.push({
+        type: 'cutiBersama',
+        hari: d,
+        entri: bersama,
+        libur: cutiBersamaIkut,
+        dipotong: cutiBersamaDipotong,
+      })
       if (cutiBersamaIkut) liburHari.push(d)
       else hariKerja.push(d)
       continue
