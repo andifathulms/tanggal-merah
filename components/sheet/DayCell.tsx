@@ -90,7 +90,7 @@ export function DayCell({
   const dibebankan = klasifikasi.type === 'cutiBersama' && klasifikasi.dipotong
 
   const kelas = [
-    'sel-hari relative flex min-h-sel flex-col px-1.5 pt-1 pb-1 text-left',
+    'sel-hari group relative flex min-h-sel flex-col px-1.5 pt-1 pb-1 text-left',
     klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan' : '',
     dipilihSendiri ? 'bg-cutiPribadiLembut' : '',
     posisiRun !== 'tidak' ? `bar-run bg-runBar ${sudut}` : '',
@@ -111,24 +111,38 @@ export function DayCell({
         <span className={`poster block text-right text-lg leading-none ${warnaAngka}`}>{day}</span>
       </span>
       {/* Hidden below `sm`, where a cell is about 41px wide and 29px of that is
-          text: two clamped lines of 10px type render roughly five characters each,
-          so "Isra Mikraj Nabi Muhammad SAW" arrived as "Isra Mik" — a fragment that
-          identifies nothing. A red or amber numeral still marks the day, the
-          citation region above the grid gives the full name and its decree on
-          activation, and the cell's accessible name has carried it all along. A
-          clean mark you can ask about beats a meaningless truncation.
+          text: two clamped lines of 10px type render roughly five characters each, so
+          "Isra Mikraj Nabi Muhammad SAW" arrived as "Isra Mik" — a fragment that
+          identifies nothing. A red or amber numeral still marks the day and the
+          citation region above the grid gives the full name on activation.
 
-          The alternative was a minimum cell width plus horizontal panning. It was
-          rejected: no width makes a 29-character name fit, and it would have
-          introduced scrolling on every viewport to buy three more characters. */}
+          Centred, not right-aligned. Right-aligned it wrapped ragged-left, so the
+          second line began further left than the first and the name read as though it
+          belonged to the cell next door. `break-words` keeps a long single word inside
+          its own cell instead of letting it push at the edges. */}
       {label !== null && (
-        /* `line-clamp-2` rather than the inline -webkit-box style this used to
-           carry: an inline `display` beats any class, so `hidden` could never have
-           turned it off. Tailwind 3.4 has the utility built in. */
         <span
-          className={`mt-auto hidden text-right text-2xs sm:line-clamp-2 ${
+          className={`mt-auto hidden break-words text-center text-2xs leading-tight sm:line-clamp-2 ${
             klasifikasi.type === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'
           }`}
+        >
+          {label}
+        </span>
+      )}
+
+      {/* The full name on hover or keyboard focus, for the mouse and keyboard readers
+          the truncation was failing.
+
+          Supplementary, never the only route: the authoritative mechanism is still
+          activating the cell, which prints the name *and its decree* in the citation
+          region above the grid, and that works on touch. This is `aria-hidden` because
+          the cell's accessible name already carries the full text — a screen reader
+          would otherwise hear it twice. It is also gated at `sm`, so nothing appears on
+          touch viewports where the label itself is hidden. */}
+      {label !== null && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-full z-20 hidden w-max max-w-sel-panel -translate-x-1/2 border border-garisTebal bg-ink px-ruang-sm py-1 text-center text-xs leading-snug text-kertas shadow-angkat sm:group-hover:block sm:group-focus-visible:block"
         >
           {label}
         </span>

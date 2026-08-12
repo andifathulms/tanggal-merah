@@ -35,22 +35,35 @@ export function Hero({
 
   return (
     <section className="border-b border-garis pb-ruang-2xl">
-      <div className="max-w-prosa">
-        <h2 className="poster text-4xl text-liburMerahTeks sm:text-5xl">{t('heroJudul', locale)}</h2>
-        <p className="mt-ruang-md text-lg leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
+      {/* Two columns from `xl`, one below it.
+          The pitch is capped at a readable measure — 62ch, which it must stay for the
+          paragraph to be readable at all — so on a 1400px container it used to leave
+          roughly half the width empty beside the heading. The worked example moves into
+          that space rather than sitting under it: the claim on the left, the proof on
+          the right.
+
+          The right track is `auto`, sized to the example's own content, so the heading
+          takes whatever is left rather than the two splitting evenly and squeezing the
+          strip. Below `xl` this is plain block flow and the order is unchanged —
+          heading, paragraph, example — which is the mobile layout as it already was. */}
+      <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start xl:gap-ruang-3xl">
+        <div className="max-w-prosa">
+          <h2 className="poster text-4xl text-liburMerahTeks sm:text-5xl">{t('heroJudul', locale)}</h2>
+          <p className="mt-ruang-md text-lg leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
+        </div>
+
+        {/* The arithmetic *is* the explanation, and it used to stop at the conclusion:
+            "2 hari cuti → 12 hari libur" with a date beside it. A reader could not see
+            that the twelve days are a block they already had, plus the two they bought,
+            plus another block they already had — which is the entire mechanism. The
+            example derives it, with the real dates, and then offers the trade so the
+            next thing the reader does is watch the bar close.
+
+            Invariant 13: it states a trade and offers to apply it. It does not advise. */}
+        {contoh !== undefined && (
+          <ContohKerja contoh={contoh} locale={locale} sudahDiambil={sudahDiambil} onAmbil={onAmbil} />
+        )}
       </div>
-
-      {/* The arithmetic *is* the explanation, and it used to stop at the
-          conclusion: "2 hari cuti → 12 hari libur" with a date beside it. A reader
-          could not see that the twelve days are a block they already had, plus the
-          two they bought, plus another block they already had — which is the entire
-          mechanism. The example derives it, with the real dates, and then offers the
-          trade so the next thing the reader does is watch the bar close.
-
-          Invariant 13: it states a trade and offers to apply it. It does not advise. */}
-      {contoh !== undefined && (
-        <ContohKerja contoh={contoh} locale={locale} sudahDiambil={sudahDiambil} onAmbil={onAmbil} />
-      )}
 
       <div className="mt-ruang-xl grid gap-ruang-md sm:grid-cols-2">
         <Istilah

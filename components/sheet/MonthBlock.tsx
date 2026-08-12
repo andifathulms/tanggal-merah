@@ -127,7 +127,10 @@ export function MonthBlock({
   )
 
   return (
-    <section className="kartu overflow-hidden" aria-labelledby={idJudul}>
+    /* No `overflow-hidden`. It was clipping the hover panel a cell now raises, and it
+       was never doing anything else: `.kartu` has no border radius, and no cell
+       background exceeds its own box. The focus ring stays inset regardless. */
+    <section className="kartu" aria-labelledby={idJudul}>
       {/* The heading names the region and the grid, so the `aria-label` that used
           to sit on the section — repeating the month — is gone. The year is on the
           sheet's own heading above. */}

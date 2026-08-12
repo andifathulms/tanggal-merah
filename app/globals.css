@@ -126,6 +126,20 @@
    * shifts the twelve months underneath. Two lines of citation plus its label.
    */
   --kutipan-tinggi-min: 4.5rem;
+
+  /**
+   * Width of the panel a day cell raises on hover to show a holiday's full name.
+   * Wide enough for the longest name in the pack over two lines, narrow enough not to
+   * cover the week either side of the cell it belongs to.
+   */
+  --sel-panel-lebar: 11rem;
+
+  /**
+   * The widest the worked example is set. It sits beside the hero's pitch from `xl`,
+   * and its twelve day cells want about 38rem — past that the prose inside it would
+   * stretch beyond a readable measure for no gain.
+   */
+  --contoh-lebar-maks: 40rem;
 }
 
 @layer base {

@@ -41,7 +41,7 @@ export function ContohKerja({
       .replace('%s', String(contoh.sesudahHari))
 
   return (
-    <section className="mt-ruang-xl border-l-4 border-liburMerah bg-kertas px-ruang-lg py-ruang-lg shadow-kartu">
+    <section className="mt-ruang-xl border-l-4 border-liburMerah bg-kertas px-ruang-lg py-ruang-lg shadow-kartu xl:mt-0 xl:max-w-contoh">
       <h3 className="label-bagian">{t('contohJudul', locale)}</h3>
 
       <p className="teks-jelas mt-ruang-sm">{isi('contohSebelum')}</p>

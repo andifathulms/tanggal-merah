@@ -87,6 +87,9 @@ const config: Config = {
       },
       maxWidth: {
         prosa: '62ch',
+        /** The hover panel a day cell raises, and the worked example. See globals.css. */
+        'sel-panel': 'var(--sel-panel-lebar)',
+        contoh: 'var(--contoh-lebar-maks)',
       },
       /** The wall-calendar grid's own geometry. See globals.css. */
       minHeight: {
