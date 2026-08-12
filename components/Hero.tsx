@@ -1,6 +1,7 @@
 'use client'
 
-import { t, type Locale } from '@/lib/i18n'
+import { t, tanggalPanjang, type Locale } from '@/lib/i18n'
+import type { LeaveTrace } from '@/lib/trace'
 
 /**
  * The first screen a stranger sees.
@@ -10,19 +11,53 @@ import { t, type Locale } from '@/lib/i18n'
  * has no way to tell why that question should change a calendar — so they
  * cannot answer it, and the app's whole point is lost before it is made.
  *
- * This states the point in one sentence, defines the two terms the rest of the
- * page leans on, and shows the three steps. It is the only place on the site
- * that explains rather than computes.
+ * This states the point in one sentence, proves it with one real figure from the
+ * year, defines the two terms the rest of the page leans on, and shows the three
+ * steps. It is the only place on the site that explains rather than computes.
  */
-export function Hero({ locale }: { readonly locale: Locale }) {
+export function Hero({ locale, trace }: { readonly locale: Locale; readonly trace: LeaveTrace }) {
+  // A lookup, not a computation — invariant 15 holds. `saran` arrives already
+  // ranked by leverage from lib/optimise, so its first entry is the year's best
+  // trade. Undefined when nothing fits the budget, in which case there is
+  // nothing honest to show and the strip is omitted.
+  const bukti = trace.saran[0]
+
   return (
-    <section className="border-b border-garis pb-7">
+    <section className="border-b border-garis pb-ruang-2xl">
       <div className="max-w-prosa">
         <h2 className="poster text-4xl text-liburMerahTeks sm:text-5xl">{t('heroJudul', locale)}</h2>
         <p className="mt-ruang-md text-lg leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      {/* The arithmetic *is* the explanation. Everything above is prose, and the
+          figure that makes the point — one leave day buying four days off — used
+          to sit three screens down, past the status question. A reader who sees
+          1 → 5 understands the site before reading a word of it.
+
+          Invariant 13: this states a trade, it does not recommend taking it. */}
+      {bukti !== undefined && (
+        <div className="mt-ruang-xl inline-block border-l-4 border-liburMerah bg-kertas px-ruang-lg py-ruang-md shadow-kartu">
+          <span className="label-bagian">{t('buktiLabel', locale)}</span>
+          <p className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span className="angka text-3xl leading-none text-cutiPribadiTeks">{bukti.biayaHari}</span>
+            <span className="text-base text-inkSedang">{t('saranHariCuti', locale)}</span>
+            <span className="text-xl text-inkSamar" aria-hidden>
+              →
+            </span>
+            <span className="angka text-3xl leading-none text-liburMerahTeks">{bukti.hasilHari}</span>
+            <span className="text-base text-inkSedang">{t('buktiHasil', locale)}</span>
+          </p>
+          <p className="mt-ruang-sm text-sm text-inkPudar">
+            {tanggalPanjang(bukti.mulai, locale)}
+            <span aria-hidden> · </span>
+            <span className="angka">
+              <span className="sr-only">{t('saranLeverage', locale)} </span>×{bukti.leverage.toFixed(1)}
+            </span>
+          </p>
+        </div>
+      )}
+
+      <div className="mt-ruang-xl grid gap-ruang-md sm:grid-cols-2">
         <Istilah
           warna="bg-liburMerah"
           judul={t('legendaLibur', locale)}

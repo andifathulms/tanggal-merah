@@ -216,6 +216,11 @@ const KAMUS = {
     'Click any day on the year sheet, then download it as .ics or a PNG.',
   ],
 
+  // The proof line in the hero. States the year's best trade as arithmetic —
+  // invariant 13 holds, it is not a suggestion to take the day.
+  buktiLabel: ['Contoh dari tahun ini', 'From this year, for example'],
+  buktiHasil: ['hari libur berturut-turut', 'consecutive days off'],
+
   istilahJudul: ['Dua hal yang beda', 'Two different things'],
   istilahLiburTeks: [
     'Tanggal merah. Libur untuk semua orang, dan tidak memotong cuti tahunan siapa pun.',

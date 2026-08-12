@@ -177,7 +177,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
       {/* The explanation comes before the instrument. A reader who does not
           know what cuti bersama costs cannot answer the status question, and
           the status question is the first thing the page asks. */}
-      {tampilkan === 'tahun' && <Hero locale={locale} />}
+      {tampilkan === 'tahun' && <Hero locale={locale} trace={trace} />}
 
       {/* And the caveat comes after the explanation. It used to be the second
           thing read — "do not rely on it" before the reader knew what "it"
