@@ -53,7 +53,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
         {t('statusPertanyaan', locale)}
       </h2>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-ruang-lg grid gap-ruang-md sm:grid-cols-2 xl:grid-cols-4">
         {pratinjau.map((p) => {
           const terpilih = status.type === p.jenis
           return (
@@ -62,7 +62,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
               type="button"
               onClick={() => pilih(p.jenis)}
               aria-pressed={terpilih}
-              className={`flex flex-col justify-between gap-3 border-2 p-4 text-left transition-shadow ${
+              className={`flex flex-col justify-between gap-ruang-md border-2 p-ruang-lg text-left transition-shadow ${
                 terpilih
                   ? 'border-ink bg-kertas shadow-angkat'
                   : 'border-garis bg-kertas/60 hover:border-garisTebal hover:shadow-kartu'

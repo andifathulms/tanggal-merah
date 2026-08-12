@@ -46,17 +46,17 @@ export function Controls({
   }
 
   return (
-    <section className="kartu p-4">
+    <section className="kartu p-ruang-lg">
       <h2 className="label-bagian">{locale === 'id' ? 'Pengaturan' : 'Settings'}</h2>
 
-      <div className="mt-3 space-y-4">
+      <div className="mt-ruang-md space-y-ruang-lg">
         {tahunTersedia.length > 1 && (
           <label className="block">
             <span className="text-xs font-semibold text-inkSedang">{t('navTahun', locale)}</span>
             <select
               value={tahun}
               onChange={(e) => onTahun(Number(e.target.value))}
-              className="angka mt-1 w-full border border-garisTebal bg-kertas px-2 py-1.5 text-sm"
+              className="angka mt-1 w-full border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
             >
               {tahunTersedia.map((y) => (
                 <option key={y} value={y}>
@@ -77,7 +77,7 @@ export function Controls({
                 onClick={() => onPattern(p)}
                 aria-pressed={pattern === p}
                 title={t(p === 'lima-hari' ? 'polaLima' : 'polaEnam', locale)}
-                className={`px-2 py-2 text-xs ${
+                className={`px-ruang-sm py-ruang-sm text-xs ${
                   pattern === p ? 'bg-ink font-semibold text-kertas' : 'bg-kertas text-inkSedang hover:bg-kertasGelap'
                 }`}
               >
@@ -90,14 +90,14 @@ export function Controls({
 
         <label className="block">
           <span className="text-xs font-semibold text-inkSedang">{t('jatahJudul', locale)}</span>
-          <div className="mt-1 flex items-center gap-2">
+          <div className="mt-1 flex items-center gap-ruang-sm">
             <input
               type="number"
               min={0}
               max={365}
               value={status.jatahHari}
               onChange={(e) => gantiJatah(Math.max(0, Math.min(365, Number(e.target.value) || 0)))}
-              className="angka w-20 border border-garisTebal bg-kertas px-2 py-1.5 text-sm"
+              className="angka w-20 border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
             />
             <span className="text-xs text-inkPudar">{t('jatahSatuan', locale)}</span>
           </div>
@@ -118,7 +118,7 @@ export function Controls({
                   tidakDiberikanHari: Math.max(0, Math.min(365, Number(e.target.value) || 0)),
                 })
               }
-              className="angka mt-1 w-20 border border-garisTebal bg-kertas px-2 py-1.5 text-sm"
+              className="angka mt-1 w-20 border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
             />
             <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
               {t('tidakDiberikanBantu', locale)}

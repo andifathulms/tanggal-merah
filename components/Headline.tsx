@@ -23,7 +23,7 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
   const angka = sudahPilih ? sekarang : dasar
 
   return (
-    <section className="kartu p-5 sm:p-6" aria-labelledby="judul-hasil">
+    <section className="kartu p-ruang-lg sm:p-ruang-xl" aria-labelledby="judul-hasil">
       {/* Not a step. This panel was labelled "Langkah 2", which made the page
           promise three steps and then deliver a result where the second one
           should have been. It is what the steps produce, so it says so. */}
@@ -36,14 +36,14 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
         {sudahPilih ? t('hasilKalimat', locale) : t('hasilTanpaCuti', locale)}
       </p>
 
-      <p className="mt-2 flex flex-wrap items-baseline gap-x-3">
+      <p className="mt-ruang-sm flex flex-wrap items-baseline gap-x-ruang-md">
         <span className="angka text-5xl leading-none text-liburMerahTeks sm:text-6xl">{angka}</span>
         <span className="text-lg text-inkSedang">
           {t('ringkasHari', locale)} {locale === 'id' ? 'berturut-turut' : 'in a row'}
         </span>
       </p>
 
-      <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-3 border-t border-garis pt-4">
+      <dl className="mt-ruang-lg flex flex-wrap gap-x-ruang-2xl gap-y-ruang-md border-t border-garis pt-ruang-lg">
         <Fakta
           label={t('ledgerSisa', locale)}
           nilai={trace.ledger.sisaHari}

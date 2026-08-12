@@ -21,14 +21,14 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
   ]
 
   return (
-    <section className="kartu p-4" aria-label={t('ledgerJudul', locale)}>
+    <section className="kartu p-ruang-lg" aria-label={t('ledgerJudul', locale)}>
       <h2 className="poster text-xl">{t('ledgerJudul', locale)}</h2>
 
-      <dl className="mt-3 space-y-1 text-sm">
+      <dl className="mt-ruang-md space-y-1 text-sm">
         {baris
           .filter(([, nilai], i) => nilai !== 0 || i === 0)
           .map(([label, nilai, warna]) => (
-            <div key={label} className="flex items-baseline justify-between gap-4 border-b border-dotted border-garis pb-1">
+            <div key={label} className="flex items-baseline justify-between gap-ruang-lg border-b border-dotted border-garis pb-1">
               <dt className="text-inkSedang">{label}</dt>
               <dd className={`angka text-sm ${warna}`}>
                 {nilai > 0 && label !== t('ledgerJatah', locale) ? '+' : ''}
@@ -37,7 +37,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
             </div>
           ))}
 
-        <div className="flex items-baseline justify-between gap-4 pt-1">
+        <div className="flex items-baseline justify-between gap-ruang-lg pt-1">
           <dt className="font-semibold">{t('ledgerSisa', locale)}</dt>
           <dd className="angka text-lg font-semibold">
             {sisaHari} <span className="text-xs font-normal text-inkPudar">{t('ringkasHari', locale)}</span>
@@ -50,12 +50,12 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
           <span className="font-semibold">{t('ledgerDasar', locale)}. </span>
           {entitlement.dasar}
         </p>
-        <p className="mt-2 text-inkPudar">
+        <p className="mt-ruang-sm text-inkPudar">
           <span className="font-semibold">{t('ledgerInstrumen', locale)}: </span>
           {entitlement.instrumen}
         </p>
         {cutiBersamaHariKerjaHari > 0 && (
-          <p className="mt-2 text-inkPudar">
+          <p className="mt-ruang-sm text-inkPudar">
             <span className="angka">{cutiBersamaHariKerjaHari}</span>{' '}
             {locale === 'id'
               ? 'hari cuti bersama jatuh pada hari yang seharusnya Anda kerja.'
@@ -65,7 +65,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
       </div>
 
       {trace.ledger.kontradiksi.length > 0 && (
-        <div className="mt-4 border-t border-garis pt-3">
+        <div className="mt-ruang-lg border-t border-garis pt-ruang-md">
           <h3 className="label-bagian">
             {t('aturanKontradiksi', locale)}
           </h3>

@@ -68,17 +68,27 @@
   --ukuran-6xl: 5.25rem;    /* 84px — the headline figure */
 
   /**
-   * Vertical rhythm. Major blocks are separated on this scale so that the gaps
-   * themselves rank the page — `3xl` between steps, `xl` inside one.
+   * Rhythm. Gap size is how a page ranks its own parts, so the four container
+   * rhythms are set in a deliberate relationship rather than picked per place:
+   *
+   *   3xl  between the page's numbered steps, and between sections of a column
+   *   2xl  between the main column and the settings rail
+   *   xl   between blocks inside one step
+   *   lg   between cards in the rail
+   *
+   * The boundary with Tailwind's numeric scale is 8px. Anything at or above it
+   * is structure and belongs on a token; below it is optical adjustment — the
+   * 2px between a label and its figure — and stays numeric, because inventing
+   * tokens for those would be a scale nobody could hold in their head.
    */
-  --ruang-xs: 0.25rem;
-  --ruang-sm: 0.5rem;
-  --ruang-md: 0.75rem;
-  --ruang-lg: 1rem;
-  --ruang-xl: 1.5rem;
-  --ruang-2xl: 2rem;
-  --ruang-3xl: 3rem;
-  --ruang-4xl: 4rem;
+  --ruang-xs: 0.25rem;   /*  4px — reserved; below the token boundary */
+  --ruang-sm: 0.5rem;    /*  8px */
+  --ruang-md: 0.75rem;   /* 12px */
+  --ruang-lg: 1rem;      /* 16px — rail cards */
+  --ruang-xl: 1.5rem;    /* 24px — inside a step */
+  --ruang-2xl: 2rem;     /* 32px — column to rail */
+  --ruang-3xl: 3rem;     /* 48px — between steps */
+  --ruang-4xl: 4rem;     /* 64px — above the footer */
 }
 
 @layer base {

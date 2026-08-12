@@ -128,22 +128,22 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
   if (hasil.type === 'ditolak') {
     return (
-      <div role="alert" className="border-l-4 border-liburMerah bg-liburMerahLembut/50 p-6">
+      <div role="alert" className="border-l-4 border-liburMerah bg-liburMerahLembut/50 p-ruang-xl">
         <h2 className="poster text-2xl text-liburMerahTeks">
           {locale === 'id' ? 'Belum bisa dihitung' : 'Cannot compute'}
         </h2>
         <p className="teks-jelas mt-ruang-sm">
           {locale === 'id' ? pesanPenolakan(hasil.penolakan) : messagePenolakanEn(hasil.penolakan)}
         </p>
-        <div className="mt-4">
+        <div className="mt-ruang-lg">
           <span className="label-bagian">{t('tahunLain', locale)}</span>
-          <div className="mt-1 flex gap-2">
+          <div className="mt-1 flex gap-ruang-sm">
             {TERSEDIA.map((y) => (
               <button
                 key={y}
                 type="button"
                 onClick={() => setTahun(y)}
-                className="angka border border-garisTebal bg-kertas px-3 py-1 text-sm hover:bg-kertasGelap"
+                className="angka border border-garisTebal bg-kertas px-ruang-md py-1 text-sm hover:bg-kertasGelap"
               >
                 {y}
               </button>
@@ -179,7 +179,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-ruang-3xl">
       {/* The explanation comes before the instrument. A reader who does not
           know what cuti bersama costs cannot answer the status question, and
           the status question is the first thing the page asks. */}
@@ -193,30 +193,39 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
       <StatusPicker locale={locale} status={status} pratinjau={pratinjau} onStatus={setStatus} />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_296px]">
+      <div className="grid gap-ruang-2xl lg:grid-cols-[minmax(0,1fr)_296px]">
         {/* The answer and the sheet lead on every viewport. The settings rail
             follows on mobile — it used to come first, which meant a phone
             opened on a form instead of on the result. */}
-        <div className="space-y-10">
+        <div className="space-y-ruang-3xl">
           <Headline trace={trace} locale={locale} />
 
           {tampilkan === 'tahun' ? (
             <>
-              <Suggestions
-                trace={trace}
-                locale={locale}
-                dipilihSendiri={new Set(trace.dipilihSendiri)}
-                onAmbil={ambilJembatan}
-                onTerapkanOptimal={terapkanOptimal}
-                tujuan={tujuan}
-                onTujuan={setTujuan}
-                batas={4}
-              />
-              <p className="-mt-6">
-                <Link href={`/${locale}/rencana/`} className="text-sm font-semibold text-liburMerahTeks underline underline-offset-4 hover:text-liburMerah">
-                  {t('sheetLihatSemua', locale)} →
-                </Link>
-              </p>
+              {/* The link belongs to the suggestions, so it sits inside their
+                  block at the inside-a-step rhythm. It used to be a sibling
+                  pulled back up with a negative margin, which meant the column
+                  gap and the link fought each other. */}
+              <div className="space-y-ruang-lg">
+                <Suggestions
+                  trace={trace}
+                  locale={locale}
+                  dipilihSendiri={new Set(trace.dipilihSendiri)}
+                  onAmbil={ambilJembatan}
+                  onTerapkanOptimal={terapkanOptimal}
+                  tujuan={tujuan}
+                  onTujuan={setTujuan}
+                  batas={4}
+                />
+                <p>
+                  <Link
+                    href={`/${locale}/rencana/`}
+                    className="text-sm font-semibold text-liburMerahTeks underline underline-offset-4 hover:text-liburMerah"
+                  >
+                    {t('sheetLihatSemua', locale)} →
+                  </Link>
+                </p>
+              </div>
               <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
             </>
           ) : (
@@ -239,7 +248,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
           )}
         </div>
 
-        <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
+        <aside className="space-y-ruang-lg lg:sticky lg:top-ruang-lg lg:self-start">
           <Controls
             locale={locale}
             tahun={tahun}
@@ -254,9 +263,9 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
           <LiburHilang hilang={trace.hilang} locale={locale} />
           <BandingPosisi banding={trace.ledger.banding} locale={locale} />
 
-          <section className="kartu p-4">
+          <section className="kartu p-ruang-lg">
             <h2 className="label-bagian">{t('eksporJudul', locale)}</h2>
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-ruang-sm flex flex-wrap gap-ruang-sm">
               <button type="button" onClick={unduhIcs} className={TOMBOL}>
                 {t('eksporIcs', locale)}
               </button>
@@ -276,7 +285,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 }
 
 const TOMBOL =
-  'border border-garisTebal bg-kertas px-3 py-1.5 text-xs font-semibold text-inkSedang hover:bg-kertasGelap'
+  'border border-garisTebal bg-kertas px-ruang-md py-1.5 text-xs font-semibold text-inkSedang hover:bg-kertasGelap'
 
 function unduh(blob: Blob, nama: string): void {
   const url = URL.createObjectURL(blob)

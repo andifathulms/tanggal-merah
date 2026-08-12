@@ -59,7 +59,7 @@ export function Suggestions({
       <PilihTujuan tujuan={tujuan} onTujuan={onTujuan} locale={locale} />
 
       {rencanaOptimal.dipilih.length > 0 && (
-        <div className="mt-4 border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-4">
+        <div className="mt-ruang-lg border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-ruang-lg">
           <span className="label-bagian text-cutiPribadiTeks">{t('optimalJudul', locale)}</span>
           <p className="mt-1 text-base leading-snug">
             <span className="angka text-xl text-cutiPribadiTeks">{rencanaOptimal.biayaHari}</span>{' '}
@@ -82,7 +82,7 @@ export function Suggestions({
           <button
             type="button"
             onClick={onTerapkanOptimal}
-            className="mt-3 bg-cutiPribadi px-4 py-1.5 text-sm font-semibold text-kertas hover:bg-cutiPribadiTeks"
+            className="mt-ruang-md bg-cutiPribadi px-ruang-lg py-1.5 text-sm font-semibold text-kertas hover:bg-cutiPribadiTeks"
           >
             {t('optimalTerapkan', locale)}
           </button>
@@ -90,9 +90,9 @@ export function Suggestions({
       )}
 
       {tampil.length === 0 ? (
-        <p className="mt-4 text-sm text-inkPudar">{t('saranKosong', locale)}</p>
+        <p className="mt-ruang-lg text-sm text-inkPudar">{t('saranKosong', locale)}</p>
       ) : (
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+        <ul className="mt-ruang-lg grid gap-ruang-sm sm:grid-cols-2">
           {tampil.map((b) => (
             <KartuJembatan
               key={`${b.mulai}-${b.selesai}`}
@@ -126,7 +126,7 @@ function KartuJembatan({
 
   return (
     <li
-      className={`flex items-center justify-between gap-3 border p-3 ${
+      className={`flex items-center justify-between gap-ruang-md border p-ruang-md ${
         sudahDiambil ? 'border-cutiPribadi bg-cutiPribadiLembut/40' : 'border-garis bg-kertas'
       }`}
     >
@@ -151,7 +151,7 @@ function KartuJembatan({
         <button
           type="button"
           onClick={() => onAmbil(jembatan)}
-          className={`border px-2.5 py-1 text-xs font-semibold ${
+          className={`border px-ruang-sm py-1 text-xs font-semibold ${
             sudahDiambil
               ? 'border-garisTebal text-inkSedang hover:bg-kertasGelap'
               : 'border-cutiPribadi text-cutiPribadiTeks hover:bg-cutiPribadi hover:text-kertas'

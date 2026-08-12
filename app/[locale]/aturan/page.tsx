@@ -24,10 +24,10 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
     <>
       <Nav locale={locale} halaman="aturan" />
 
-      <div className="max-w-4xl space-y-10">
+      <div className="max-w-4xl space-y-ruang-3xl">
         <section>
           <h2 className="poster text-4xl text-liburMerahTeks">{t('aturanJudul', locale)}</h2>
-          <div className="mt-2">
+          <div className="mt-ruang-sm">
             <CatatanTidakMenghitung locale={locale} />
           </div>
         </section>
@@ -40,45 +40,45 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
               <h3 className="poster text-2xl">
                 {y}
                 {pack.status === 'perluVerifikasi' && (
-                  <span className="ml-2 align-middle text-xs uppercase tracking-wide text-cutiBersamaTeks">
+                  <span className="ml-ruang-sm align-middle text-xs uppercase tracking-wide text-cutiBersamaTeks">
                     {locale === 'id' ? 'belum diverifikasi' : 'not verified'}
                   </span>
                 )}
               </h3>
 
               {pack.catatan !== undefined && (
-                <p className="mt-2 border-l-4 border-cutiBersama bg-cutiBersamaLembut/50 py-2 pl-3 text-xs leading-relaxed text-inkSedang">
+                <p className="mt-ruang-sm border-l-4 border-cutiBersama bg-cutiBersamaLembut/50 py-ruang-sm pl-ruang-md text-xs leading-relaxed text-inkSedang">
                   {pack.catatan}
                 </p>
               )}
 
-              <table className="mt-3 w-full border-collapse text-sm">
+              <table className="mt-ruang-md w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b-2 border-garisTebal text-left">
-                    <th className="label-bagian py-2 pr-3">{locale === 'id' ? 'Tanggal' : 'Date'}</th>
-                    <th className="label-bagian py-2 pr-3">{locale === 'id' ? 'Nama' : 'Name'}</th>
-                    <th className="label-bagian py-2 pr-3">{locale === 'id' ? 'Jenis' : 'Type'}</th>
-                    <th className="label-bagian py-2">{t('ledgerInstrumen', locale)}</th>
+                    <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Tanggal' : 'Date'}</th>
+                    <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Nama' : 'Name'}</th>
+                    <th className="label-bagian py-ruang-sm pr-ruang-md">{locale === 'id' ? 'Jenis' : 'Type'}</th>
+                    <th className="label-bagian py-ruang-sm">{t('ledgerInstrumen', locale)}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {pack.hari.map((h) => (
                     <tr key={`${h.tanggal}-${h.jenis}`} className="border-b border-dotted border-garis align-top">
-                      <td className="angka py-2 pr-3 text-xs whitespace-nowrap text-inkSedang">
+                      <td className="angka py-ruang-sm pr-ruang-md text-xs whitespace-nowrap text-inkSedang">
                         {tanggalPanjang(fromIsoDate(h.tanggal), locale)}
                       </td>
-                      <td className="py-2 pr-3">
+                      <td className="py-ruang-sm pr-ruang-md">
                         {namaLibur(h, locale)}
                         {h.catatan !== undefined && (
                           <span className="mt-0.5 block text-sm leading-snug text-inkPudar">{h.catatan}</span>
                         )}
                       </td>
-                      <td className="py-2 pr-3 text-xs whitespace-nowrap">
+                      <td className="py-ruang-sm pr-ruang-md text-xs whitespace-nowrap">
                         <span className={h.jenis === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'}>
                           {h.jenis === 'liburNasional' ? t('legendaLibur', locale) : t('legendaCutiBersama', locale)}
                         </span>
                       </td>
-                      <td className="py-2 text-sm leading-snug text-inkPudar">
+                      <td className="py-ruang-sm text-sm leading-snug text-inkPudar">
                         {h.sitasi.instrumen}
                         <span className="block">{h.sitasi.nomor}</span>
                       </td>
@@ -92,20 +92,20 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
 
         <section>
           <h2 className="poster text-4xl">{t('aturanKontradiksi', locale)}</h2>
-          <div className="mt-4 space-y-6">
+          <div className="mt-ruang-lg space-y-ruang-xl">
             {kontradiksi.map((k) => (
-              <article key={k.id} className="kartu p-5">
+              <article key={k.id} className="kartu p-ruang-lg">
                 <h3 className="text-lg font-semibold leading-snug">{k.judul}</h3>
-                <p className="mt-2 max-w-prosa text-sm leading-relaxed text-inkSedang">{k.pertanyaan}</p>
+                <p className="mt-ruang-sm max-w-prosa text-sm leading-relaxed text-inkSedang">{k.pertanyaan}</p>
 
-                <h4 className="label-bagian mt-5">
+                <h4 className="label-bagian mt-ruang-lg">
                   {t('aturanBacaan', locale)}
                 </h4>
-                <ul className="mt-2 space-y-3">
+                <ul className="mt-ruang-sm space-y-ruang-md">
                   {k.bacaan.map((b) => (
                     <li
                       key={b.id}
-                      className={`border-l-2 pl-3 text-sm ${
+                      className={`border-l-2 pl-ruang-md text-sm ${
                         b.id === k.dipakai ? 'border-cutiPribadi bg-cutiPribadiLembut/40 py-1' : 'border-garis'
                       }`}
                     >
@@ -118,14 +118,14 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                             : t('aturanJenisPemberitaan', locale)}
                         </span>
                         {b.id === k.dipakai && (
-                          <span className="ml-2 font-semibold text-cutiPribadiTeks">— {t('aturanDipakai', locale)}</span>
+                          <span className="ml-ruang-sm font-semibold text-cutiPribadiTeks">— {t('aturanDipakai', locale)}</span>
                         )}
                       </p>
                     </li>
                   ))}
                 </ul>
 
-                <h4 className="label-bagian mt-5">
+                <h4 className="label-bagian mt-ruang-lg">
                   {t('aturanAlasan', locale)}
                 </h4>
                 <p className="mt-1 max-w-prosa text-sm leading-relaxed text-inkSedang">{k.alasan}</p>

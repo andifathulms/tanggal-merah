@@ -30,7 +30,7 @@ export function CatatanTidakMenghitung({ locale }: { readonly locale: Locale }) 
 export function BannerDraf({ locale, tahun }: { readonly locale: Locale; readonly tahun: number }) {
   return (
     <div role="alert" className="border-l-4 border-cutiBersama bg-cutiBersamaLembut px-ruang-lg py-ruang-md">
-      <p className="flex flex-wrap items-baseline gap-x-2 text-base font-semibold text-cutiBersamaTeks">
+      <p className="flex flex-wrap items-baseline gap-x-ruang-sm text-base font-semibold text-cutiBersamaTeks">
         <span className="angka border border-cutiBersama/40 px-1.5 text-sm">{tahun}</span>
         {t('bannerDrafJudul', locale)}
       </p>

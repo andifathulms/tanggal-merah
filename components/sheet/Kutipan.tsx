@@ -57,7 +57,7 @@ function Isi({
 
   return (
     <>
-      <p className="flex flex-wrap items-baseline gap-x-2">
+      <p className="flex flex-wrap items-baseline gap-x-ruang-sm">
         <span className={`angka text-sm font-semibold ${merah ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'}`}>
           {tanggalPanjang(klasifikasi.hari, locale)}
         </span>

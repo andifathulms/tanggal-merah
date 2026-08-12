@@ -38,7 +38,7 @@ export function Hero({ locale, trace }: { readonly locale: Locale; readonly trac
       {bukti !== undefined && (
         <div className="mt-ruang-xl inline-block border-l-4 border-liburMerah bg-kertas px-ruang-lg py-ruang-md shadow-kartu">
           <span className="label-bagian">{t('buktiLabel', locale)}</span>
-          <p className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <p className="mt-1 flex flex-wrap items-baseline gap-x-ruang-sm gap-y-1">
             <span className="angka text-3xl leading-none text-cutiPribadiTeks">{bukti.biayaHari}</span>
             <span className="text-base text-inkSedang">{t('saranHariCuti', locale)}</span>
             <span className="text-xl text-inkSamar" aria-hidden>
@@ -75,7 +75,7 @@ export function Hero({ locale, trace }: { readonly locale: Locale; readonly trac
       {/* Three steps that match the three numbered sections below, in order.
           They used to be `hidden sm:grid`, so a phone visitor — most of them —
           got no orientation at all. */}
-      <ol className="mt-ruang-xl grid gap-x-6 gap-y-ruang-lg sm:grid-cols-3">
+      <ol className="mt-ruang-xl grid gap-x-ruang-xl gap-y-ruang-lg sm:grid-cols-3">
         <Langkah
           nomor={1}
           label={t('langkahSatu', locale)}
@@ -111,8 +111,8 @@ function Istilah({
   readonly batas: string
 }) {
   return (
-    <div className={`border-l-4 px-4 py-3 ${batas}`}>
-      <h3 className="flex items-center gap-2 text-sm font-semibold">
+    <div className={`border-l-4 px-ruang-lg py-ruang-md ${batas}`}>
+      <h3 className="flex items-center gap-ruang-sm text-sm font-semibold">
         <span className={`inline-block h-3 w-3 shrink-0 ${warna}`} aria-hidden />
         {judul}
       </h3>
@@ -133,7 +133,7 @@ function Langkah({
   readonly teks: string
 }) {
   return (
-    <li className="flex gap-3">
+    <li className="flex gap-ruang-md">
       <span
         className="angka mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center border border-garisTebal text-xs text-inkPudar"
         aria-hidden

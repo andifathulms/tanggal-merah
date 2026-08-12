@@ -16,7 +16,7 @@ export function Nav({ locale, halaman }: NavProps) {
 
   return (
     <header className="mb-ruang-xl border-b-2 border-liburMerah pb-ruang-md">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-ruang-xl gap-y-ruang-sm">
         {/* A wordmark, not a headline. It used to be set at the same size and
             nearly the same red as the hero heading directly beneath it, so two
             48px red lines competed and neither won — the page had no entry
@@ -31,7 +31,7 @@ export function Nav({ locale, halaman }: NavProps) {
           </div>
         </div>
 
-        <nav className="flex items-baseline gap-4 text-sm">
+        <nav className="flex items-baseline gap-ruang-lg text-sm">
           {tautan.map(([kunci, label]) => (
             <Link
               key={kunci}

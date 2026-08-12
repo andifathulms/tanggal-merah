@@ -17,7 +17,7 @@ export default function LocaleLayout({
   return (
     // Column layout so the footer sits at the bottom of the viewport on short
     // pages rather than floating halfway up.
-    <div className="mx-auto flex min-h-screen max-w-[1400px] flex-col px-4 py-6">
+    <div className="mx-auto flex min-h-screen max-w-[1400px] flex-col px-ruang-lg py-ruang-xl">
       <main className="flex-1">{children}</main>
       <SiteFooter locale={locale} />
     </div>

@@ -31,7 +31,7 @@ export function BandingPosisi({
   const selisih = Math.max(...nilai) - Math.min(...nilai)
 
   return (
-    <section className="kartu p-4" aria-labelledby="judul-banding">
+    <section className="kartu p-ruang-lg" aria-labelledby="judul-banding">
       <h2 id="judul-banding" className="poster text-xl">
         {t('bandingJudul', locale)}
       </h2>
@@ -48,7 +48,7 @@ export function BandingPosisi({
             <span className="min-w-0 text-sm leading-snug text-inkSedang">
               {b.posisiJudul}
               {b.dipakai && (
-                <span className="label-bagian ml-2 text-cutiPribadiTeks">{t('bandingDipakai', locale)}</span>
+                <span className="label-bagian ml-ruang-sm text-cutiPribadiTeks">{t('bandingDipakai', locale)}</span>
               )}
             </span>
             <span className="shrink-0 whitespace-nowrap">
