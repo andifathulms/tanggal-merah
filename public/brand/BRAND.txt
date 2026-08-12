@@ -1,0 +1,28 @@
+TANGGAL MERAH — brand assets
+Mark: "Jembatan" (1a) — libur nasional, cuti bersama, and the weekend it bridges into
+  one continuous stretch (bracket underneath = the rentetan the app counts in days).
+Wordmark: TANGGAL MERAH (Arial Narrow Bold, all caps — matches the app's own masthead).
+Tagline: DOES CUTI BERSAMA COST YOU A DAY?
+  full line: whether cuti bersama costs you a day, made explicit.
+  alts: The rule everyone gets wrong / Spend your leave where it counts
+
+Palette
+  Paper #F0EAD9   Ink #1C1810
+  Red (libur nasional) #C8352E   Amber (cuti bersama) #C97A2E   Pink (rentetan tint) #F2D6D2
+
+svg/        vector masters, four colour variants (ink/light/red/amber) + favicon
+icon/       16-1024, maskable-512, colour variants (ink/light/red/amber)
+lockup/     horizontal + vertical, light/dark, each with tagline and plain (notag/plain),
+            plus ink-on-transparent
+wordmark/   ink, paper, duotone (TANGGAL in red / MERAH in amber)
+social/     og image 1200x630
+
+Rules
+  Red is always libur nasional, amber always cuti bersama (the bridge cell) — never
+  swapped or reused decoratively. Pink stays a tint, never a solid fill on its own.
+  The bracket only appears at 64px and above; below that the mark is three flat cells.
+  No gradients or shadows in the icon fills. Flat fills only.
+
+HTML
+  <link rel="icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/tanggal-merah-icon-180.png">

@@ -5,3 +5,6 @@ out/
 next-env.d.ts
 .DS_Store
 .env*.local
+
+# Brand source kit — the curated subset the app ships lives in public/ and public/brand/.
+exports/
