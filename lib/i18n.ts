@@ -383,6 +383,14 @@ const KAMUS = {
   ],
   hasilSudahPilih: ['hari cuti terpakai', 'leave days spent'],
 
+  // Spoken when the computed result changes. A polite live region, not an alert:
+  // the reader asked for this by toggling a day, so it must not interrupt.
+  hasilDiumumkan: [
+    'Rentetan terpanjang %r hari. Sisa cuti %s hari.',
+    'Longest stretch %r days. Leave remaining %s days.',
+  ],
+  eksporTersalinDiumumkan: ['Tautan tersalin ke papan klip.', 'Link copied to the clipboard.'],
+
   sheetPetunjuk: [
     'Klik hari kerja mana pun untuk menandainya sebagai cuti. Batang merah menunjukkan hari libur yang menyambung.',
     'Click any working day to mark it as leave. The red bar shows days off joining up.',

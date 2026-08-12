@@ -69,6 +69,20 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
       </dl>
 
       {!sudahPilih && <p className="teks-catatan mt-ruang-md text-base">{t('hasilBelumPilih', locale)}</p>}
+
+      {/* WCAG 4.1.3. Toggling a day, applying a plan, or changing status or work
+          pattern recomputes everything on the page and said nothing: the cell's own
+          `aria-pressed` flipped, so a reader heard "pressed" but never heard that
+          their longest stretch went from 4 days to 9.
+
+          Polite, not assertive — the reader caused this and is not to be
+          interrupted. One region, carrying the two figures that actually moved,
+          rather than a region per panel all talking at once. */}
+      <p aria-live="polite" className="sr-only">
+        {t('hasilDiumumkan', locale)
+          .replace('%r', String(angka))
+          .replace('%s', String(trace.ledger.sisaHari))}
+      </p>
     </section>
   )
 }

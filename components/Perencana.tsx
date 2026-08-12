@@ -288,6 +288,13 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
                 {tersalin ? t('eksporTersalin', locale) : t('eksporSalinTautan', locale)}
               </button>
             </div>
+            {/* "Salin tautan" becomes "Tersalin" — a change to the focused
+                element's own name, which screen readers do not announce. The
+                confirmation needs its own polite region. */}
+            <p aria-live="polite" className="sr-only">
+              {tersalin ? t('eksporTersalinDiumumkan', locale) : ''}
+            </p>
+
             <canvas ref={canvasRef} className="hidden" aria-hidden />
           </section>
         </aside>
