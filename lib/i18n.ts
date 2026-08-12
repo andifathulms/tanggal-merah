@@ -128,6 +128,35 @@ const KAMUS = {
   ledgerDitambah: ['Ditambah', 'Added back'],
   ledgerDipakai: ['Dipakai untuk jembatan', 'Spent on bridges'],
   ledgerSisa: ['Sisa', 'Remaining'],
+  // The four facts behind the deduction used to live in four separate components
+  // with nothing joining them, and the principle that makes the middle step matter
+  // — a day off you already had costs nobody anything — was never stated at all.
+  rantaiJudul: ['Dari mana potongan itu', 'Where the deduction comes from'],
+  rantaiTotal: ['hari cuti bersama ditetapkan tahun ini.', 'cuti bersama days are decreed this year.'],
+  rantaiAkhirPekan: [
+    'jatuh pada hari yang Anda sudah libur. Hari yang sudah libur tidak memakan cuti siapa pun, jadi tidak ikut dihitung.',
+    'fall on a day you were already off. A day you already had off costs nobody any leave, so it is not counted.',
+  ],
+  rantaiTidakAdaAkhirPekan: [
+    'Tahun ini tidak ada yang jatuh di akhir pekan — kalau ada, hari itu tidak akan memakan cuti siapa pun.',
+    'None fall on a weekend this year — if one did, it would cost nobody any leave.',
+  ],
+  rantaiHariKerja: [
+    'jatuh pada hari yang seharusnya Anda kerja. Hanya hari-hari inilah yang bisa dipotong.',
+    'fall on a day you would otherwise have worked. Only these can be charged.',
+  ],
+  rantaiDipotong: [
+    'Perusahaan Anda ikut cuti bersama dan memotongnya, jadi semuanya dipotong:',
+    'Your company takes cuti bersama and deducts it, so all of them are charged:',
+  ],
+  rantaiTidakDipotong: [
+    'Status Anda tidak memotongnya, jadi potongannya nol.',
+    'Your status does not charge them, so the deduction is zero.',
+  ],
+  rantaiLihat: [
+    'Hari yang dipotong ditandai −1 di kalender.',
+    'The charged days are marked −1 on the calendar.',
+  ],
   ledgerDasar: ['Dasar', 'Basis'],
   ledgerInstrumen: ['Instrumen', 'Instrument'],
 
