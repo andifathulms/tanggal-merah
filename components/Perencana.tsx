@@ -174,12 +174,16 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
 
   return (
     <div className="space-y-10">
-      {trace.perluVerifikasi && <BannerDraf locale={locale} />}
-
       {/* The explanation comes before the instrument. A reader who does not
           know what cuti bersama costs cannot answer the status question, and
           the status question is the first thing the page asks. */}
       {tampilkan === 'tahun' && <Hero locale={locale} />}
+
+      {/* And the caveat comes after the explanation. It used to be the second
+          thing read — "do not rely on it" before the reader knew what "it"
+          was — which cost the site its credibility instead of demonstrating
+          it. Still above the fold, still role="alert". */}
+      {trace.perluVerifikasi && <BannerDraf locale={locale} tahun={trace.tahun} />}
 
       <StatusPicker locale={locale} status={status} pratinjau={pratinjau} onStatus={setStatus} />
 

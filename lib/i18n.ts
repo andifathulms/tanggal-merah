@@ -163,10 +163,19 @@ const KAMUS = {
   aturanJenisInstrumen: ['instrumen', 'instrument'],
   aturanJenisPemberitaan: ['pemberitaan', 'reporting'],
 
-  bannerDraf: [
-    'Data SKB tahun ini masih transkripsi draf: tanggalnya belum dicocokkan baris demi baris dengan dokumen SKB yang diterbitkan, dan nomor SKB-nya belum diisi. Jangan dipakai untuk keputusan. Lihat UPDATING.md.',
-    'This year’s SKB data is a draft transcription: the dates have not been checked line by line against the published document and the decree numbers are not filled in. Do not rely on it. See UPDATING.md.',
+  // The warning leads with a plain-language line, because it is read before the
+  // reader has any idea what an SKB is. It used to point at UPDATING.md — a
+  // repository file a visitor cannot open — so it now points at Aturan, where
+  // the citations actually are.
+  bannerDrafJudul: [
+    'Tanggalnya belum dicocokkan dengan dokumen SKB resmi',
+    'These dates have not been checked against the official decree',
   ],
+  bannerDraf: [
+    'Tanggal untuk tahun ini disalin dari kalender yang beredar luas, belum dicocokkan baris demi baris dengan SKB yang diterbitkan, dan nomor SKB-nya belum diisi. Cukup untuk merencanakan; jangan dipakai untuk memutuskan — pastikan dulu ke HR Anda.',
+    'The dates for this year were transcribed from the widely circulated calendar, have not been checked line by line against the published decree, and the decree numbers are not filled in yet. Fine for planning; do not decide on it — confirm with your HR first.',
+  ],
+  bannerDrafTautan: ['Lihat sumber tiap tanggal', 'See the source for every date'],
   penafian: [
     'Proyek pribadi, bukan nasihat hukum ketenagakerjaan. Di sektor swasta, kebijakan perusahaan yang menentukan pelaksanaan cuti bersama — pastikan ke HR Anda. Setiap tanggal di sini menyebut SKB asalnya.',
     'A personal project, not employment-law advice. In the private sector, company policy governs how cuti bersama is applied — confirm with your HR. Every date here names the SKB it came from.',
