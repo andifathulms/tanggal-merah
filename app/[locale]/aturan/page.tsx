@@ -38,16 +38,16 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
           return (
             <section key={y}>
               <h3 className="poster text-2xl">
-                {y}
+                {y}{' '}
                 {pack.status === 'perluVerifikasi' && (
-                  <span className="ml-ruang-sm align-middle text-xs uppercase tracking-wide text-cutiBersamaTeks">
+                  <span className="label-bagian ml-ruang-sm align-middle text-cutiBersamaTeks">
                     {locale === 'id' ? 'belum diverifikasi' : 'not verified'}
                   </span>
                 )}
               </h3>
 
               {pack.catatan !== undefined && (
-                <p className="mt-ruang-sm border-l-4 border-cutiBersama bg-cutiBersamaLembut/50 py-ruang-sm pl-ruang-md text-xs leading-relaxed text-inkSedang">
+                <p className="mt-ruang-md max-w-prosa border-l-4 border-cutiBersama bg-cutiBersamaLembut px-ruang-lg py-ruang-md text-base leading-relaxed text-inkSedang">
                   {pack.catatan}
                 </p>
               )}
@@ -64,7 +64,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                 <tbody>
                   {pack.hari.map((h) => (
                     <tr key={`${h.tanggal}-${h.jenis}`} className="border-b border-dotted border-garis align-top">
-                      <td className="angka py-ruang-sm pr-ruang-md text-xs whitespace-nowrap text-inkSedang">
+                      <td className="angka py-ruang-sm pr-ruang-md text-sm whitespace-nowrap text-inkSedang">
                         {tanggalPanjang(fromIsoDate(h.tanggal), locale)}
                       </td>
                       <td className="py-ruang-sm pr-ruang-md">
@@ -73,7 +73,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                           <span className="mt-0.5 block text-sm leading-snug text-inkPudar">{h.catatan}</span>
                         )}
                       </td>
-                      <td className="py-ruang-sm pr-ruang-md text-xs whitespace-nowrap">
+                      <td className="py-ruang-sm pr-ruang-md text-sm whitespace-nowrap">
                         <span className={h.jenis === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'}>
                           {h.jenis === 'liburNasional' ? t('legendaLibur', locale) : t('legendaCutiBersama', locale)}
                         </span>
@@ -91,16 +91,14 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
         })}
 
         <section>
-          <h2 className="poster text-4xl">{t('aturanKontradiksi', locale)}</h2>
+          <h3 className="poster text-2xl">{t('aturanKontradiksi', locale)}</h3>
           <div className="mt-ruang-lg space-y-ruang-xl">
             {kontradiksi.map((k) => (
               <article key={k.id} className="kartu p-ruang-lg">
-                <h3 className="text-lg font-semibold leading-snug">{k.judul}</h3>
+                <h4 className="text-lg font-semibold leading-snug">{k.judul}</h4>
                 <p className="mt-ruang-sm max-w-prosa text-sm leading-relaxed text-inkSedang">{k.pertanyaan}</p>
 
-                <h4 className="label-bagian mt-ruang-lg">
-                  {t('aturanBacaan', locale)}
-                </h4>
+                <h5 className="label-bagian mt-ruang-lg">{t('aturanBacaan', locale)}</h5>
                 <ul className="mt-ruang-sm space-y-ruang-md">
                   {k.bacaan.map((b) => (
                     <li
@@ -110,7 +108,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                       }`}
                     >
                       <p className="leading-relaxed">{b.klaim}</p>
-                      <p className="mt-1 text-xs text-inkPudar">
+                      <p className="mt-1 text-sm text-inkPudar">
                         {b.sumber} ·{' '}
                         <span className={b.jenisSumber === 'instrumen' ? 'font-semibold text-inkSedang' : 'font-semibold text-cutiBersamaTeks'}>
                           {b.jenisSumber === 'instrumen'
@@ -125,10 +123,8 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                   ))}
                 </ul>
 
-                <h4 className="label-bagian mt-ruang-lg">
-                  {t('aturanAlasan', locale)}
-                </h4>
-                <p className="mt-1 max-w-prosa text-sm leading-relaxed text-inkSedang">{k.alasan}</p>
+                <h5 className="label-bagian mt-ruang-lg">{t('aturanAlasan', locale)}</h5>
+                <p className="mt-1 max-w-prosa text-base leading-relaxed text-inkSedang">{k.alasan}</p>
               </article>
             ))}
           </div>
