@@ -65,6 +65,9 @@ const KAMUS = {
   navTahun: ['Tahun', 'Year'],
   navRencana: ['Rencana', 'Plan'],
   navAturan: ['Aturan', 'Rules'],
+  // The language switcher. "id" / "en" on their own do not say what the link does.
+  bahasaId: ['Baca dalam Bahasa Indonesia', 'Read in Indonesian'],
+  bahasaEn: ['Baca dalam bahasa Inggris', 'Read in English'],
 
   statusJudul: ['Status kepegawaian', 'Employment status'],
   statusAsn: ['ASN / PNS', 'Civil servant (ASN)'],

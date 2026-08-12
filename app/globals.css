@@ -95,7 +95,7 @@
    * 2px between a label and its figure — and stays numeric, because inventing
    * tokens for those would be a scale nobody could hold in their head.
    */
-  --ruang-xs: 0.25rem;   /*  4px — reserved; below the token boundary */
+  --ruang-xs: 0.25rem;   /*  4px — padding that lifts a small target to 24×24 */
   --ruang-sm: 0.5rem;    /*  8px */
   --ruang-md: 0.75rem;   /* 12px */
   --ruang-lg: 1rem;      /* 16px — rail cards */

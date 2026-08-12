@@ -36,6 +36,7 @@ export function Nav({ locale, halaman }: NavProps) {
             <Link
               key={kunci}
               href={`/${locale}/${kunci}/`}
+              aria-current={halaman === kunci ? 'page' : undefined}
               className={
                 halaman === kunci
                   ? 'border-b-2 border-liburMerah font-semibold text-ink'
@@ -48,11 +49,24 @@ export function Nav({ locale, halaman }: NavProps) {
           <span className="text-inkSamar" aria-hidden>
             |
           </span>
+          {/* "id" and "en" alone do not say what the link does (WCAG 2.4.4), and
+              a two-letter code in the other language is untagged foreign text
+              (3.1.2). `lang` and `hreflang` fix the second; the visible code keeps
+              its place and the accessible name carries the whole phrase.
+
+              Padding brings each to the 24×24 minimum for 2.5.8 — the codes were
+              about 20×21 and relying on the spacing exception. */}
           {LOCALES.map((l) => (
             <Link
               key={l}
               href={`/${l}/${halaman}/`}
-              className={l === locale ? 'font-semibold uppercase text-ink' : 'uppercase text-inkPudar hover:text-ink'}
+              lang={l}
+              hrefLang={l}
+              aria-current={l === locale ? 'true' : undefined}
+              aria-label={t(l === 'id' ? 'bahasaId' : 'bahasaEn', locale)}
+              className={`px-ruang-xs py-ruang-xs uppercase ${
+                l === locale ? 'font-semibold text-ink' : 'text-inkPudar hover:text-ink'
+              }`}
             >
               {l}
             </Link>

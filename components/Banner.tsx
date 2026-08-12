@@ -29,7 +29,11 @@ export function CatatanTidakMenghitung({ locale }: { readonly locale: Locale }) 
  */
 export function BannerDraf({ locale, tahun }: { readonly locale: Locale; readonly tahun: number }) {
   return (
-    <div role="alert" className="border-l-4 border-cutiBersama bg-cutiBersamaLembut px-ruang-lg py-ruang-md">
+    /* No role. This is present at first paint and never changes, but `role="alert"`
+       is an assertive live region — it interrupted the page on load to read out a
+       caveat that was already sitting in the reading order where it belongs. The
+       heading and position do the work; ARIA was adding nothing native did not. */
+    <div className="border-l-4 border-cutiBersama bg-cutiBersamaLembut px-ruang-lg py-ruang-md">
       <p className="flex flex-wrap items-baseline gap-x-ruang-sm text-base font-semibold text-cutiBersamaTeks">
         <span className="angka border border-cutiBersama px-1.5 text-sm">{tahun}</span>
         {t('bannerDrafJudul', locale)}
