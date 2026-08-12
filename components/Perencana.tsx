@@ -265,7 +265,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
               {/* The price list belongs on the plan page rather than the
                   overview: the overview states the answer, this asks what each
                   day of the budget was worth. */}
-              <KurvaMarginal kurva={trace.kurva} locale={locale} />
+              <KurvaMarginal kurva={trace.kurva()} locale={locale} />
               <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
             </>
           )}

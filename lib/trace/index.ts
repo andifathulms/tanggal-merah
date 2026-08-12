@@ -9,6 +9,7 @@ import type { Kontradiksi } from '@/lib/rules/contradiction'
 import { hitungEntitlement, type Entitlement, type Status } from '@/lib/status'
 import { hitungRun, runTerpanjang, type Run } from '@/lib/runs'
 import { kurvaMarginal, type LangkahMarginal } from '@/lib/optimise/marginal'
+import type { PetaJembatan } from '@/lib/optimise'
 import {
   hariLiburSetelah,
   peringkatJembatan,
@@ -38,6 +39,25 @@ import { TUJUAN_BAWAAN, type Tujuan } from '@/lib/optimise/tujuan'
  * since flattened and every extra step is an optimiser run for nothing.
  */
 const KURVA_MAKS_HARI = 16
+
+/**
+ * The marginal curve, built on first request and kept.
+ *
+ * The engine stays pure — this closes over its own arguments and returns the same
+ * array every time, so two callers cannot see different curves and nothing outside
+ * observes the caching.
+ */
+function kurvaSekaliJalan(
+  peta: PetaJembatan,
+  maksAnggaranHari: number,
+  tujuan: Tujuan,
+): () => readonly LangkahMarginal[] {
+  let tersimpan: readonly LangkahMarginal[] | undefined
+  return () => {
+    tersimpan ??= kurvaMarginal(peta, maksAnggaranHari, tujuan)
+    return tersimpan
+  }
+}
 
 export type PermintaanTrace = {
   readonly tahun: number
@@ -99,12 +119,21 @@ export type LeaveTrace = {
    */
   readonly rencanaAlternatif: Rencana
   /**
-   * What the nth leave day of the year buys, priced against the year as it
-   * stands before any hand-picked day. It is a property of the year and the
-   * status, not of the current selection, so it does not move under the reader
-   * while they choose.
+   * What the nth leave day of the year buys, priced against the year as it stands
+   * before any hand-picked day. It is a property of the year and the status, not of
+   * the current selection, so it does not move under the reader while they choose.
+   *
+   * **A function, not a value, and deliberately so.** Building it runs the exact
+   * optimiser once per budget step, which measured at 7.99 ms of the 11.14 ms every
+   * state change cost — 72% of the interaction budget — and only the plan page ever
+   * renders it. The year sheet was paying for twelve optimiser runs it threw away, on
+   * every day toggle and every keystroke in the entitlement field. Called at the point
+   * of use it costs the page that shows it and nothing to the page that does not.
+   *
+   * Cheap to call twice: the result is memoised on first call, so a component may ask
+   * for it without arranging to ask only once.
    */
-  readonly kurva: readonly LangkahMarginal[]
+  readonly kurva: () => readonly LangkahMarginal[]
   /**
    * How many of the year's decreed days off land on a day this person was off
    * anyway — the value the calendar's colour hides.
@@ -187,7 +216,7 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
     saran: peringkatJembatan(peta, sisaSetelahPilihan),
     rencanaOptimal,
     rencanaAlternatif,
-    kurva: kurvaMarginal(petaDasar, Math.min(entitlement.sisaHari, KURVA_MAKS_HARI), tujuan),
+    kurva: kurvaSekaliJalan(petaDasar, Math.min(entitlement.sisaHari, KURVA_MAKS_HARI), tujuan),
     hilang: hitungHilang(pack, permintaan.pattern),
     dipilihSendiri,
     perluVerifikasi: pack.status === 'perluVerifikasi',
