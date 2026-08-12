@@ -151,6 +151,100 @@ describe('the validator rejects', () => {
     expect(validateKontradiksi(rusak, 'uji').ok).toBe(false)
   })
 
+  // Priced positions let the app compute an entitlement from the ledger. A
+  // half-priced entry must never pass, or the app would produce a number no
+  // source states.
+  const berposisi = (ubah: Record<string, unknown>) => ({
+    id: 'uji',
+    judul: 'Uji',
+    pertanyaan: 'Mana yang benar?',
+    bacaan: [
+      { id: 'a', klaim: 'A', sumber: 'SKB', jenisSumber: 'instrumen', tanggal: '2025-01-01' },
+      { id: 'b', klaim: 'B', sumber: 'Media', jenisSumber: 'pemberitaan', tanggal: '2025-01-02' },
+    ],
+    dipakai: 'a',
+    alasan: 'Mengikuti instrumen.',
+    berlakuTahun: [2026],
+    ...ubah,
+  })
+
+  const EFEK = { memotongAsn: false, memotongSwastaIkut: true, menambahAsnTidakDiberikan: true }
+
+  it('a position naming a reading that does not exist', () => {
+    const rusak = berposisi({
+      posisi: [
+        { id: 'p1', judul: 'P1', bacaan: ['a'], efek: EFEK },
+        { id: 'p2', judul: 'P2', bacaan: ['tidak-ada'], efek: EFEK },
+      ],
+      dipakaiPosisi: 'p1',
+    })
+    expect(validateKontradiksi(rusak, 'uji').ok).toBe(false)
+  })
+
+  it('a list of positions with no used position named', () => {
+    const rusak = berposisi({
+      posisi: [
+        { id: 'p1', judul: 'P1', bacaan: ['a'], efek: EFEK },
+        { id: 'p2', judul: 'P2', bacaan: ['b'], efek: EFEK },
+      ],
+    })
+    expect(validateKontradiksi(rusak, 'uji').ok).toBe(false)
+  })
+
+  it('a used position that is not in the list', () => {
+    const rusak = berposisi({
+      posisi: [
+        { id: 'p1', judul: 'P1', bacaan: ['a'], efek: EFEK },
+        { id: 'p2', judul: 'P2', bacaan: ['b'], efek: EFEK },
+      ],
+      dipakaiPosisi: 'p3',
+    })
+    expect(validateKontradiksi(rusak, 'uji').ok).toBe(false)
+  })
+
+  it('a used position resting only on reporting when an instrument one exists', () => {
+    const rusak = berposisi({
+      posisi: [
+        { id: 'instrumen', judul: 'Instrumen', bacaan: ['a'], efek: EFEK },
+        { id: 'pemberitaan', judul: 'Pemberitaan', bacaan: ['b'], efek: EFEK },
+      ],
+      dipakaiPosisi: 'pemberitaan',
+    })
+    expect(validateKontradiksi(rusak, 'uji').ok).toBe(false)
+  })
+
+  it('duplicate position ids', () => {
+    const rusak = berposisi({
+      posisi: [
+        { id: 'p1', judul: 'P1', bacaan: ['a'], efek: EFEK },
+        { id: 'p1', judul: 'Lagi', bacaan: ['b'], efek: EFEK },
+      ],
+      dipakaiPosisi: 'p1',
+    })
+    expect(validateKontradiksi(rusak, 'uji').ok).toBe(false)
+  })
+
+  it('a used position named without any list of positions', () => {
+    expect(validateKontradiksi(berposisi({ dipakaiPosisi: 'p1' }), 'uji').ok).toBe(false)
+  })
+
+  it('but accepts an entry with no positions at all, and a well-formed priced one', () => {
+    // Pricing is optional: an entry may be filed before its effects are worked out.
+    expect(validateKontradiksi(berposisi({}), 'uji').ok).toBe(true)
+    expect(
+      validateKontradiksi(
+        berposisi({
+          posisi: [
+            { id: 'instrumen', judul: 'Instrumen', bacaan: ['a'], efek: EFEK },
+            { id: 'pemberitaan', judul: 'Pemberitaan', bacaan: ['b'], efek: EFEK },
+          ],
+          dipakaiPosisi: 'instrumen',
+        }),
+        'uji',
+      ).ok,
+    ).toBe(true)
+  })
+
   it('but accepts a well-formed pack', () => {
     expect(validateRulePack(pack(), 'uji').ok).toBe(true)
   })

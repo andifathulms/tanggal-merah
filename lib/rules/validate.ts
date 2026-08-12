@@ -112,5 +112,52 @@ export function validateKontradiksi(input: unknown, berkas: string): HasilValida
     masalah.push(`${berkas}: id bacaan ganda`)
   }
 
+  // Priced positions. An entry may be filed before its effects are worked out,
+  // but a half-priced one must not pass: a position naming a reading that does
+  // not exist, or a `dipakaiPosisi` pointing at nothing, would let the app
+  // compute an entitlement from a rule no source states.
+  if (kontradiksi.posisi !== undefined) {
+    const posisiIds = kontradiksi.posisi.map((p) => p.id)
+    if (new Set(posisiIds).size !== posisiIds.length) {
+      masalah.push(`${berkas}: id posisi ganda`)
+    }
+
+    for (const posisi of kontradiksi.posisi) {
+      for (const bacaanId of posisi.bacaan) {
+        if (!ids.includes(bacaanId)) {
+          masalah.push(`${berkas}: posisi "${posisi.id}" menyebut bacaan "${bacaanId}" yang tidak ada`)
+        }
+      }
+    }
+
+    if (kontradiksi.dipakaiPosisi === undefined) {
+      masalah.push(`${berkas}: ada daftar posisi tetapi "dipakaiPosisi" tidak diisi`)
+    } else if (!posisiIds.includes(kontradiksi.dipakaiPosisi)) {
+      masalah.push(
+        `${berkas}: posisi yang dipakai "${kontradiksi.dipakaiPosisi}" tidak ada dalam daftar posisi`,
+      )
+    }
+
+    // The same rule as for readings, one level up: the app must not compute with
+    // a position that rests only on reporting when an instrument-sourced
+    // position is available.
+    const posisiDipakai = kontradiksi.posisi.find((p) => p.id === kontradiksi.dipakaiPosisi)
+    const jenisSumberOf = (bacaanId: string) => kontradiksi.bacaan.find((b) => b.id === bacaanId)?.jenisSumber
+    const hanyaPemberitaan = (p: { readonly bacaan: readonly string[] }) =>
+      p.bacaan.length > 0 && p.bacaan.every((id) => jenisSumberOf(id) === 'pemberitaan')
+
+    if (
+      posisiDipakai !== undefined &&
+      hanyaPemberitaan(posisiDipakai) &&
+      kontradiksi.posisi.some((p) => !hanyaPemberitaan(p))
+    ) {
+      masalah.push(
+        `${berkas}: posisi yang dipakai "${posisiDipakai.id}" hanya bersumber pemberitaan padahal ada posisi bersumber instrumen`,
+      )
+    }
+  } else if (kontradiksi.dipakaiPosisi !== undefined) {
+    masalah.push(`${berkas}: "dipakaiPosisi" diisi tetapi tidak ada daftar posisi`)
+  }
+
   return masalah.length === 0 ? { ok: true, kontradiksi } : { ok: false, masalah }
 }

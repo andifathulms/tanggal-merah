@@ -244,6 +244,24 @@ const KAMUS = {
   eksporSalinTautan: ['Salin tautan', 'Copy link'],
   eksporTersalin: ['Tersalin', 'Copied'],
 
+  // A3 — the disagreement, priced. The ledger recorded both readings in prose;
+  // the number is what makes the stakes legible and the app's choice checkable.
+  bandingJudul: ['Kalau bacaan yang lain dipakai', 'If the other reading were used'],
+  bandingPenjelasan: [
+    'Sumber tentang aturan ini saling bertentangan di ruang publik. Aplikasi mengikuti instrumen, bukan pemberitaan — dan inilah angka yang dihasilkan tiap bacaan untuk Anda, supaya pilihan itu bisa Anda periksa sendiri.',
+    'Public sources contradict each other on this rule. The app follows the instruments rather than the reporting — and here is the figure each reading produces for you, so you can check that choice yourself.',
+  ],
+  bandingDipakai: ['dipakai', 'used'],
+  bandingSisa: ['sisa cuti', 'leave left'],
+  bandingSepakat: [
+    'Untuk status Anda, kedua bacaan menghasilkan angka yang sama. Perselisihannya tentang ASN.',
+    'For your status both readings give the same figure. The disagreement is about ASN.',
+  ],
+  bandingSelisih: [
+    'Selisihnya %s hari — dan itulah sebabnya kontradiksi ini dicatat, bukan diputuskan diam-diam.',
+    'A %s-day difference — which is why this contradiction is recorded rather than quietly decided.',
+  ],
+
   aturanJudul: ['Aturan dan sitasi', 'Rules and citations'],
   aturanSumber: ['Sumber', 'Sources'],
   aturanKontradiksi: ['Catatan kontradiksi', 'Contradiction ledger'],

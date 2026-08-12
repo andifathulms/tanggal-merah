@@ -27,5 +27,35 @@
   ],
   "dipakai": "instrumen-swasta-fakultatif",
   "alasan": "Aplikasi ini mengikuti instrumen, bukan pemberitaan. Dua bacaan bersumber instrumen tidak saling bertentangan — keduanya dipakai bersama: pemotongan cuti tahunan berlaku pada pekerja swasta yang perusahaannya ikut cuti bersama dan memotongnya, sedangkan bagi ASN Keppres secara khusus menyatakan cuti bersama tidak mengurangi hak cuti tahunan. Bacaan pemberitaan membalik penetapan itu dan tidak dipakai, tetapi tetap dicatat di sini karena justru itulah fakta yang paling sering salah diterima pembaca. Aplikasi tidak pernah mengasumsikan kebijakan perusahaan; kebijakan itu ditanyakan kepada pengguna.",
-  "berlakuTahun": [2026]
+  "posisi": [
+    {
+      "id": "instrumen",
+      "judul": "Kedua bacaan instrumen, dipakai bersama",
+      "bacaan": [
+        "instrumen-asn-tidak-dipotong",
+        "instrumen-swasta-fakultatif"
+      ],
+      "efek": {
+        "memotongAsn": false,
+        "memotongSwastaIkut": true,
+        "menambahAsnTidakDiberikan": true
+      }
+    },
+    {
+      "id": "pemberitaan-terbalik",
+      "judul": "Bacaan pemberitaan, yang membalik penetapannya",
+      "bacaan": [
+        "pemberitaan-terbalik"
+      ],
+      "efek": {
+        "memotongAsn": true,
+        "memotongSwastaIkut": true,
+        "menambahAsnTidakDiberikan": false
+      }
+    }
+  ],
+  "dipakaiPosisi": "instrumen",
+  "berlakuTahun": [
+    2026
+  ]
 }

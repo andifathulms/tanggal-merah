@@ -20,6 +20,7 @@ import { BannerDraf } from './Banner'
 import { YearSheet } from './sheet/YearSheet'
 import { Ledger } from './ledger/Ledger'
 import { LiburHilang } from './ledger/LiburHilang'
+import { BandingPosisi } from './ledger/BandingPosisi'
 import { Suggestions } from './suggest/Suggestions'
 import { KurvaMarginal } from './suggest/KurvaMarginal'
 import { Hero } from './Hero'
@@ -251,6 +252,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
           />
           <Ledger trace={trace} locale={locale} />
           <LiburHilang hilang={trace.hilang} locale={locale} />
+          <BandingPosisi banding={trace.ledger.banding} locale={locale} />
 
           <section className="kartu p-4">
             <h2 className="label-bagian">{t('eksporJudul', locale)}</h2>

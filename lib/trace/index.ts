@@ -3,6 +3,7 @@ import type { WorkPattern } from '@/lib/day/pattern'
 import { packTahun, kontradiksiTahun, tahunTersedia } from '@/lib/rules/loader'
 import { resolveTahun, type TahunTerselesaikan } from '@/lib/rules/resolve'
 import { hitungHilang, type RingkasanHilang } from '@/lib/rules/hilang'
+import { bandingkanPosisi, type BandingPosisi } from './posisi'
 import type { Penolakan } from '@/lib/rules/refusal'
 import type { Kontradiksi } from '@/lib/rules/contradiction'
 import { hitungEntitlement, type Entitlement, type Status } from '@/lib/status'
@@ -61,6 +62,11 @@ export type Ledger = {
   readonly sisaHari: number
   /** Both readings of the entitlement rule, and which one is used. */
   readonly kontradiksi: readonly Kontradiksi[]
+  /**
+   * What each rival position on the disputed rule would leave this reader —
+   * including the one the app rejected. Empty when no entry has been priced.
+   */
+  readonly banding: readonly BandingPosisi[]
 }
 
 export type LeaveTrace = {
@@ -159,6 +165,11 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
       terpakaiHari: dipilihSendiri.length,
       sisaHari: sisaSetelahPilihan,
       kontradiksi: kontradiksiTahun(permintaan.tahun),
+      banding: bandingkanPosisi(
+        kontradiksiTahun(permintaan.tahun),
+        permintaan.status,
+        terselesaikan.cutiBersamaHariKerjaHari,
+      ),
     },
     saran: peringkatJembatan(peta, sisaSetelahPilihan),
     rencanaOptimal,
