@@ -88,6 +88,17 @@ export type LeaveTrace = {
   /** The exact optimum for the remaining budget. */
   readonly rencanaOptimal: Rencana
   /**
+   * What the objective the reader did *not* choose would have produced, on the same
+   * budget. Both are exact, so this is a real comparison rather than an estimate.
+   *
+   * It exists because the choice was previously unmakeable: the two cards described
+   * what each optimises, and a reader had to pick one, read the number, switch, and
+   * hold the first number in their head. The whole point of naming an objective is
+   * that the answers differ, and now that difference is visible without doing the
+   * experiment by hand.
+   */
+  readonly rencanaAlternatif: Rencana
+  /**
    * What the nth leave day of the year buys, priced against the year as it
    * stands before any hand-picked day. It is a property of the year and the
    * status, not of the current selection, so it does not move under the reader
@@ -148,6 +159,8 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
   const run = hitungRun(liburDenganPilihan)
   const tujuan = permintaan.tujuan ?? TUJUAN_BAWAAN
   const rencanaOptimal = pilihJembatan(peta, sisaSetelahPilihan, tujuan)
+  const tujuanLain: Tujuan = tujuan === 'totalHariLibur' ? 'rentetanTerpanjang' : 'totalHariLibur'
+  const rencanaAlternatif = pilihJembatan(peta, sisaSetelahPilihan, tujuanLain)
 
   return {
     type: 'terhitung',
@@ -173,6 +186,7 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
     },
     saran: peringkatJembatan(peta, sisaSetelahPilihan),
     rencanaOptimal,
+    rencanaAlternatif,
     kurva: kurvaMarginal(petaDasar, Math.min(entitlement.sisaHari, KURVA_MAKS_HARI), tujuan),
     hilang: hitungHilang(pack, permintaan.pattern),
     dipilihSendiri,

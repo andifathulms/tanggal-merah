@@ -97,7 +97,13 @@ export function Suggestions({
           gate: a reader had to state an objective before they had seen anything
           the objective applies to. It follows the answer now, and reads as "or
           ask it the other way". */}
-      <PilihTujuan tujuan={tujuan} onTujuan={onTujuan} locale={locale} />
+      <PilihTujuan
+        tujuan={tujuan}
+        onTujuan={onTujuan}
+        locale={locale}
+        terpilihNilai={rencanaOptimal.nilaiHari}
+        alternatifNilai={trace.rencanaAlternatif.nilaiHari}
+      />
 
       {tampil.length === 0 ? (
         <p className="mt-ruang-lg text-sm text-inkPudar">{t('saranKosong', locale)}</p>
@@ -198,10 +204,14 @@ function PilihTujuan({
   tujuan,
   onTujuan,
   locale,
+  terpilihNilai,
+  alternatifNilai,
 }: {
   readonly tujuan: Tujuan
   readonly onTujuan: (tujuan: Tujuan) => void
   readonly locale: Locale
+  readonly terpilihNilai: number
+  readonly alternatifNilai: number
 }) {
   return (
     /* One question, two mutually exclusive answers — a fieldset of radios, not a
@@ -235,11 +245,29 @@ function PilihTujuan({
                 <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
                   {t(kandidat === 'rentetanTerpanjang' ? 'tujuanRentetanKet' : 'tujuanTotalKet', locale)}
                 </span>
+                {/* Each option carries the figure it produces, so the choice is made
+                    on the arithmetic rather than on the description. A reader used to
+                    have to pick one, read the number, switch, and hold the first
+                    number in their head. */}
+                <span className="mt-ruang-sm block">
+                  <span className="text-xs text-inkPudar">{t('tujuanIniMemberi', locale)} </span>
+                  <span
+                    className={`angka text-sm font-semibold ${
+                      terpilih ? 'text-liburMerahTeks' : 'text-inkSedang'
+                    }`}
+                  >
+                    {terpilih ? terpilihNilai : alternatifNilai}
+                  </span>{' '}
+                  <span className="text-xs text-inkPudar">
+                    {t(kandidat === 'rentetanTerpanjang' ? 'tujuanNilaiRentetan' : 'tujuanNilaiTotal', locale)}
+                  </span>
+                </span>
               </span>
             </label>
           )
         })}
       </div>
+      <p className="teks-catatan mt-ruang-sm text-sm">{t('tujuanBandingBeda', locale)}</p>
     </fieldset>
   )
 }

@@ -219,6 +219,18 @@ const KAMUS = {
     'Satu rentetan sepanjang mungkin. Sisa tahun tidak dihitung.',
     'The longest single stretch. The rest of the year is not counted.',
   ],
+  // Shown on the option not chosen, so the choice can be made on the numbers rather
+  // than on the descriptions.
+  tujuanIniMemberi: ['pilihan ini memberi', 'this one gives'],
+  // Each figure carries its own unit, because they do not measure the same thing.
+  // "48" and "26" side by side invite a comparison that would be nonsense: one is a
+  // total across scattered stretches, the other the length of a single run.
+  tujuanNilaiTotal: ['hari libur seluruhnya', 'days off in total'],
+  tujuanNilaiRentetan: ['hari dalam satu rentetan', 'days in one stretch'],
+  tujuanBandingBeda: [
+    'Kedua angka ini tidak mengukur hal yang sama — yang satu menjumlahkan rentetan yang terpisah-pisah, yang lain panjang satu rentetan. Jangan dibandingkan langsung; pilih yang sesuai dengan yang Anda cari.',
+    'The two figures do not measure the same thing — one totals up separate stretches, the other is the length of a single run. Do not compare them directly; pick whichever matches what you are after.',
+  ],
   optimalNilaiRentetan: [
     'hari libur berturut-turut dalam satu rentetan',
     'consecutive days off in a single stretch',
