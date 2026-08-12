@@ -47,14 +47,14 @@ export function YearSheet({ trace, locale, disarankan, onToggle }: YearSheetProp
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
           <span className="label-bagian">{t('langkahTiga', locale)}</span>
-          <h2 id="judul-sheet" className="poster mt-0.5 text-poster-md">
+          <h2 id="judul-sheet" className="poster mt-0.5 text-2xl">
             {t('sheetJudul', locale)} <span className="angka text-liburMerahTeks">{trace.tahun}</span>
           </h2>
         </div>
         <Legenda locale={locale} />
       </div>
 
-      <p className="mt-2 max-w-prosa text-[13px] leading-relaxed text-inkPudar">{t('sheetPetunjuk', locale)}</p>
+      <p className="teks-jelas mt-ruang-sm">{t('sheetPetunjuk', locale)}</p>
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {blok.map((b) => (
@@ -85,7 +85,7 @@ function Legenda({ locale }: { readonly locale: Locale }) {
   ]
 
   return (
-    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-inkSedang">
+    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-inkSedang">
       {butir.map(([warna, label]) => (
         <li key={label} className="flex items-center gap-1.5">
           <span className={`inline-block h-2.5 w-2.5 shrink-0 ${warna}`} aria-hidden />

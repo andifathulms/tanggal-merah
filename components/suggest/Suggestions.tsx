@@ -38,28 +38,28 @@ export function Suggestions({
   return (
     <section aria-labelledby="judul-saran">
       <span className="label-bagian">{t('langkahTiga', locale)}</span>
-      <h2 id="judul-saran" className="poster mt-0.5 text-poster-md">
+      <h2 id="judul-saran" className="poster mt-0.5 text-2xl">
         {batas === undefined ? t('saranJudul', locale) : t('saranTeratas', locale)}
       </h2>
-      <p className="mt-2 max-w-prosa text-[13px] leading-relaxed text-inkPudar">{t('saranPenjelasan', locale)}</p>
+      <p className="teks-jelas mt-ruang-sm">{t('saranPenjelasan', locale)}</p>
 
       {rencanaOptimal.dipilih.length > 0 && (
         <div className="mt-4 border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-4">
           <span className="label-bagian text-cutiPribadiTeks">{t('optimalJudul', locale)}</span>
-          <p className="mt-1 text-[15px] leading-snug">
-            <span className="angka text-2xl text-cutiPribadiTeks">{rencanaOptimal.biayaHari}</span>{' '}
+          <p className="mt-1 text-base leading-snug">
+            <span className="angka text-xl text-cutiPribadiTeks">{rencanaOptimal.biayaHari}</span>{' '}
             <span className="text-inkSedang">{t('saranHariCuti', locale)}</span>{' '}
             <span className="text-inkPudar">→</span>{' '}
-            <span className="angka text-2xl text-liburMerahTeks">{rencanaOptimal.nilaiHari}</span>{' '}
+            <span className="angka text-xl text-liburMerahTeks">{rencanaOptimal.nilaiHari}</span>{' '}
             <span className="text-inkSedang">{t('optimalNilai', locale)}</span>
           </p>
           {/* The plan's value sums the stretches it joins. Calling that a
               single run would be a confidently wrong claim about someone's
               time off, which is the one thing this project must not do. */}
           {rencanaOptimal.dipilih.length > 1 && (
-            <p className="mt-1 text-[11px] text-inkPudar">{t('optimalCatatanRentetan', locale)}</p>
+            <p className="mt-1 text-sm text-inkPudar">{t('optimalCatatanRentetan', locale)}</p>
           )}
-          <p className="mt-1 text-[11px] text-inkPudar">{t('optimalEksak', locale)}</p>
+          <p className="mt-1 text-sm text-inkPudar">{t('optimalEksak', locale)}</p>
           <button
             type="button"
             onClick={onTerapkanOptimal}
@@ -115,18 +115,18 @@ function KartuJembatan({
         {/* The trade, set at a size that reads before the date does. */}
         <p className="flex items-baseline gap-1.5 whitespace-nowrap">
           <span className="angka text-xl text-cutiPribadiTeks">{jembatan.biayaHari}</span>
-          <span className="text-[11px] text-inkPudar">{t('saranHariCuti', locale)}</span>
+          <span className="text-xs text-inkPudar">{t('saranHariCuti', locale)}</span>
           <span className="text-inkSamar" aria-hidden>
             →
           </span>
           <span className="angka text-xl text-liburMerahTeks">{jembatan.hasilHari}</span>
-          <span className="text-[11px] text-inkPudar">{locale === 'id' ? 'hari libur' : 'days off'}</span>
+          <span className="text-xs text-inkPudar">{locale === 'id' ? 'hari libur' : 'days off'}</span>
         </p>
-        <p className="mt-0.5 truncate text-[12px] text-inkSedang">{rentang}</p>
+        <p className="mt-0.5 truncate text-sm text-inkSedang">{rentang}</p>
       </div>
 
       <div className="flex shrink-0 flex-col items-end gap-1">
-        <span className="angka text-[11px] text-inkPudar" title={t('saranLeverage', locale)}>
+        <span className="angka text-xs text-inkPudar" title={t('saranLeverage', locale)}>
           ×{jembatan.leverage.toFixed(1)}
         </span>
         <button

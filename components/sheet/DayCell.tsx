@@ -80,10 +80,10 @@ export function DayCell({
 
   const isi = (
     <>
-      <span className={`poster block text-right text-[17px] leading-none ${warnaAngka}`}>{day}</span>
+      <span className={`poster block text-right text-lg leading-none ${warnaAngka}`}>{day}</span>
       {label !== null && (
         <span
-          className={`mt-auto block overflow-hidden text-right text-[8.5px] leading-[1.2] ${
+          className={`mt-auto block overflow-hidden text-right text-2xs ${
             klasifikasi.type === 'liburNasional' ? 'text-liburMerahTeks' : 'text-cutiBersamaTeks'
           }`}
           style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}
@@ -92,7 +92,7 @@ export function DayCell({
         </span>
       )}
       {dipilihSendiri && (
-        <span className="mt-auto block text-right text-[8.5px] font-semibold leading-none text-cutiPribadiTeks">
+        <span className="mt-auto block text-right text-2xs font-semibold leading-none text-cutiPribadiTeks">
           {locale === 'id' ? 'cuti' : 'leave'}
         </span>
       )}

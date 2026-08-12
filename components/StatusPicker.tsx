@@ -49,7 +49,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
   return (
     <section aria-labelledby="judul-status">
       <span className="label-bagian">{t('langkahSatu', locale)}</span>
-      <h2 id="judul-status" className="poster mt-0.5 text-poster-md">
+      <h2 id="judul-status" className="poster mt-0.5 text-2xl">
         {t('statusPertanyaan', locale)}
       </h2>
 
@@ -79,7 +79,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
                   {p.sisaHari}
                 </span>{' '}
                 <span className="text-xs text-inkPudar">{t('statusSisaJadi', locale)}</span>
-                <span className="mt-1 block text-[11px] leading-snug text-inkPudar">
+                <span className="mt-1 block text-xs leading-snug text-inkPudar">
                   {p.dipotongHari > 0
                     ? `${t('statusDipotongOleh', locale)} −${p.dipotongHari}`
                     : t('statusTidakDipotong', locale)}
@@ -90,7 +90,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
         })}
       </div>
 
-      <p className="mt-3 max-w-prosa text-[13px] leading-relaxed text-inkPudar">
+      <p className="teks-catatan mt-ruang-md text-base">
         <span className="sr-only">{t(PANJANG[status.type], locale)}. </span>
         {t('statusTidakYakin', locale)}
       </p>

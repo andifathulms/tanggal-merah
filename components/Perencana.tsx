@@ -123,10 +123,10 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
   if (hasil.type === 'ditolak') {
     return (
       <div role="alert" className="border-l-4 border-liburMerah bg-liburMerahLembut/50 p-6">
-        <h2 className="poster text-poster-md text-liburMerahTeks">
+        <h2 className="poster text-2xl text-liburMerahTeks">
           {locale === 'id' ? 'Belum bisa dihitung' : 'Cannot compute'}
         </h2>
-        <p className="mt-2 max-w-prosa text-sm leading-relaxed text-inkSedang">
+        <p className="teks-jelas mt-ruang-sm">
           {locale === 'id' ? pesanPenolakan(hasil.penolakan) : messagePenolakanEn(hasil.penolakan)}
         </p>
         <div className="mt-4">

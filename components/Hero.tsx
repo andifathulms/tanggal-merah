@@ -18,8 +18,8 @@ export function Hero({ locale }: { readonly locale: Locale }) {
   return (
     <section className="border-b border-garis pb-7">
       <div className="max-w-prosa">
-        <h2 className="poster text-poster-md text-liburMerahTeks sm:text-poster-lg">{t('heroJudul', locale)}</h2>
-        <p className="mt-3 text-[15px] leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
+        <h2 className="poster text-2xl text-liburMerahTeks sm:text-4xl">{t('heroJudul', locale)}</h2>
+        <p className="mt-ruang-md text-lg leading-relaxed text-inkSedang">{t('heroTeks', locale)}</p>
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -78,7 +78,7 @@ function Istilah({
         <span className={`inline-block h-3 w-3 shrink-0 ${warna}`} aria-hidden />
         {judul}
       </h3>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-inkSedang">{teks}</p>
+      <p className="mt-1.5 text-base leading-relaxed text-inkSedang">{teks}</p>
     </div>
   )
 }
@@ -105,7 +105,7 @@ function Langkah({
       <div>
         <span className="label-bagian">{label}</span>
         <h3 className="text-sm font-semibold leading-snug">{judul}</h3>
-        <p className="mt-1 text-[13px] leading-relaxed text-inkPudar">{teks}</p>
+        <p className="mt-1 text-base leading-relaxed text-inkPudar">{teks}</p>
       </div>
     </li>
   )

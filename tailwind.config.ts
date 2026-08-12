@@ -3,73 +3,87 @@ import type { Config } from 'tailwindcss'
 /**
  * Semantic tokens only — never raw hex in components (CLAUDE.md conventions).
  *
+ * The values themselves live in `app/globals.css` as custom properties, with the
+ * measured contrast ratio recorded beside each colour. This file is the mapping
+ * from token name to utility; it deliberately holds no values of its own, so
+ * there is exactly one place a colour or a type step can be changed.
+ *
  * The hero palette is fixed by PRD §8 and unchanged: red is the subject, and
- * `liburMerah` is used at full strength. What is added here is a tonal ramp so
- * that surfaces, rules, and muted text stop being opacity guesses on `ink`,
- * and a text-safe variant of each accent.
- *
- * The text variants exist because the fill colours do not pass WCAG AA as
- * small text on newsprint: amber measures 2.48:1 and green 4.34:1, against a
- * 4.5:1 floor. The fills stay exactly as the PRD specifies — they are used as
- * fills — and `*Teks` carries the same hue darkened until it passes:
- *
- *   liburMerahTeks  #B71C1C  5.61:1
- *   cutiBersamaTeks #8A4E0C  5.64:1
- *   cutiPribadiTeks #2F6046  6.22:1
+ * `liburMerah` is used at full strength. The `*Teks` variants exist because the
+ * fill colours do not pass WCAG AA as small text on newsprint — amber measures
+ * 2.48:1 and green 4.34:1, against a 4.5:1 floor. The fills stay exactly as the
+ * PRD specifies, and `*Teks` carries the same hue darkened until it passes.
  */
+
+/** Channels + `<alpha-value>` so Tailwind's `/nn` modifiers still compose. */
+const warna = (nama: string) => `rgb(var(--warna-${nama}) / <alpha-value>)`
+
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Surfaces, lightest to deepest.
-        kertas: '#F7F6F1',
-        newsprint: '#EFEDE6',
-        kertasGelap: '#E7E4DA',
+        kertas: warna('kertas'),
+        newsprint: warna('newsprint'),
+        kertasGelap: warna('kertasGelap'),
 
-        // Ink, darkest to faintest. Every one passes AA on newsprint except
-        // `inkSamar`, which is reserved for decoration and never for text.
-        ink: '#1C1B18',
-        inkSedang: '#43413B',
-        inkPudar: '#5F5C54',
-        inkSamar: '#8C8880',
+        ink: warna('ink'),
+        inkSedang: warna('inkSedang'),
+        inkPudar: warna('inkPudar'),
+        inkSamar: warna('inkSamar'),
 
-        // Rules and dividers.
-        garis: '#D6D2C6',
-        garisTebal: '#B4AF9F',
+        garis: warna('garis'),
+        garisTebal: warna('garisTebal'),
 
-        // Libur nasional — the subject.
-        liburMerah: '#C62828',
-        liburMerahTeks: '#B71C1C',
-        liburMerahLembut: '#F5E2E0',
+        liburMerah: warna('liburMerah'),
+        liburMerahTeks: warna('liburMerahTeks'),
+        liburMerahLembut: warna('liburMerahLembut'),
 
-        // Cuti bersama — a different thing with a different cost, so a
-        // different colour. Never merged with the red.
-        cutiBersama: '#D98324',
-        cutiBersamaTeks: '#8A4E0C',
-        cutiBersamaLembut: '#F8EBD9',
+        cutiBersama: warna('cutiBersama'),
+        cutiBersamaTeks: warna('cutiBersamaTeks'),
+        cutiBersamaLembut: warna('cutiBersamaLembut'),
 
-        // Days the user chooses.
-        cutiPribadi: '#3D7A5A',
-        cutiPribadiTeks: '#2F6046',
-        cutiPribadiLembut: '#E2EDE6',
+        cutiPribadi: warna('cutiPribadi'),
+        cutiPribadiTeks: warna('cutiPribadiTeks'),
+        cutiPribadiLembut: warna('cutiPribadiLembut'),
 
-        akhirPekan: '#E3E0D6',
-        runBar: 'rgba(198, 40, 40, 0.13)',
-        runBarKuat: 'rgba(198, 40, 40, 0.20)',
+        akhirPekan: warna('akhirPekan'),
+        runBar: 'rgb(var(--warna-liburMerah) / 0.13)',
+        runBarKuat: 'rgb(var(--warna-liburMerah) / 0.20)',
       },
       fontFamily: {
         poster: ['var(--font-poster)', 'ui-sans-serif', 'system-ui'],
         prose: ['var(--font-prose)', 'ui-sans-serif', 'system-ui'],
         mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
+      /**
+       * One scale, replacing the eight arbitrary `text-[13px]`-style sizes the
+       * components used to carry. Line heights ride along with the step: loose
+       * for reading sizes, tight for the condensed poster face, which is where
+       * the display steps live.
+       */
       fontSize: {
-        // A display step for the wall-calendar register, where Bebas Neue is
-        // meant to live. Line heights are set tight because it is condensed.
-        'poster-sm': ['1.375rem', { lineHeight: '1' }],
-        'poster-md': ['2rem', { lineHeight: '0.95' }],
-        'poster-lg': ['3rem', { lineHeight: '0.92' }],
-        'poster-xl': ['4.5rem', { lineHeight: '0.88' }],
+        '2xs': ['var(--ukuran-2xs)', { lineHeight: '1.2' }],
+        xs: ['var(--ukuran-xs)', { lineHeight: '1.35' }],
+        sm: ['var(--ukuran-sm)', { lineHeight: '1.5' }],
+        base: ['var(--ukuran-base)', { lineHeight: '1.6' }],
+        lg: ['var(--ukuran-lg)', { lineHeight: '1.5' }],
+        xl: ['var(--ukuran-xl)', { lineHeight: '1.15' }],
+        '2xl': ['var(--ukuran-2xl)', { lineHeight: '1.08' }],
+        '3xl': ['var(--ukuran-3xl)', { lineHeight: '1.05' }],
+        '4xl': ['var(--ukuran-4xl)', { lineHeight: '1' }],
+        '5xl': ['var(--ukuran-5xl)', { lineHeight: '0.95' }],
+        '6xl': ['var(--ukuran-6xl)', { lineHeight: '0.92' }],
+      },
+      spacing: {
+        'ruang-xs': 'var(--ruang-xs)',
+        'ruang-sm': 'var(--ruang-sm)',
+        'ruang-md': 'var(--ruang-md)',
+        'ruang-lg': 'var(--ruang-lg)',
+        'ruang-xl': 'var(--ruang-xl)',
+        'ruang-2xl': 'var(--ruang-2xl)',
+        'ruang-3xl': 'var(--ruang-3xl)',
+        'ruang-4xl': 'var(--ruang-4xl)',
       },
       maxWidth: {
         prosa: '62ch',

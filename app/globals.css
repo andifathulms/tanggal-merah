@@ -2,6 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * The token layer. Every colour, type step, and rhythm value the site uses is
+ * declared once here and reached through `tailwind.config.ts` — components name
+ * tokens, never values (CLAUDE.md conventions).
+ *
+ * Colours are space-separated RGB channels rather than hex so that Tailwind's
+ * alpha modifiers (`bg-akhirPekan/55`) still compose against them.
+ */
+:root {
+  /* — Surfaces, lightest to deepest — */
+  --warna-kertas: 247 246 241;      /* #F7F6F1 */
+  --warna-newsprint: 239 237 230;   /* #EFEDE6 — the page ground */
+  --warna-kertasGelap: 231 228 218; /* #E7E4DA */
+
+  /* — Ink. Measured against newsprint, the worst case of the three surfaces.
+       Every value used for text clears the 4.5:1 floor. `inkSamar` does not,
+       and is therefore reserved for decoration — never for text. — */
+  --warna-ink: 28 27 24;            /* #1C1B18  14.70:1 */
+  --warna-inkSedang: 67 65 59;      /* #43413B   8.71:1 */
+  --warna-inkPudar: 95 92 84;       /* #5F5C54   5.70:1 */
+  --warna-inkSamar: 140 136 128;    /* #8C8880   3.01:1 — decoration only */
+
+  /* — Rules and dividers. Non-text, so the 3:1 non-text floor applies. — */
+  --warna-garis: 214 210 198;       /* #D6D2C6 */
+  --warna-garisTebal: 180 175 159;  /* #B4AF9F */
+
+  /* — Libur nasional. Red is the subject, not a reserved accent (PRD §8). The
+       fill is used as a fill; `*Teks` is the same hue darkened until small text
+       on it passes AA. — */
+  --warna-liburMerah: 198 40 40;      /* #C62828  fill */
+  --warna-liburMerahTeks: 183 28 28;  /* #B71C1C  5.61:1 on newsprint */
+  --warna-liburMerahLembut: 245 226 224; /* #F5E2E0  tint */
+
+  /* — Cuti bersama. A different thing with a different cost, so a different
+       colour. Never merged with the red (invariant 4). — */
+  --warna-cutiBersama: 217 131 36;       /* #D98324  fill (2.48:1 — fill only) */
+  --warna-cutiBersamaTeks: 138 78 12;    /* #8A4E0C  5.64:1 on newsprint */
+  --warna-cutiBersamaLembut: 248 235 217; /* #F8EBD9  tint */
+
+  /* — Days the user chooses. — */
+  --warna-cutiPribadi: 61 122 90;        /* #3D7A5A  fill, 4.70:1 vs kertas text */
+  --warna-cutiPribadiTeks: 47 96 70;     /* #2F6046  6.22:1 on newsprint */
+  --warna-cutiPribadiLembut: 226 237 230; /* #E2EDE6  tint */
+
+  --warna-akhirPekan: 227 224 214;  /* #E3E0D6 */
+
+  /**
+   * One type scale, in rem so that a reader's own font size still governs.
+   * Body and explanatory copy sit at `base` (16px) or above; `xs` (12px) is the
+   * floor for UI labels. `2xs` (10px) exists solely for the day-cell labels in
+   * the twelve-month grid, where a cell is 58px tall and the name has to fit —
+   * those labels are always duplicated in an accessible name, never load-bearing.
+   */
+  --ukuran-2xs: 0.625rem;   /* 10px — calendar cell labels only */
+  --ukuran-xs: 0.75rem;     /* 12px — smallest UI label */
+  --ukuran-sm: 0.875rem;    /* 14px — controls, secondary UI */
+  --ukuran-base: 1rem;      /* 16px — body floor */
+  --ukuran-lg: 1.125rem;    /* 18px — lead copy */
+  --ukuran-xl: 1.375rem;    /* 22px — panel headings */
+  --ukuran-2xl: 1.75rem;    /* 28px — section headings */
+  --ukuran-3xl: 2.25rem;    /* 36px — figures */
+  --ukuran-4xl: 3rem;       /* 48px — the page's one statement */
+  --ukuran-5xl: 4rem;       /* 64px */
+  --ukuran-6xl: 5.25rem;    /* 84px — the headline figure */
+
+  /**
+   * Vertical rhythm. Major blocks are separated on this scale so that the gaps
+   * themselves rank the page — `3xl` between steps, `xl` inside one.
+   */
+  --ruang-xs: 0.25rem;
+  --ruang-sm: 0.5rem;
+  --ruang-md: 0.75rem;
+  --ruang-lg: 1rem;
+  --ruang-xl: 1.5rem;
+  --ruang-2xl: 2rem;
+  --ruang-3xl: 3rem;
+  --ruang-4xl: 4rem;
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
@@ -15,7 +94,7 @@
   }
 
   body {
-    @apply bg-newsprint text-ink font-prose antialiased;
+    @apply bg-newsprint text-base text-ink font-prose antialiased;
     /* The wall calendar is a printed object; a faint tooth keeps it from
        reading as a dashboard. Cheap: one repeating gradient, no image. */
     background-image: repeating-linear-gradient(
@@ -48,8 +127,21 @@
     @apply border border-garis bg-kertas shadow-kartu;
   }
 
+  /* The one sub-12px-looking element that is allowed: uppercase and tracked,
+     it is a label rather than something read as a sentence. 12px floor. */
   .label-bagian {
-    @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-inkPudar;
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-inkPudar;
+  }
+
+  /* Explanatory copy under a heading. 16px, because this is the text the whole
+     redesign exists to get read. */
+  .teks-jelas {
+    @apply max-w-prosa text-base leading-relaxed text-inkSedang;
+  }
+
+  /* Secondary notes — still 14px, never smaller. */
+  .teks-catatan {
+    @apply max-w-prosa text-sm leading-relaxed text-inkPudar;
   }
 
   /* One moment animates: the run bar extending to join two blocks (PRD §8). */

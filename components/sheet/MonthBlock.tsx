@@ -29,7 +29,7 @@ export function MonthBlock({
 }: MonthBlockProps) {
   return (
     <section className="kartu overflow-hidden" aria-label={`${namaBulan(blok.month, locale)} ${tahun}`}>
-      <h3 className="poster border-b border-garis bg-kertasGelap/50 px-2.5 py-1.5 text-poster-sm text-ink">
+      <h3 className="poster border-b border-garis bg-kertasGelap/50 px-2.5 py-1.5 text-xl text-ink">
         {namaBulan(blok.month, locale)}
       </h3>
 
@@ -37,7 +37,7 @@ export function MonthBlock({
         {[0, 1, 2, 3, 4, 5, 6].map((w) => (
           <div
             key={w}
-            className={`px-1 py-1.5 text-center text-[9px] font-semibold uppercase tracking-[0.06em] ${
+            className={`px-1 py-1.5 text-center text-2xs font-semibold uppercase tracking-[0.06em] ${
               w === 0 ? 'text-liburMerahTeks' : 'text-inkPudar'
             }`}
           >

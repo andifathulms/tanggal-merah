@@ -22,7 +22,7 @@ export function Nav({ locale, halaman }: NavProps) {
               reads as a key before the legend is even reached. */}
           <Mark className="h-11 w-11 shrink-0 sm:h-12 sm:w-12" />
           <div>
-            <h1 className="poster text-poster-md text-liburMerah sm:text-poster-lg">{t('judul', locale)}</h1>
+            <h1 className="poster text-2xl text-liburMerah sm:text-4xl">{t('judul', locale)}</h1>
             <p className="mt-0.5 max-w-prosa text-sm text-inkSedang">{t('subjudul', locale)}</p>
           </div>
         </div>

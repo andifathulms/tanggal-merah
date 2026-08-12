@@ -22,7 +22,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
 
   return (
     <section className="kartu p-4" aria-label={t('ledgerJudul', locale)}>
-      <h2 className="poster text-poster-sm">{t('ledgerJudul', locale)}</h2>
+      <h2 className="poster text-xl">{t('ledgerJudul', locale)}</h2>
 
       <dl className="mt-3 space-y-1 text-sm">
         {baris
@@ -45,7 +45,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
         </div>
       </dl>
 
-      <div className="mt-4 border-t border-garis pt-3 text-xs leading-relaxed text-inkSedang">
+      <div className="mt-ruang-lg border-t border-garis pt-ruang-md text-sm leading-relaxed text-inkSedang">
         <p>
           <span className="font-semibold">{t('ledgerDasar', locale)}. </span>
           {entitlement.dasar}
@@ -69,7 +69,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
           <h3 className="label-bagian">
             {t('aturanKontradiksi', locale)}
           </h3>
-          <ul className="mt-1 space-y-1 text-xs text-inkSedang">
+          <ul className="mt-1 space-y-1 text-sm text-inkSedang">
             {trace.ledger.kontradiksi.map((k) => (
               <li key={k.id}>{k.judul}</li>
             ))}

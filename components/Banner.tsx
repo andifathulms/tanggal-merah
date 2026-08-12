@@ -9,14 +9,14 @@ import { t, type Locale } from '@/lib/i18n'
  */
 export function Penafian({ locale }: { readonly locale: Locale }) {
   return (
-    <p className="border-t border-garis pt-3 text-xs leading-relaxed text-inkPudar">
+    <p className="border-t border-garis pt-ruang-md text-sm leading-relaxed text-inkPudar">
       {t('penafian', locale)}
     </p>
   )
 }
 
 export function CatatanTidakMenghitung({ locale }: { readonly locale: Locale }) {
-  return <p className="text-xs leading-relaxed text-inkPudar">{t('tidakMenghitung', locale)}</p>
+  return <p className="text-sm leading-relaxed text-inkPudar">{t('tidakMenghitung', locale)}</p>
 }
 
 /**

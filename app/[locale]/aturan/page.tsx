@@ -26,7 +26,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
 
       <div className="max-w-4xl space-y-10">
         <section>
-          <h2 className="poster text-poster-lg text-liburMerahTeks">{t('aturanJudul', locale)}</h2>
+          <h2 className="poster text-4xl text-liburMerahTeks">{t('aturanJudul', locale)}</h2>
           <div className="mt-2">
             <CatatanTidakMenghitung locale={locale} />
           </div>
@@ -37,7 +37,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
           if (pack === undefined) return null
           return (
             <section key={y}>
-              <h3 className="poster text-poster-md">
+              <h3 className="poster text-2xl">
                 {y}
                 {pack.status === 'perluVerifikasi' && (
                   <span className="ml-2 align-middle text-xs uppercase tracking-wide text-cutiBersamaTeks">
@@ -70,7 +70,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                       <td className="py-2 pr-3">
                         {namaLibur(h, locale)}
                         {h.catatan !== undefined && (
-                          <span className="mt-0.5 block text-[11px] leading-snug text-inkPudar">{h.catatan}</span>
+                          <span className="mt-0.5 block text-sm leading-snug text-inkPudar">{h.catatan}</span>
                         )}
                       </td>
                       <td className="py-2 pr-3 text-xs whitespace-nowrap">
@@ -78,7 +78,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
                           {h.jenis === 'liburNasional' ? t('legendaLibur', locale) : t('legendaCutiBersama', locale)}
                         </span>
                       </td>
-                      <td className="py-2 text-[11px] leading-snug text-inkPudar">
+                      <td className="py-2 text-sm leading-snug text-inkPudar">
                         {h.sitasi.instrumen}
                         <span className="block">{h.sitasi.nomor}</span>
                       </td>
@@ -91,7 +91,7 @@ export default function AturanPage({ params }: { readonly params: { readonly loc
         })}
 
         <section>
-          <h2 className="poster text-poster-lg">{t('aturanKontradiksi', locale)}</h2>
+          <h2 className="poster text-4xl">{t('aturanKontradiksi', locale)}</h2>
           <div className="mt-4 space-y-6">
             {kontradiksi.map((k) => (
               <article key={k.id} className="kartu p-5">

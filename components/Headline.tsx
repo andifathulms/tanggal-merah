@@ -29,12 +29,12 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
         {t('hasilJudul', locale)}
       </h2>
 
-      <p className="mt-1 max-w-prosa text-[15px] leading-snug text-inkSedang">
+      <p className="mt-1 max-w-prosa text-lg leading-snug text-inkSedang">
         {sudahPilih ? t('hasilKalimat', locale) : t('hasilTanpaCuti', locale)}
       </p>
 
       <p className="mt-2 flex flex-wrap items-baseline gap-x-3">
-        <span className="angka text-6xl leading-none text-liburMerahTeks sm:text-7xl">{angka}</span>
+        <span className="angka text-5xl leading-none text-liburMerahTeks sm:text-6xl">{angka}</span>
         <span className="text-lg text-inkSedang">
           {t('ringkasHari', locale)} {locale === 'id' ? 'berturut-turut' : 'in a row'}
         </span>
@@ -65,7 +65,7 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
         )}
       </dl>
 
-      {!sudahPilih && <p className="mt-3 text-[13px] text-inkPudar">{t('hasilBelumPilih', locale)}</p>}
+      {!sudahPilih && <p className="teks-catatan mt-ruang-md text-base">{t('hasilBelumPilih', locale)}</p>}
     </section>
   )
 }
@@ -84,8 +84,8 @@ function Fakta({
   return (
     <div>
       <dt className="label-bagian">{label}</dt>
-      <dd className={`angka mt-0.5 text-2xl leading-none ${warna}`}>
-        {nilai} <span className="font-prose text-[11px] font-normal text-inkPudar">{satuan}</span>
+      <dd className={`angka mt-0.5 text-xl leading-none ${warna}`}>
+        {nilai} <span className="font-prose text-xs font-normal text-inkPudar">{satuan}</span>
       </dd>
     </div>
   )

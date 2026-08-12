@@ -85,7 +85,7 @@ export function Controls({
               </button>
             ))}
           </div>
-          <p className="mt-1.5 text-[11px] leading-relaxed text-inkPudar">{t('polaKeterangan', locale)}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-inkPudar">{t('polaKeterangan', locale)}</p>
         </fieldset>
 
         <label className="block">
@@ -120,7 +120,7 @@ export function Controls({
               }
               className="angka mt-1 w-20 border border-garisTebal bg-kertas px-2 py-1.5 text-sm"
             />
-            <span className="mt-1 block text-[11px] leading-relaxed text-inkPudar">
+            <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
               {t('tidakDiberikanBantu', locale)}
             </span>
           </label>
