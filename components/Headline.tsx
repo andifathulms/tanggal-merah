@@ -1,6 +1,6 @@
 'use client'
 
-import { t, type Locale } from '@/lib/i18n'
+import { t, tanggalPanjang, type Locale } from '@/lib/i18n'
 import type { LeaveTrace } from '@/lib/trace'
 
 /**
@@ -14,13 +14,25 @@ import type { LeaveTrace } from '@/lib/trace'
  * would reach — it never suggests taking it.
  */
 export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readonly locale: Locale }) {
-  const dasar = trace.runDasar.reduce((n, r) => (r.panjangHari > n ? r.panjangHari : n), 0)
-  const sekarang = trace.runTerpanjangHari
   const sudahPilih = trace.dipilihSendiri.length > 0
 
-  // With nothing chosen yet, the honest headline is what the year already
-  // gives you — the potential belongs beside it, not in place of it.
-  const angka = sudahPilih ? sekarang : dasar
+  /**
+   * The run the headline figure is describing, not just its length.
+   *
+   * The figure used to be a bare number: "8 hari berturut-turut", with no dates and
+   * no path to the grid, so the page's largest claim was the one thing on it a
+   * reader could not check. `runTerpanjang` already returns the whole run, and the
+   * component was throwing away everything but the length.
+   *
+   * With nothing chosen yet the honest headline is what the year already gives you,
+   * so the base runs are the ones measured then.
+   */
+  const runs = sudahPilih ? trace.run : trace.runDasar
+  const terpanjang = runs.reduce<(typeof runs)[number] | undefined>(
+    (a, r) => (a === undefined || r.panjangHari > a.panjangHari ? r : a),
+    undefined,
+  )
+  const angka = sudahPilih ? trace.runTerpanjangHari : (terpanjang?.panjangHari ?? 0)
 
   return (
     <section className="kartu p-ruang-lg sm:p-ruang-xl" aria-labelledby="judul-hasil">
@@ -43,6 +55,21 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
           {t('ringkasHari', locale)} {locale === 'id' ? 'berturut-turut' : 'in a row'}
         </span>
       </p>
+
+      {/* Which days. A figure a reader can go and look at on the grid is a figure
+          they can check; a bare number is one they have to trust. */}
+      {terpanjang !== undefined && angka > 0 && (
+        <p className="mt-ruang-sm text-base text-inkSedang">
+          {t('hasilRentang', locale)}{' '}
+          <span className="angka font-semibold text-ink">
+            {tanggalPanjang(terpanjang.mulai, locale)}
+          </span>{' '}
+          {t('hasilSampai', locale)}{' '}
+          <span className="angka font-semibold text-ink">
+            {tanggalPanjang(terpanjang.selesai, locale)}
+          </span>
+        </p>
+      )}
 
       <dl className="mt-ruang-lg flex flex-wrap gap-x-ruang-2xl gap-y-ruang-md border-t border-garis pt-ruang-lg">
         <Fakta

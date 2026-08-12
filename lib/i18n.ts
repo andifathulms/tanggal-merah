@@ -435,6 +435,11 @@ const KAMUS = {
     'Pick a day on the calendar, or take one of the suggestions below.',
   ],
   hasilSudahPilih: ['hari cuti terpakai', 'leave days spent'],
+  // The headline figure was unlocatable: a number with no dates and no way to find it
+  // on the grid, which made the page's largest claim the one thing on it a reader
+  // could not check.
+  hasilRentang: ['yaitu', 'that is'],
+  hasilSampai: ['sampai', 'to'],
 
   // Spoken when the computed result changes. A polite live region, not an alert:
   // the reader asked for this by toggling a day, so it must not interrupt.
