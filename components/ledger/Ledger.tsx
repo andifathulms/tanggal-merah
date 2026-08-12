@@ -21,8 +21,12 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
   ]
 
   return (
-    <section className="p-ruang-lg" aria-label={t('ledgerJudul', locale)}>
-      <h2 className="poster text-xl">{t('ledgerJudul', locale)}</h2>
+    <section className="p-ruang-lg" aria-labelledby="judul-neraca">
+      {/* The heading names the region; the aria-label that used to sit on the
+          section said the same words again. */}
+      <h2 id="judul-neraca" className="poster text-xl">
+        {t('ledgerJudul', locale)}
+      </h2>
 
       <dl className="mt-ruang-md space-y-1 text-sm">
         {baris

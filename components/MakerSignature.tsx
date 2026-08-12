@@ -60,7 +60,6 @@ export function MakerSignature() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={nama}
-              title={nama}
               className="block rounded-sm p-1.5 text-inkSamar transition-colors hover:bg-kertasGelap hover:text-ink"
             >
               <Ikon className="h-[18px] w-[18px]" />

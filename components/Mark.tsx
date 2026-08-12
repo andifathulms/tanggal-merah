@@ -14,7 +14,7 @@
  */
 export function Mark({ className = 'h-9 w-9' }: { readonly className?: string }) {
   return (
-    <svg viewBox="0 0 100 100" className={className} role="img" aria-label="Tanggal Merah" focusable="false">
+    <svg viewBox="0 0 100 100" className={className} aria-hidden focusable="false">
       <rect x="0" y="0" width="100" height="100" rx="22.2" fill="#1C1810" />
       <rect x="12" y="38" width="16" height="16" rx="3" fill="#C8352E" />
       <rect x="32" y="38" width="16" height="16" rx="3" fill="#C97A2E" />

@@ -27,8 +27,9 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
       {/* Not a step. This panel was labelled "Langkah 2", which made the page
           promise three steps and then deliver a result where the second one
           should have been. It is what the steps produce, so it says so. */}
-      <span className="label-bagian">{t('hasilJudul', locale)}</span>
-      <h2 id="judul-hasil" className="sr-only">
+      {/* One element, not two. This was a visible span and an sr-only h2 carrying
+          the same words, so the panel announced its own name twice. */}
+      <h2 id="judul-hasil" className="label-bagian">
         {t('hasilJudul', locale)}
       </h2>
 

@@ -137,7 +137,6 @@ export function DayCell({
               ? `${tanggalPanjang(hari, locale)} — ${label} — ${t('selDipotong', locale)}`
               : `${tanggalPanjang(hari, locale)} — ${label}`
           }
-          title={label}
           className={`${kelas} w-full cursor-help text-left hover:bg-kertasGelap/60`}
         >
           {isi}
