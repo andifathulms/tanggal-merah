@@ -27,12 +27,22 @@ export function Kutipan({
   readonly klasifikasi: KlasifikasiHari | null
   readonly locale: Locale
 }) {
+  const kosong =
+    klasifikasi === null || (klasifikasi.type !== 'liburNasional' && klasifikasi.type !== 'cutiBersama')
+
   return (
     <div
       aria-live="polite"
-      className="mt-ruang-lg min-h-[4.5rem] border-l-4 border-garisTebal bg-kertas px-ruang-lg py-ruang-md"
+      /* The height is reserved either way, so filling this in never shifts the
+         grid above it. But the frame only appears once there is a citation in
+         it: an empty bordered panel below the sheet read as something that had
+         failed to load, and it competed with the legend and the instruction line
+         already sitting above the grid. Empty, this is one quiet line of text. */
+      className={`mt-ruang-lg min-h-[4.5rem] ${
+        kosong ? '' : 'border-l-4 border-garisTebal bg-kertas px-ruang-lg py-ruang-md'
+      }`}
     >
-      {klasifikasi === null || (klasifikasi.type !== 'liburNasional' && klasifikasi.type !== 'cutiBersama') ? (
+      {kosong ? (
         <p className="teks-catatan">{t('kutipanPetunjuk', locale)}</p>
       ) : (
         <Isi klasifikasi={klasifikasi} locale={locale} />
