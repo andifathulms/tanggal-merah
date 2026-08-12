@@ -2,7 +2,7 @@
 
 import { civilOf, type DayNumber } from '@/lib/day'
 import type { KlasifikasiHari } from '@/lib/rules/resolve'
-import { namaLibur, t, tanggalPanjang, type Locale } from '@/lib/i18n'
+import { namaLibur, t, tanggalDenganHari, type Locale } from '@/lib/i18n'
 
 /**
  * One cell of the wall calendar.
@@ -134,8 +134,8 @@ export function DayCell({
           onClick={() => onPeriksa(hari)}
           aria-label={
             dibebankan
-              ? `${tanggalPanjang(hari, locale)} — ${label} — ${t('selDipotong', locale)}`
-              : `${tanggalPanjang(hari, locale)} — ${label}`
+              ? `${tanggalDenganHari(hari, locale)} — ${label} — ${t('selDipotong', locale)}`
+              : `${tanggalDenganHari(hari, locale)} — ${label}`
           }
           className={`${kelas} w-full cursor-help text-left hover:bg-kertasGelap/60`}
         >
@@ -155,7 +155,7 @@ export function DayCell({
       type="button"
       onClick={() => onToggle(hari)}
       aria-pressed={dipilihSendiri}
-      aria-label={tanggalPanjang(hari, locale)}
+      aria-label={tanggalDenganHari(hari, locale)}
       className={`${kelas} w-full cursor-pointer hover:bg-cutiPribadiLembut/70`}
     >
       {isi}

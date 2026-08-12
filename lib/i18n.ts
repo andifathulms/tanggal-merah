@@ -1,4 +1,4 @@
-import { civilOf, type DayNumber, type Month } from '@/lib/day'
+import { civilOf, weekdayOf, type DayNumber, type Month } from '@/lib/day'
 import type { HariLibur } from '@/lib/rules/schema'
 
 /**
@@ -31,6 +31,10 @@ const BULAN_EN = [
 const HARI_ID = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'] as const
 const HARI_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
 
+/** Spoken forms. The grid's column heads are abbreviated; a read-aloud name is not. */
+const HARI_PANJANG_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as const
+const HARI_PANJANG_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const
+
 export function namaBulan(month: Month, locale: Locale): string {
   return (locale === 'id' ? BULAN_ID : BULAN_EN)[month - 1]!
 }
@@ -43,6 +47,21 @@ export function namaHariPendek(weekday: number, locale: Locale): string {
 export function tanggalPanjang(hari: DayNumber, locale: Locale): string {
   const { year, month, day } = civilOf(hari)
   return `${day} ${namaBulan(month, locale)} ${year}`
+}
+
+export function namaHari(hari: DayNumber, locale: Locale): string {
+  return (locale === 'id' ? HARI_PANJANG_ID : HARI_PANJANG_EN)[weekdayOf(hari)]!
+}
+
+/**
+ * e.g. "Senin, 17 Agustus 2026". The weekday is the whole point of a leave
+ * planner — which day a holiday lands on is what decides whether a bridge exists —
+ * and the grid conveys it only by column position, which a screen reader cannot
+ * see. The abbreviated column heads above the grid are not associated with the
+ * cells, so the name has to carry it (WCAG 1.3.1).
+ */
+export function tanggalDenganHari(hari: DayNumber, locale: Locale): string {
+  return `${namaHari(hari, locale)}, ${tanggalPanjang(hari, locale)}`
 }
 
 export function namaLibur(entri: HariLibur, locale: Locale): string {
