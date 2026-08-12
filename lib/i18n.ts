@@ -147,6 +147,34 @@ const KAMUS = {
     'Computed exactly, not approximated — checked against an exhaustive search.',
   ],
 
+  // A1 — the value the calendar's colour hides. Neutral wording on purpose:
+  // this is arithmetic about a working week, not a grievance about a decree.
+  hilangJudul: ['Yang dimakan akhir pekan', 'Eaten by the weekend'],
+  hilangDari: ['Dari', 'Of'],
+  hilangLiburNasional: ['libur nasional tahun ini', 'public holidays this year'],
+  hilangJatuhAkhirPekan: [
+    'jatuh pada hari yang Anda sudah libur, jadi tidak menambah apa pun.',
+    'fall on a day you were already off, so they add nothing.',
+  ],
+  hilangMenambah: ['benar-benar menambah hari libur', 'genuinely add a day off'],
+  hilangCutiBersamaAkhirPekan: [
+    'hari cuti bersama juga jatuh di akhir pekan — dan itu tidak memotong cuti siapa pun.',
+    'cuti bersama days also fall on a weekend — and those deduct nobody’s leave.',
+  ],
+  hilangPolaLima: [
+    'Dengan pola enam hari (Sabtu masuk), yang termakan tinggal',
+    'On a six-day week, with Saturdays worked, only',
+  ],
+  hilangPolaEnam: [
+    'Dengan pola lima hari (Sabtu libur), yang termakan jadi',
+    'On a five-day week, with Saturdays off,',
+  ],
+  hilangPolaAkhiran: ['hari.', 'are eaten.'],
+  hilangSamaSaja: [
+    'Pola kerja tidak mengubah angka ini tahun ini.',
+    'The working week does not change this figure this year.',
+  ],
+
   ringkasTerpanjang: ['Rentetan terpanjang', 'Longest stretch'],
   ringkasTotalLibur: ['Total hari libur', 'Total days off'],
   ringkasHari: ['hari', 'days'],

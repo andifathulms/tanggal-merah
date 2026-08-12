@@ -2,6 +2,7 @@ import type { DayNumber } from '@/lib/day'
 import type { WorkPattern } from '@/lib/day/pattern'
 import { packTahun, kontradiksiTahun, tahunTersedia } from '@/lib/rules/loader'
 import { resolveTahun, type TahunTerselesaikan } from '@/lib/rules/resolve'
+import { hitungHilang, type RingkasanHilang } from '@/lib/rules/hilang'
 import type { Penolakan } from '@/lib/rules/refusal'
 import type { Kontradiksi } from '@/lib/rules/contradiction'
 import { hitungEntitlement, type Entitlement, type Status } from '@/lib/status'
@@ -64,6 +65,11 @@ export type LeaveTrace = {
   readonly saran: readonly Jembatan[]
   /** The exact optimum for the remaining budget. */
   readonly rencanaOptimal: Rencana
+  /**
+   * How many of the year's decreed days off land on a day this person was off
+   * anyway — the value the calendar's colour hides.
+   */
+  readonly hilang: RingkasanHilang
   /** Day numbers the user has chosen, ascending. */
   readonly dipilihSendiri: readonly DayNumber[]
   /** True when the pack is a draft transcription — the UI must say so. */
@@ -127,6 +133,7 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
     },
     saran: peringkatJembatan(peta, sisaSetelahPilihan),
     rencanaOptimal,
+    hilang: hitungHilang(pack, permintaan.pattern),
     dipilihSendiri,
     perluVerifikasi: pack.status === 'perluVerifikasi',
   }

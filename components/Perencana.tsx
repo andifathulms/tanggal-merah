@@ -18,6 +18,7 @@ import { Controls } from './Controls'
 import { BannerDraf } from './Banner'
 import { YearSheet } from './sheet/YearSheet'
 import { Ledger } from './ledger/Ledger'
+import { LiburHilang } from './ledger/LiburHilang'
 import { Suggestions } from './suggest/Suggestions'
 import { Hero } from './Hero'
 import { StatusPicker } from './StatusPicker'
@@ -237,6 +238,7 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
             onPattern={setPattern}
           />
           <Ledger trace={trace} locale={locale} />
+          <LiburHilang hilang={trace.hilang} locale={locale} />
 
           <section className="kartu p-4">
             <h2 className="label-bagian">{t('eksporJudul', locale)}</h2>
