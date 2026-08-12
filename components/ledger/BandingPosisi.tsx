@@ -52,7 +52,7 @@ export function BandingPosisi({
               )}
             </span>
             <span className="shrink-0 whitespace-nowrap">
-              <span className={`angka text-xl ${b.dipakai ? 'text-cutiPribadiTeks' : 'text-inkPudar'}`}>
+              <span className={`angka-sebaris ${b.dipakai ? 'text-cutiPribadiTeks' : 'text-inkPudar'}`}>
                 {b.sisaHari}
               </span>{' '}
               <span className="text-xs text-inkPudar">{t('ringkasHari', locale)}</span>

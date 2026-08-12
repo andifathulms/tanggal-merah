@@ -149,6 +149,32 @@
     @apply max-w-prosa text-base leading-relaxed text-inkSedang;
   }
 
+  /**
+   * Three tiers of figure, so a number's size says what kind of claim it is.
+   * Every count in the app is one of these; there is no fourth size.
+   *
+   *   angka-utama    the page's one answer. Exactly one per page.
+   *   angka-bagian   a section's headline figure — the thing that section is for.
+   *   angka-sebaris  a figure inside a sentence, a row, or a card.
+   *
+   * They were three ad-hoc sizes before, each picked locally, which meant the
+   * next figure would have been a fourth guess. `angka` itself only sets the
+   * tabular mono face (CLAUDE.md conventions) and stays available on its own for
+   * a numeral that takes the size of the text around it — a year in a heading, a
+   * date in a table, a count inside a sentence.
+   */
+  .angka-utama {
+    @apply angka text-5xl leading-none sm:text-6xl;
+  }
+
+  .angka-bagian {
+    @apply angka text-3xl leading-none;
+  }
+
+  .angka-sebaris {
+    @apply angka text-xl leading-none;
+  }
+
   /* Secondary notes — still 14px, never smaller. */
   .teks-catatan {
     @apply max-w-prosa text-sm leading-relaxed text-inkPudar;

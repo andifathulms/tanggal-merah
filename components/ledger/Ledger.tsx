@@ -39,7 +39,7 @@ export function Ledger({ trace, locale }: { readonly trace: LeaveTrace; readonly
 
         <div className="flex items-baseline justify-between gap-ruang-lg pt-1">
           <dt className="font-semibold">{t('ledgerSisa', locale)}</dt>
-          <dd className="angka text-lg font-semibold">
+          <dd className="angka-sebaris font-semibold">
             {sisaHari} <span className="text-xs font-normal text-inkPudar">{t('ringkasHari', locale)}</span>
           </dd>
         </div>

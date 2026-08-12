@@ -46,14 +46,14 @@ export function LiburHilang({
         {t('hilangDari', locale)}{' '}
         <span className="angka font-semibold text-ink">{liburNasionalHari}</span>{' '}
         {t('hilangLiburNasional', locale)},{' '}
-        <span className="angka text-lg font-semibold text-inkPudar">{liburNasionalDiAkhirPekanHari}</span>{' '}
+        <span className="angka font-semibold text-inkSedang">{liburNasionalDiAkhirPekanHari}</span>{' '}
         {t('hilangJatuhAkhirPekan', locale)}
       </p>
 
       {/* The figure that survives, stated as a figure rather than left as a
           subtraction for the reader to do. */}
       <p className="mt-ruang-md flex flex-wrap items-baseline gap-x-ruang-sm border-t border-garis pt-ruang-md">
-        <span className="angka text-3xl leading-none text-liburMerahTeks">{liburNasionalMenambahHari}</span>
+        <span className="angka-bagian text-liburMerahTeks">{liburNasionalMenambahHari}</span>
         <span className="text-sm text-inkSedang">{t('hilangMenambah', locale)}</span>
       </p>
 

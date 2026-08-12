@@ -72,7 +72,7 @@ export function StatusPicker({ locale, status, pratinjau, onStatus }: StatusPick
 
               <span className="block">
                 <span
-                  className={`angka text-3xl leading-none ${
+                  className={`angka-bagian ${
                     p.dipotongHari > 0 ? 'text-cutiBersamaTeks' : 'text-cutiPribadiTeks'
                   }`}
                 >

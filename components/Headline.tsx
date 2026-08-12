@@ -37,7 +37,7 @@ export function Headline({ trace, locale }: { readonly trace: LeaveTrace; readon
       </p>
 
       <p className="mt-ruang-sm flex flex-wrap items-baseline gap-x-ruang-md">
-        <span className="angka text-5xl leading-none text-liburMerahTeks sm:text-6xl">{angka}</span>
+        <span className="angka-utama text-liburMerahTeks">{angka}</span>
         <span className="text-lg text-inkSedang">
           {t('ringkasHari', locale)} {locale === 'id' ? 'berturut-turut' : 'in a row'}
         </span>
@@ -87,7 +87,7 @@ function Fakta({
   return (
     <div>
       <dt className="label-bagian">{label}</dt>
-      <dd className={`angka mt-0.5 text-xl leading-none ${warna}`}>
+      <dd className={`angka-sebaris mt-0.5 ${warna}`}>
         {nilai} <span className="font-prose text-xs font-normal text-inkPudar">{satuan}</span>
       </dd>
     </div>

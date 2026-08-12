@@ -62,10 +62,10 @@ export function Suggestions({
         <div className="mt-ruang-lg border-2 border-cutiPribadi bg-cutiPribadiLembut/50 p-ruang-lg">
           <span className="label-bagian text-cutiPribadiTeks">{t('optimalJudul', locale)}</span>
           <p className="mt-1 text-base leading-snug">
-            <span className="angka text-xl text-cutiPribadiTeks">{rencanaOptimal.biayaHari}</span>{' '}
+            <span className="angka-sebaris text-cutiPribadiTeks">{rencanaOptimal.biayaHari}</span>{' '}
             <span className="text-inkSedang">{t('saranHariCuti', locale)}</span>{' '}
             <span className="text-inkPudar">→</span>{' '}
-            <span className="angka text-xl text-liburMerahTeks">{rencanaOptimal.nilaiHari}</span>{' '}
+            <span className="angka-sebaris text-liburMerahTeks">{rencanaOptimal.nilaiHari}</span>{' '}
             <span className="text-inkSedang">
               {t(rencanaOptimal.tujuan === 'rentetanTerpanjang' ? 'optimalNilaiRentetan' : 'optimalNilai', locale)}
             </span>
@@ -133,12 +133,12 @@ function KartuJembatan({
       <div className="min-w-0">
         {/* The trade, set at a size that reads before the date does. */}
         <p className="flex items-baseline gap-1.5 whitespace-nowrap">
-          <span className="angka text-xl text-cutiPribadiTeks">{jembatan.biayaHari}</span>
+          <span className="angka-sebaris text-cutiPribadiTeks">{jembatan.biayaHari}</span>
           <span className="text-xs text-inkPudar">{t('saranHariCuti', locale)}</span>
           <span className="text-inkSamar" aria-hidden>
             →
           </span>
-          <span className="angka text-xl text-liburMerahTeks">{jembatan.hasilHari}</span>
+          <span className="angka-sebaris text-liburMerahTeks">{jembatan.hasilHari}</span>
           <span className="text-xs text-inkPudar">{locale === 'id' ? 'hari libur' : 'days off'}</span>
         </p>
         <p className="mt-0.5 truncate text-sm text-inkSedang">{rentang}</p>

@@ -39,12 +39,12 @@ export function Hero({ locale, trace }: { readonly locale: Locale; readonly trac
         <div className="mt-ruang-xl inline-block border-l-4 border-liburMerah bg-kertas px-ruang-lg py-ruang-md shadow-kartu">
           <span className="label-bagian">{t('buktiLabel', locale)}</span>
           <p className="mt-1 flex flex-wrap items-baseline gap-x-ruang-sm gap-y-1">
-            <span className="angka text-3xl leading-none text-cutiPribadiTeks">{bukti.biayaHari}</span>
+            <span className="angka-bagian text-cutiPribadiTeks">{bukti.biayaHari}</span>
             <span className="text-base text-inkSedang">{t('saranHariCuti', locale)}</span>
             <span className="text-xl text-inkSamar" aria-hidden>
               →
             </span>
-            <span className="angka text-3xl leading-none text-liburMerahTeks">{bukti.hasilHari}</span>
+            <span className="angka-bagian text-liburMerahTeks">{bukti.hasilHari}</span>
             <span className="text-base text-inkSedang">{t('buktiHasil', locale)}</span>
           </p>
           <p className="mt-ruang-sm text-sm text-inkPudar">
