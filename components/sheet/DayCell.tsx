@@ -64,11 +64,11 @@ export function DayCell({
 
   const sudut =
     posisiRun === 'tunggal'
-      ? 'rounded-[4px]'
+      ? 'rounded-bar'
       : posisiRun === 'awal'
-        ? 'rounded-l-[4px]'
+        ? 'rounded-l-bar'
         : posisiRun === 'akhir'
-          ? 'rounded-r-[4px]'
+          ? 'rounded-r-bar'
           : ''
 
   /**
@@ -84,7 +84,7 @@ export function DayCell({
   const dibebankan = klasifikasi.type === 'cutiBersama' && klasifikasi.dipotong
 
   const kelas = [
-    'sel-hari relative flex min-h-[58px] flex-col px-1.5 pt-1 pb-1 text-left',
+    'sel-hari relative flex min-h-sel flex-col px-1.5 pt-1 pb-1 text-left',
     klasifikasi.type === 'akhirPekan' && !dipilihSendiri ? 'bg-akhirPekan/55' : '',
     dipilihSendiri ? 'bg-cutiPribadiLembut' : '',
     posisiRun !== 'tidak' ? `bar-run bg-runBar ${sudut}` : '',

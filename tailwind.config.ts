@@ -88,6 +88,13 @@ const config: Config = {
       maxWidth: {
         prosa: '62ch',
       },
+      /** The wall-calendar grid's own geometry. See globals.css. */
+      minHeight: {
+        sel: 'var(--sel-tinggi)',
+      },
+      borderRadius: {
+        bar: 'var(--bar-sudut)',
+      },
       boxShadow: {
         kartu: '0 1px 0 0 rgba(28, 27, 24, 0.06), 0 1px 3px 0 rgba(28, 27, 24, 0.05)',
         angkat: '0 2px 0 0 rgba(28, 27, 24, 0.08), 0 4px 12px -2px rgba(28, 27, 24, 0.10)',

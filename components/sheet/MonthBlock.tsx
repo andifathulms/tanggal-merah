@@ -50,9 +50,9 @@ export function MonthBlock({
 
       <div className="grid grid-cols-7">
         {blok.minggu.flat().map((sel, i) => {
-          if (sel.hari === null) return <div key={`kosong-${i}`} className="min-h-[58px]" />
+          if (sel.hari === null) return <div key={`kosong-${i}`} className="min-h-sel" />
           const k = klasifikasi.get(sel.hari)
-          if (k === undefined) return <div key={`kosong-${i}`} className="min-h-[58px]" />
+          if (k === undefined) return <div key={`kosong-${i}`} className="min-h-sel" />
           return (
             <DayCell
               key={sel.hari}
