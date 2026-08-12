@@ -116,26 +116,35 @@ export function Controls({
         </label>
 
         {status.type === 'asn' && (
-          <label className="block">
-            <span className="text-xs font-semibold text-inkSedang">{t('tidakDiberikanJudul', locale)}</span>
-            <input
-              type="number"
-              min={0}
-              max={365}
-              value={status.tidakDiberikanHari}
-              onChange={(e) =>
-                onStatus({
-                  type: 'asn',
-                  jatahHari: status.jatahHari,
-                  tidakDiberikanHari: Math.max(0, Math.min(365, Number(e.target.value) || 0)),
-                })
-              }
-              className="angka mt-1 w-20 border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
-            />
-            <span className="mt-1 block text-sm leading-relaxed text-inkPudar">
+          /* The explanation is a description, not part of the name. Inside the
+             <label> it was concatenated into the input's accessible name, so focus
+             announced twenty words of it every time — `aria-describedby` keeps the
+             label short and the explanation available. */
+          <div>
+            <label className="block">
+              <span className="text-xs font-semibold text-inkSedang">
+                {t('tidakDiberikanJudul', locale)}
+              </span>
+              <input
+                type="number"
+                min={0}
+                max={365}
+                value={status.tidakDiberikanHari}
+                onChange={(e) =>
+                  onStatus({
+                    type: 'asn',
+                    jatahHari: status.jatahHari,
+                    tidakDiberikanHari: Math.max(0, Math.min(365, Number(e.target.value) || 0)),
+                  })
+                }
+                aria-describedby="bantu-tidak-diberikan"
+                className="angka mt-1 w-20 border border-garisTebal bg-kertas px-ruang-sm py-1.5 text-sm"
+              />
+            </label>
+            <p id="bantu-tidak-diberikan" className="mt-1 text-sm leading-relaxed text-inkPudar">
               {t('tidakDiberikanBantu', locale)}
-            </span>
-          </label>
+            </p>
+          </div>
         )}
       </div>
     </section>

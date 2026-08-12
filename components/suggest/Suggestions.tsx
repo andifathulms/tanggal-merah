@@ -155,8 +155,11 @@ function KartuJembatan({
       </div>
 
       <div className="flex shrink-0 flex-col items-end gap-1">
-        <span className="angka text-xs text-inkPudar" title={t('saranLeverage', locale)}>
-          ×{jembatan.leverage.toFixed(1)}
+        {/* `title` on a non-interactive span is mouse-only and inconsistently
+            announced, so the figure read as a bare "×4.0". Same sr-only pattern the
+            hero's proof line already uses. */}
+        <span className="angka text-xs text-inkPudar">
+          <span className="sr-only">{t('saranLeverage', locale)} </span>×{jembatan.leverage.toFixed(1)}
         </span>
         <button
           type="button"
