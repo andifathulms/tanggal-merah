@@ -187,6 +187,34 @@ const KAMUS = {
     'The working week does not change this figure this year.',
   ],
 
+  // A4 — the price of the nth day. Worded as a price list, not as a
+  // recommendation: a flattening curve implies "stop here" and invariant 13
+  // means the app states the arithmetic and leaves the decision alone.
+  kurvaJudul: ['Harga tiap hari cuti', 'What each leave day buys'],
+  kurvaPenjelasan: [
+    'Setiap baris adalah satu hari cuti tambahan, dan berapa hari libur yang ditambahkannya jika dipakai sebaik mungkin. Dihitung eksak untuk setiap anggaran, bukan diperkirakan dari yang sebelumnya.',
+    'Each row is one more leave day, and how many days off it adds if spent as well as possible. Computed exactly at every budget, not extrapolated from the one before.',
+  ],
+  kurvaHariKe: ['Hari ke-', 'Day '],
+  kurvaTambah: ['menambah', 'adds'],
+  kurvaTidakMenambah: ['tidak menambah apa pun', 'adds nothing'],
+  kurvaTotal: ['total', 'total'],
+  kurvaJenuh: [
+    'Dari hari ke-%s ke atas tidak ada lagi harpitnas yang bisa dibeli tahun ini.',
+    'From day %s onwards there is no harpitnas left to buy this year.',
+  ],
+  kurvaKosong: [
+    'Tidak ada sisa cuti untuk dihargai.',
+    'No remaining leave to price.',
+  ],
+  // The real curve is lumpy, not falling: a two-day harpitnas is unaffordable at
+  // a budget of one and becomes the best buy at two, so day 2 can add more than
+  // day 1. Said out loud, because a rising step otherwise reads as a bug.
+  kurvaLompatan: [
+    'Angkanya tidak selalu menurun. Harpitnas dua hari baru terbeli begitu anggarannya cukup, jadi hari kedua bisa menambah lebih banyak daripada hari pertama.',
+    'The figures do not always fall. A two-day harpitnas is unaffordable at a budget of one and becomes the best buy at two, so day 2 can add more than day 1.',
+  ],
+
   ringkasTerpanjang: ['Rentetan terpanjang', 'Longest stretch'],
   ringkasTotalLibur: ['Total hari libur', 'Total days off'],
   ringkasHari: ['hari', 'days'],

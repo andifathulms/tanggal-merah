@@ -20,6 +20,7 @@ import { YearSheet } from './sheet/YearSheet'
 import { Ledger } from './ledger/Ledger'
 import { LiburHilang } from './ledger/LiburHilang'
 import { Suggestions } from './suggest/Suggestions'
+import { KurvaMarginal } from './suggest/KurvaMarginal'
 import { Hero } from './Hero'
 import { StatusPicker } from './StatusPicker'
 import { Headline } from './Headline'
@@ -221,6 +222,10 @@ export function Perencana({ locale, tampilkan }: PerencanaProps) {
                 onAmbil={ambilJembatan}
                 onTerapkanOptimal={terapkanOptimal}
               />
+              {/* The price list belongs on the plan page rather than the
+                  overview: the overview states the answer, this asks what each
+                  day of the budget was worth. */}
+              <KurvaMarginal kurva={trace.kurva} locale={locale} />
               <YearSheet trace={trace} locale={locale} disarankan={disarankan} onToggle={toggleHari} />
             </>
           )}

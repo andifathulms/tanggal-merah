@@ -7,6 +7,7 @@ import type { Penolakan } from '@/lib/rules/refusal'
 import type { Kontradiksi } from '@/lib/rules/contradiction'
 import { hitungEntitlement, type Entitlement, type Status } from '@/lib/status'
 import { hitungRun, runTerpanjang, type Run } from '@/lib/runs'
+import { kurvaMarginal, type LangkahMarginal } from '@/lib/optimise/marginal'
 import {
   hariLiburSetelah,
   peringkatJembatan,
@@ -28,6 +29,13 @@ import {
  * Invariant 13: no advice. This produces arithmetic — days, stretches, and
  * leverage. It never says a plan is good.
  */
+
+/**
+ * How far the marginal curve is priced. A statutory entitlement is twelve days,
+ * so this covers it with headroom; past a couple of weeks the curve has long
+ * since flattened and every extra step is an optimiser run for nothing.
+ */
+const KURVA_MAKS_HARI = 16
 
 export type PermintaanTrace = {
   readonly tahun: number
@@ -65,6 +73,13 @@ export type LeaveTrace = {
   readonly saran: readonly Jembatan[]
   /** The exact optimum for the remaining budget. */
   readonly rencanaOptimal: Rencana
+  /**
+   * What the nth leave day of the year buys, priced against the year as it
+   * stands before any hand-picked day. It is a property of the year and the
+   * status, not of the current selection, so it does not move under the reader
+   * while they choose.
+   */
+  readonly kurva: readonly LangkahMarginal[]
   /**
    * How many of the year's decreed days off land on a day this person was off
    * anyway — the value the calendar's colour hides.
@@ -111,6 +126,10 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
   const sisaHariKerja = terselesaikan.hariKerja.filter((d) => !dipilihSendiri.includes(d))
   const peta = petakanJembatan(liburDenganPilihan, sisaHariKerja)
 
+  // The year before the reader spends anything, which is what the marginal
+  // curve is priced against.
+  const petaDasar = petakanJembatan(terselesaikan.liburHari, terselesaikan.hariKerja)
+
   const runDasar = hitungRun(terselesaikan.liburHari)
   const run = hitungRun(liburDenganPilihan)
   const rencanaOptimal = pilihJembatan(peta, sisaSetelahPilihan)
@@ -133,6 +152,7 @@ export function hitungTrace(permintaan: PermintaanTrace): HasilTrace {
     },
     saran: peringkatJembatan(peta, sisaSetelahPilihan),
     rencanaOptimal,
+    kurva: kurvaMarginal(petaDasar, Math.min(entitlement.sisaHari, KURVA_MAKS_HARI)),
     hilang: hitungHilang(pack, permintaan.pattern),
     dipilihSendiri,
     perluVerifikasi: pack.status === 'perluVerifikasi',
