@@ -1,5 +1,5 @@
 import type { Kontradiksi } from '@/lib/rules/contradiction'
-import { posisiDipakai, posisiLain } from '@/lib/rules/contradiction'
+import { posisiDipakai, posisiLain } from '@/lib/rules/posisi'
 import { hitungEntitlementPosisi } from '@/lib/status/posisi'
 import type { Status } from '@/lib/status'
 

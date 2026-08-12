@@ -84,12 +84,11 @@ export const kontradiksiSchema = z.object({
 })
 export type Kontradiksi = z.infer<typeof kontradiksiSchema>
 
-/** The position the app computes with, when the entry has been priced. */
-export function posisiDipakai(kontradiksi: Kontradiksi): Posisi | undefined {
-  return kontradiksi.posisi?.find((p) => p.id === kontradiksi.dipakaiPosisi)
-}
-
-/** The rival positions — everything the app did not choose. */
-export function posisiLain(kontradiksi: Kontradiksi): readonly Posisi[] {
-  return (kontradiksi.posisi ?? []).filter((p) => p.id !== kontradiksi.dipakaiPosisi)
-}
+/*
+ * The pure helpers over these types live in `./posisi`, not here.
+ *
+ * This module builds its Zod schemas at module scope, which is a side effect
+ * webpack will not tree-shake — so a single client import of a helper from here
+ * dragged all of Zod into the browser bundle. The types are `import type` and erase;
+ * the helpers had to move.
+ */

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { WORK_PATTERNS } from '@/lib/day/pattern'
-import { posisiDipakai, posisiLain } from '@/lib/rules/contradiction'
+import { posisiDipakai, posisiLain } from '@/lib/rules/posisi'
 import { packTahun, semuaKontradiksi, tahunTersedia } from '@/lib/rules/loader'
 import { resolveTahun } from '@/lib/rules/resolve'
 import { hitungEntitlement, SEMUA_STATUS, type Status } from '@/lib/status'
